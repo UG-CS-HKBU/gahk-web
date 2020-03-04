@@ -1,0 +1,217 @@
+<form action="/competition/form/team" method="POST">
+    <div class="row mx-sm-2">
+        <div class="col-12" style="color: #888888; ">
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>2020年香港普及體操節</b></h1>
+            <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u></h2>
+            <br><br>
+        </div>
+
+        <!-- Group Details -->
+        <div class="col-12">
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">團體資料 Group
+                Details</h5>
+        </div>
+
+        <div class="col-12">
+            <label>團體名稱 Group Name:</label>
+            <input type="text" class="form-group" name="application[teamName]" style="width:350pt;" required>
+        </div>
+
+        <div class="col-12">
+            <label>收據抬頭 Receipt Header:</label>
+            <input type="text" class="form-group" name="application[receiptHeader]" required>
+        </div>
+
+        <div class="col-12">
+            <label>聯絡地址 Address:</label>
+            <input type="text" class="form-group" name="application[address]" style="width:230pt;" required>
+        </div>
+
+        <div class="col-12">
+            <p>參賽組別 Category:</p>
+            <input type="radio" name="application[box]" value="A" required>
+            <label class="form-check-label" for="box">幼稚園 Kindergarten</label>
+            <input type="radio" name="application[box]" value="B" required>
+            <label class="form-check-label" for="box">小學組 Primary School</label>
+            <input type="radio" name="application[box]" value="C" required>
+            <label class="form-check-label" for="box">公開組 Open Group</label>
+            <br><br>
+        </div>
+
+        <!-- Contact Person -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">聯絡人 Contact
+                Person</h5>
+        </div>
+
+        <div class="col-12">
+            <label>姓名 Name:</label>
+            <input type="text" class="form-group" name="application[cpChiName]" required>
+            <label>中文 Chinese</label>
+            <input type="text" class="form-group" name="application[cpEngName]" required>
+            <label>英文 English</label>
+        </div>
+
+        <div class="col-12">
+            <label>聯絡電話Contact No.:</label>
+            <input type="tel" pattern=[0-9]{8} class="form-group" name="application[cpDayPhone]" required>
+            <label>日間 Office Hour</label>
+            <input type="tel" pattern=[0-9]{8} class="form-group" name="application[cpMobilePhone]" required>
+            <label>手提 Mobile</label>
+        </div>
+
+        <div class="col-12">
+            <label>*電郵地址 Email Address:</label>
+            <input type="email" class="form-group" name="application[email]" style="width:230pt;" required>
+        </div>
+
+        <div class="col-12"><br>
+            註：*必須填寫, 以便作為是次活動的主要聯絡方式。
+        </div>
+
+        <!-- Competition Details -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參賽資料
+                Competition Details</h5>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>表演者人數 No. of Performers</label>
+            <input type="number" class="form-group" name="application[performerNum]" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>工作人員人數 No. of Crews:</label>
+            <input type="number" class="form-group" name="application[crewNum]" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>支票編號 Check No.:</label>
+            <input type="text" class="form-group" name="application[checkNum]" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>銀行名稱 Name of Bank:</label>
+            <input type="text" class="form-group" name="application[bankName]" required>
+        </div>
+
+        <div class="col-12"><br>
+            閣下所提供的資料只會用於本會之活動宣傳事宜，如欲更改或查詢閣下所申報的個人資料，請與本會職員聯絡。
+        </div>
+
+        <!-- Declaration -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">聲 明
+                Declaration</h5>
+        </div>
+
+        <div class="col-12 form-group">
+            1. 謹證明本團體之參加者是自願參加是項活動，並願意自行承擔所有責任。本團體之參加者亦謹遵守貴會之一切規則、
+            決定，包括藥物檢查條例。
+            本團體之參加者、本團體之參加者之繼承人、本團體之參加者之遺囑執行人及本團體之參加者之管理人謹此豁免中國
+            香港體操總會、所有贊助商、支持是項活動之團體及任何有關之團體對於本團體之參加者因參加是項活動而由任何原
+            因，包括疏忽，所引致之疾病、死亡、個人損失之任何法律責任，以及放棄任何有關之權利、索償及追究行動。
+            本團體之參加者亦同時聲明本團體之參加者身體狀況良好及具備足夠之體能及技術完成是項活動。(附件一)
+            本團體之參加者願意授權大會及傳媒在無須本團體之參加者審查而可以使用本團體之參加者的肖像、姓名、聲線及個
+            人資料作為活動籌辦及推廣之用。
+        </div>
+
+        <div class="col-12 form-group">
+            2. 本團體之參加者明白在此報名表上提供之資料均屬正確及完備，如有任何虛假及誤導性資料，本團體之參加者的申請
+            將被取消。如已接納，均屬無效。
+        </div>
+
+        <!-- 團體蓋章 -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">團體蓋章</h5>
+        </div>
+
+        <div class="col-12">
+            <br>
+            <label>*請附上含有團體蓋章及團體負責人簽署之文件</label>
+            <br>
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" />
+            <div id="preview2"></div>
+        </div>
+
+        <!-- Terms of Competition -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽及參賽條款
+                Terms of Competition</h5>
+        </div>
+
+        <div class="col-12">
+            <label>*請下載 <a href="/competition/form/GroupApplication_HKRGAgeGroupCompetition-page3.pdf" download
+                    style="color:rgb(159, 209, 60);">同意書.pdf</a> 後簽署並上載 Please download the <a
+                    href="/competition/form/GroupApplication_HKRGAgeGroupCompetition-page3.pdf" download
+                    style="color:rgb(159, 209, 60);">consent.pdf</a> and upload it with signature</label>
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile3(this.files)" />
+            <div id="preview3"></div>
+        </div>
+
+        <div class="col-12">
+            <br><br>
+            <input type="checkbox" required>
+            <label style="color: #656565;">我已閱讀並同意比賽規則及須知 I have read carefully and agreed with the rules and regulation
+                of the competition</label>
+        </div>
+
+        <div class="col-12">
+            <br><br>
+            <button type="submit" class="btn btn-primary"
+                style="background: #83a70c url(../img/overlay.png) repeat-x; border: none; float: right;">提交
+                Submit</button>
+        </div>
+    </div>
+    <br>
+</form>
+
+<script>
+    function calculateF() {
+        document.getElementById('teamFee').value = 150 * document.getElementById('teamNo').value;
+
+        insurance = document.getElementById('insurance').value;
+        fee = document.getElementById('teamFee').value;
+        document.getElementById('total').value = parseInt(insurance) + parseInt(fee);
+    }
+
+    function calculateI() {
+        document.getElementById('insurance').value = 30 * document.getElementById('people').value;
+
+        fee = document.getElementById('teamFee').value;
+        insurance = document.getElementById('insurance').value;
+        document.getElementById('total').value = parseInt(insurance) + parseInt(fee);
+    }
+
+    function handleFile3(files) {
+        const file = files[0];
+        if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
+
+        if (file.size > 4194304) {
+            alert("請重新上載4MB相片");
+            return;
+        }
+        var preview = document.getElementById('preview3');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            preview.innerHTML = "";
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            preview.appendChild(img);
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'RGT[constent]';
+            input.value = e.target.result;
+            img.style.width = "150px";
+            img.style.height = "200px";
+            preview.appendChild(input);
+        }
+        reader.readAsDataURL(file);
+    }
+</script>

@@ -1,0 +1,275 @@
+<!-- Team_HKRGAgeGroupCompetitionform.ejs -->
+<form action="/pages/competition/form/Team_HKRGAgeGroupCompetitionform" method="POST" class="mx-sm-5">
+
+    <br>
+    <h1 style="color: #888888; font-size: 16pt; font-weight: 200;"><b>第63屆體育節 - 2020年全港藝術體操分齡比賽</b></h1>
+    <h2 style="color: #888888; font-size:14pt; font-weight: 200;"><u><b>團體項目報名表(公開組:學校以外之團體)</b></u></h2>
+    <br><br>
+
+    <div class="form-group">
+        <label style="font-size:12px;color:red;font-weight:bold">*必須填寫 *Must provide
+        </label>
+    </div>
+
+    <fieldset>
+        <legend style="color: #83a70c; font-weight: bold; font-size: 15px;">團體資料 Group Details<span
+                style="font-size:14px;color:red"> * </span></legend>
+
+        <div class="form-group">
+            <label>機構名稱(中文)<br>Organization Name(Chinese):</label>
+            <input type="text" name="TRGCompetition[OrgChiName]" style="width:450pt" required>
+        </div>
+
+        <div class="form-group">
+            <label>聯絡電話<br>Contact Number:</label>
+            <input type="text" name="TRGCompetition[Phone]" maxlength="8" pattern="\d{8}" required>
+
+            <label>聯絡電郵<br>Email Address:</label>
+            <input type="email" name="TRGCompetition[Email]" style="width:300pt" required>
+        </div>
+
+        <div class="form-group">
+            <label>教練姓名<br>Coach Name:</label>
+            <input input="text" name="TRGCompetition[CoachName]" required>
+
+            <label>教練聯絡電話<br>Coach Contact Number:</label>
+            <input type="text" name="TRGCompetition[CoachPhone]" maxlength="8" pattern="\d{8}" required>
+        </div>
+
+
+        <div class="form-group">
+            <label>組別<br>Category:</label>
+            <input type="radio" name="TRGCompetition[Category]" value="TGpPAB" required />
+            <label class="category">預備A,B組</label>
+
+            <input type="radio" name="TRGCompetition[Category]" value="TGpPCD" required />
+            <label class="category">預備C,D組</label>
+
+            <input type="radio" name="TRGCompetition[Category]" value="TGpPE" required />
+            <label class="category">預備E組</label>
+
+            <input type="radio" name="TRGCompetition[Category]" value="TGpJA" required />
+            <label class="category">初級A組</label>
+
+            <input type="radio" name="TRGCompetition[Category]" value="TGpJB" required />
+            <label class="category">初級B組</label>
+
+            <input type="radio" name="TSRGCompetition[Category]" value="TGpSA" required />
+            <label class="category">高級A組</label>
+
+            <input type="radio" name="TRGCompetition[Category]" value="TGpSB" required />
+            <label class="category">高級B組</label>
+        </div>
+    </fieldset>
+
+    <div class="row">
+        <div class="card-body col-xl-6" style="border: 0.5px solid #83a70c; border-radius: 5px;">
+            <label style="color: #83a70c; font-weight: bold; font-size: 15px;">參加者(1)個人資料 Applicant(1)'s Personal
+                Details<span style="font-size:14px;color:red"> * </span></label>
+            <div class="form-group col-12">
+                <label>中文姓名<br>Name in Chinese:</label>
+                <input type="text" name="TRGCompetition[Mate1ChiName]" placeholder=" e.g. 陳大文" required>
+
+                <label>英文姓名<br>Name in English:</label>
+                <input type="text" name="TRGCompetition[Mate1EngName]" placeholder=" e.g. Chan Tai Man" required>
+
+                <label>身分證號碼<br>ID Card Number:</label>
+                <input type="text" name="TRGCompetition[Mate1IDNo]" placeholder=" A123456(7)" required>
+
+                <label>出生日期<br>Date of Birth (dd/mm/yyyy):</label>
+                <input type="date" name="TRGCompetition[Mate1Date]" required>
+            </div>
+        </div>
+
+        <div class="card-body col-xl-6" style="border: 0.5px solid #83a70c; border-radius: 5px;">
+            <legend style="color: #83a70c; font-weight: bold; font-size: 15px;">參加者(2)個人資料 Applicant(2)'s Personal
+                Details<span style="font-size:14px;color:red"> * </span></legend>
+            <div class="form-group col-12">
+                <label>中文姓名<br>Name in Chinese:</label>
+                <input type="text" name="TRGCompetition[Mate2ChiName]" placeholder=" e.g. 陳大文" required>
+
+                <label>英文姓名<br>Name in English:</label>
+                <input type="text" name="TRGCompetition[Mate2EngName]" placeholder=" e.g. Chan Tai Man" required>
+
+                <label>身分證號碼<br>ID Card Number:</label>
+                <input type="text" name="TRGCompetition[Mate2IDNo]" placeholder=" A123456(7)" required>
+
+                <label>出生日期<br>Date of Birth (dd/mm/yyyy):</label>
+                <input type="date" name="TRGCompetition[Mate2Date]" required>
+            </div>
+        </div>
+
+
+        <div class="card-body col-xl-6" style="border: 0.5px solid #83a70c; border-radius: 5px;">
+            <legend style="color: #83a70c; font-weight: bold; font-size: 15px;">參加者(3)個人資料 Applicant(3)'s Personal
+                Details<span style="font-size:14px;color:red"> * </span></legend>
+            <div class="form-group col-12">
+                <label>中文姓名<br>Name in Chinese:</label>
+                <input type="text" name="TRGCompetition[Mate3ChiName]" placeholder=" e.g. 陳大文" required>
+
+                <label>英文姓名<br>Name in English:</label>
+                <input type="text" name="TSRGCompetition[Mate3EngName]" placeholder=" e.g. Chan Tai Man" required>
+
+                <label>身分證號碼<br>ID Card Number:</label>
+                <input type="text" name="TRGCompetition[Mate3IDNo]" placeholder=" A123456(7)" required>
+
+                <label>出生日期<br>Date of Birth (dd/mm/yyyy):</label>
+                <input type="date" name="TRGCompetition[Mate3Date]" required>
+            </div>
+        </div>
+
+        <div class="card-body col-xl-6" style="border: 0.5px solid #83a70c; border-radius: 5px;">
+            <legend style="color: #83a70c; font-weight: bold; font-size: 15px;">參加者(4)個人資料 Applicant(4)'s Personal
+                Details<span style="font-size:14px;color:red"> * </span></legend>
+            <div class="form-group col-12">
+                <label>中文姓名<br>Name in Chinese:</label>
+                <input type="text" name="TRGCompetition[Mate4ChiName]" placeholder=" e.g. 陳大文" required>
+
+                <label>英文姓名<br>Name in English:</label>
+                <input type="text" name="TRGCompetition[Mate4EngName]" placeholder=" e.g. Chan Tai Man" required>
+
+                <label>身分證號碼<br>ID Card Number:</label>
+                <input type="text" name="TRGCompetition[Mate4IDNo]" placeholder=" A123456(7)" required>
+
+                <label>出生日期<br>Date of Birth (dd/mm/yyyy):</label>
+                <input type="date" name="TRGCompetition[Mate4Date]" required>
+            </div>
+        </div>
+    </div>
+
+
+
+    <fieldset>
+
+        <span>備註 Remarks:</span>
+        <ol>
+            <li>如有需要可自行影印表格<br>Applicant can make copy of form if need.</li>
+            <li>每張報名表只可報一個組別<br>A application form can only be applied for one category.</li>
+        </ol>
+
+        <br>
+
+        <div class="form-group">
+            <label style="font-weight: bold; color: #83a70c;">團體項目費用 Group Event's Fee<span
+                    style="font-size:14px;color:red">*</span></label>
+            <br>
+            <label>團體項目<br>Group Event: $250 X </label>
+            <input type="number" name="TRGCompetition[TeamNumber]" min=1 max=100 required>
+            <span>隊 team(s) = $</span>
+            <input type="number" name="TRGCompetition[TeamPrice]" placeholder=" e.g. 1234" required>
+            <br>
+            <label>總額 Total price = $</label>
+            <input type="number" name="TRGCompetition[TeamTotalPrice]" placeholder=" e.g. 1234" required>
+        </div>
+
+    </fieldset>
+
+
+    <hr style="border-top: 1px solid #83a70c;">
+
+    <fieldset>
+        <legend style="color: #83a70c; font-weight: bold; font-size: 15px;">上載文件 Upload Documents<span
+                style="font-size:14px;color:red"> * </span></legend>
+
+        <div class="form-group">
+            <label><b>請提交商業登記證明 Please upload the Valid Bussiness Registration Certificate (pdf檔)</b></label>
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile1(this.files)" required />
+            <div id="preview"></div>
+        </div>
+
+        <div class="form-group">
+            <label><b>上載聲明 Upload declaration (pdf檔)</b></label>
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" required />
+            <div id="preview"></div>
+        </div>
+
+        <p><a href="http://www.gahk.org.hk/doc/Team_HKRGAgeGroupCompetition.pdf" target="_blank"><u>下載聲明</u></a>
+            (只需填寫聲明及簽署部分) Download
+            Declaration (Only the Declaration and Signature's part)</p>
+
+
+        <br>
+        <div class="form-group">
+            <input class="form-check-input" name="TRGCompetition[Box]" type="checkbox" required>
+            <label class="form-check-label" for="TRGCompetition[Box]"><span style="font-size:14px;color:red"> *
+                </span>我已閱讀及同意比賽規則及章程<br>I
+                have read carefully and agreed with the <a href="/pages/competition/form/annex1"
+                    target="_blank"><u>Rules and Regulation</u></a> of the competition</label>
+        </div>
+    </fieldset>
+
+    <br><button type="submit" class="btn btn-primary" style="background-color: #83a70c; border: none;">預覽 Preview
+        >></button><br><br>
+
+
+
+
+</form>
+
+<script>
+    function handleFile2(files) {
+        const file = files[0];
+        if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
+        var preview = document.getElementById('preview');
+        var reader = new FileReader();
+
+        if (file.type.startsWith('image/')) {
+            reader.onload = function (e) {
+                preview.innerHTML = "";
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                preview.appendChild(img);
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'TRGCompetition[VBRC]';
+                input.value = e.target.result;
+                img.style.width = "150px";
+                img.style.height = "150px";
+                preview.appendChild(input);
+            }
+        } else if (file.type == 'application/pdf') {
+            reader.onload = function (e) {
+                preview.innerHTML = "";
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'TRGCompetition[VBRC]';
+                input.value = e.target.result;
+                preview.appendChild(input);
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+
+    function handleFile2(files) {
+        const file = files[0];
+        if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
+        var preview = document.getElementById('preview');
+        var reader = new FileReader();
+
+        if (file.type.startsWith('image/')) {
+            reader.onload = function (e) {
+                preview.innerHTML = "";
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                preview.appendChild(img);
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'TRGCompetition[Declaration]';
+                input.value = e.target.result;
+                img.style.width = "150px";
+                img.style.height = "150px";
+                preview.appendChild(input);
+            }
+        } else if (file.type == 'application/pdf') {
+            reader.onload = function (e) {
+                preview.innerHTML = "";
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'TRGCompetition[Declaration]';
+                input.value = e.target.result;
+                preview.appendChild(input);
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+</script>

@@ -1,0 +1,420 @@
+<form action="/competition/form/team" method="POST">
+    <div class="row mx-sm-2">
+        <div class="col-12" style="color: #888888; ">
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>第 63 屆體育節 -
+                    2020年全港藝術體操分齡比賽</b></h1>
+            <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>集體項目報名表（學校組）</u></h2>
+            <br><br>
+        </div>
+
+
+        <div class="col-12">
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">隊伍資料 Group
+                details</h5>
+        </div>
+
+
+        <div class="col-12">
+            <label>隊伍名稱 Team name:</label>
+            <input type="text" class="form-group" name="RGT[teamName]" style="width:350pt;" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>聯絡電話 Phone:</label>
+            <input type="tel" pattern=[0-9]{8} class="form-group" name="RGT[phone]" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>聯絡電郵 Email:</label>
+            <input type="email" class="form-group" name="RGT[email]" style="width:230pt;" required>
+        </div>
+
+        <div class="col-12">
+            <br>
+            <p>組別及比賽項目 Team and competition's subject:</p>
+            <input type="radio" name="RGT[box]" value="A" required>
+            <label class="form-check-label" for="box">集體 A 組(五人圈操)</label>
+            <input type="radio" name="RGT[box]" value="B" required>
+            <label class="form-check-label" for="box">集體 B 組(五人圈操)</label>
+            <input type="radio" name="RGT[box]" value="C" required>
+            <label class="form-check-label" for="box">集體 C 組(三球兩帶)</label>
+            <br><br>
+        </div>
+
+        <div class="card col-12 col-sm-6" style="background: transparent;">
+            <br>
+            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(1)個人資料
+                Applicant(1)'s personal detail</h6>
+            <h5>[正選 Current athlete]</h5>
+
+            <div>
+                <label>中文姓名 Chinese name:</label>
+                <input type="text" class="form-group" name="RGT[chiName1]" placeholder="(e.g. 陳大文)" required>
+            </div>
+            <div>
+                <label>英文姓名 English name: </label>
+                <input type="text" class="form-group" name="RGT[engName1]" placeholder="(e.g. Chan Tai Man)" required>
+            </div>
+            <div>
+                <label>身份證號碼 ID card no.:</label>
+                <input type="text" class="form-group" name="RGT[ID1]" required>
+            </div>
+            <div>
+                <label>出生日期 Birth date:</label>
+                <input type="date" class="form-group" name="RGT[birth1]" required>
+                <br>
+            </div>
+        </div>
+
+        <div class="card col-12 col-sm-6" style="background: transparent;">
+            <br>
+            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(2)個人資料
+                Applicant(2)'s personal detail</h6>
+            <h5>[正選 Current athlete]</h5>
+
+            <div>
+                <label>中文姓名 Chinese name:</label>
+                <input type="text" class="form-group" name="RGT[chiName2]" placeholder="(e.g. 陳大文)" required>
+            </div>
+            <div>
+                <label>英文姓名 English name: </label>
+                <input type="text" class="form-group" name="RGT[engName2]" placeholder="(e.g. Chan Tai Man)" required>
+            </div>
+            <div>
+                <label>身份證號碼 ID card no.:</label>
+                <input type="text" class="form-group" name="RGT[ID2]" required>
+            </div>
+            <div>
+                <label>出生日期 Birth date:</label>
+                <input type="date" class="form-group" name="RGT[birth2]" required>
+                <br>
+            </div>
+        </div>
+
+        <div class="card col-12 col-sm-6" style="background: transparent;">
+            <br>
+            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(3)個人資料
+                Applicant(1)'s personal detail</h6>
+            <h5>[正選 Current athlete]</h5>
+
+            <div>
+                <label>中文姓名 Chinese name:</label>
+                <input type="text" class="form-group" name="RGT[chiName3]" placeholder="(e.g. 陳大文)" required>
+            </div>
+            <div>
+                <label>英文姓名 English name: </label>
+                <input type="text" class="form-group" name="RGT[engName3]" placeholder="(e.g. Chan Tai Man)" required>
+            </div>
+            <div>
+                <label>身份證號碼 ID card no.:</label>
+                <input type="text" class="form-group" name="RGT[ID3]" required>
+            </div>
+            <div>
+                <label>出生日期 Birth date:</label>
+                <input type="date" class="form-group" name="RGT[birth3]" required>
+                <br>
+            </div>
+        </div>
+
+        <div class="card col-12 col-sm-6" style="background: transparent;">
+            <br>
+            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(4)個人資料
+                Applicant(1)'s personal detail</h6>
+            <h5>[正選 Current athlete]</h5>
+
+            <div>
+                <label>中文姓名 Chinese name:</label>
+                <input type="text" class="form-group" name="RGT[chiName4]" placeholder="(e.g. 陳大文)" required>
+            </div>
+            <div>
+                <label>英文姓名 English name: </label>
+                <input type="text" class="form-group" name="RGT[engName4]" placeholder="(e.g. Chan Tai Man)" required>
+            </div>
+            <div>
+                <label>身份證號碼 ID card no.:</label>
+                <input type="text" class="form-group" name="RGT[ID4]" required>
+            </div>
+            <div>
+                <label>出生日期 Birth date:</label>
+                <input type="date" class="form-group" name="RGT[birth4]" required>
+                <br>
+            </div>
+        </div>
+
+        <div class="card col-12 col-sm-6" style="background: transparent;">
+            <br>
+            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(5)個人資料
+                Applicant(5)'s personal detail</h6>
+            <h5>[正選 Current athlete]</h5>
+
+            <div>
+                <label>中文姓名 Chinese name:</label>
+                <input type="text" class="form-group" name="RGT[chiName5]" placeholder="(e.g. 陳大文)" required>
+            </div>
+            <div>
+                <label>英文姓名 English name: </label>
+                <input type="text" class="form-group" name="RGT[engName5]" placeholder="(e.g. Chan Tai Man)" required>
+            </div>
+            <div>
+                <label>身份證號碼 ID card no.:</label>
+                <input type="text" class="form-group" name="RGT[ID5]" required>
+            </div>
+            <div>
+                <label>出生日期 Birth date:</label>
+                <input type="date" class="form-group" name="RGT[birth5]" required>
+                <br>
+            </div>
+        </div>
+
+        <div class="card col-12 col-sm-6" style="background: transparent;">
+            <br>
+            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(6)個人資料
+                Applicant(6)'s personal detail</h6>
+            <h5>[後備 Back up]</h5>
+
+            <div>
+                <label>中文姓名 Chinese name:</label>
+                <input type="text" class="form-group" name="RGT[chiName6]" placeholder="(e.g. 陳大文)" required>
+            </div>
+            <div>
+                <label>英文姓名 English name: </label>
+                <input type="text" class="form-group" name="RGT[engName6]" placeholder="(e.g. Chan Tai Man)" required>
+            </div>
+            <div>
+                <label>身份證號碼 ID card no.:</label>
+                <input type="text" class="form-group" name="RGT[ID6]" required>
+            </div>
+            <div>
+                <label>出生日期 Birth date:</label>
+                <input type="date" class="form-group" name="RGT[birth6]" required>
+                <br>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <br>
+            <label>請附上<u><b>每位</b></u>參加者的身份證副本 Please upload ID copies of <u><b>AL</b>L</u> applicants</label>
+            <br>
+            <input type="file" accept="image/*" onchange="handleFile(this.files)" multiple required />
+            <div id="preview"></div>
+            <!-- <input type="file" accept="image/*" name="avatarfile" /> -->
+        </div>
+
+
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">教練資料 Coach
+                detail</h5>
+        </div>
+
+
+        <div class="col-12 col-sm-6">
+            <label>教練姓名 Coach name:</label>
+            <input type="text" class="form-group" name="RGT[coachName]" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>教練聯絡電話 Coach phone:</label>
+            <input type="tel" pattern=[0-9]{8} class="form-group" name="RGT[coachPhone]" required>
+        </div>
+
+
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">隊伍負責人資料
+                Team's leader detail</h5>
+        </div>
+
+
+        <div class="col-12 col-sm-6">
+            <label>隊伍負責人姓名 Leader's name:</label>
+            <input type="text" class="form-group" name="RGT[leaderName]" required>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <label>隊伍負責人職位 Leader's position:</label>
+            <input type="text" class="form-group" name="RGT[leaderPosition]" required>
+        </div>
+
+        <div class="col-12">
+            <br>
+            <label>*請附上含有隊伍負責人簽署及學校蓋章之文件</label>
+            <br>
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" />
+            <div id="preview2"></div>
+        </div>
+
+
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">費用 Cost</h5>
+        </div>
+
+
+        <div class="col-12 form-group">
+            <label>集體項目 Collective sunject: $150 x </label>
+            <input id="teamNo" type="number" class="mx-sm-2" name="RGT[teamNo]" onblur="calculateF()" required>
+            <label>隊 Team = $</label>
+            <input id="teamFee" type="number" class="mx-sm-2" name="RGT[teamFee]" disabled />
+        </div>
+
+        <div class="col-12 form-group">
+            <label>保險 Insurance: $30 x </label>
+            <input id="people" type="number" class="mx-sm-2" name="RGT[people]" onblur="calculateI()" required>
+            <label>人 People = $</label>
+            <input id="insurance" type="number" class="mx-sm-2" name="RGT[insurance]" disabled />
+            <br><br>
+        </div>
+
+        <div class="col-12 form-group">
+            <label>總額 Total = $</label>
+            <input id="total" type="number" class="mx-sm-2" name="RGT[total]" disabled />
+        </div>
+
+
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽及參賽條款
+                Terms of competition</h5>
+        </div>
+
+
+        <div class="col-12">
+            <label>*請下載 <a href="/competition/form/GroupApplication_HKRGAgeGroupCompetition-page3.pdf" download
+                    style="color:rgb(159, 209, 60);">同意書.pdf</a> 後簽署並上載 Please download the <a
+                    href="/competition/form/GroupApplication_HKRGAgeGroupCompetition-page3.pdf" download
+                    style="color:rgb(159, 209, 60);">consent.pdf</a> and upload it with signature</label>
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile3(this.files)" />
+            <div id="preview3"></div>
+        </div>
+
+        <div class="col-12">
+            <br><br>
+            <input type="checkbox" required>
+            <label style="color: #656565;">我已閱讀並同意比賽規則及須知 I have read carefully and agreed with the rules and regulation
+                of the competition</label>
+        </div>
+
+        <div class="col-12">
+            <br><br>
+            <button type="submit" class="btn btn-primary"
+                style="background: #83a70c url(../img/overlay.png) repeat-x; border: none; float: right;">提交
+                Submit</button>
+        </div>
+    </div>
+    <br>
+
+</form>
+
+
+<script>
+
+    function calculateF() {
+        document.getElementById('teamFee').value = 150 * document.getElementById('teamNo').value;
+
+        insurance = document.getElementById('insurance').value;
+        fee = document.getElementById('teamFee').value;
+        document.getElementById('total').value = parseInt(insurance) + parseInt(fee);
+    }
+
+    function calculateI() {
+        document.getElementById('insurance').value = 30 * document.getElementById('people').value;
+
+        fee = document.getElementById('teamFee').value;
+        insurance = document.getElementById('insurance').value;
+        document.getElementById('total').value = parseInt(insurance) + parseInt(fee);
+    }
+
+    // function handleFile(files) {
+    //     alert(Array.from(files).length);
+    //     Array.from(files).forEach(function (file) {
+
+
+    //         // const file = files[0];
+    //         if (!file.type.startsWith('image/')) return;
+
+    //         if (file.size > 4194304) {
+    //             alert("請重新上載4MB相片 Plese reupload 4MB picture");
+    //             return;
+    //         }
+
+    //         var preview = document.getElementById('preview');
+    //         var reader = new FileReader();
+
+    //         reader.onload = function (e) {
+    //             preview.innerHTML = "";
+    //             var img = document.createElement('img');
+    //             img.src = e.target.result;
+    //             img.style = "max-width:33vw";
+    //             preview.appendChild(img);
+
+    //             var input = document.createElement('input');
+    //             input.type = 'hidden';
+    //             input.name = 'Form[avatar]';
+    //             input.value = e.target.result;
+    //             img.style.width = "150px";
+    //             img.style.height = "200px";
+    //             preview.appendChild(input);
+    //         }
+    //         reader.readAsDataURL(file);
+    //         alert("OO");
+    //     });
+
+    // }
+
+    // function handleFile2(files) {
+    //     const file = files[0];
+    //     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
+
+    //     if (file.size > 4194304) {
+    //         alert("請重新上載4MB相片");
+    //         return;
+    //     }
+    //     var preview = document.getElementById('preview2');
+    //     var reader = new FileReader();
+    //     reader.onload = function (e) {
+    //         preview.innerHTML = "";
+    //         var img = document.createElement('img');
+    //         img.src = e.target.result;
+    //         preview.appendChild(img);
+
+    //         var input = document.createElement('input');
+    //         input.type = 'hidden';
+    //         input.name = 'Form[confirm]';
+    //         input.value = e.target.result;
+    //         img.style.width = "150px";
+    //         img.style.height = "200px";
+    //         preview.appendChild(input);
+    //     }
+    //     reader.readAsDataURL(file);
+    // }
+
+    function handleFile3(files) {
+        const file = files[0];
+        if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
+
+        if (file.size > 4194304) {
+            alert("請重新上載4MB相片");
+            return;
+        }
+        var preview = document.getElementById('preview3');
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            preview.innerHTML = "";
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            preview.appendChild(img);
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'RGT[constent]';
+            input.value = e.target.result;
+            img.style.width = "150px";
+            img.style.height = "200px";
+            preview.appendChild(input);
+        }
+        reader.readAsDataURL(file);
+    }
+
+
+</script>

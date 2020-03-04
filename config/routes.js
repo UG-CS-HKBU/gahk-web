@@ -60,7 +60,8 @@ module.exports.routes = {
   '/downloads': { view: 'pages/downloads' },
   '/links': { view: 'pages/links' },
 
-
+  '/competition/form/rgt': { view: 'pages/competition/form/rgt' },
+  '/competition/form/gfa': { view: 'pages/competition/form/gfa' },
 
   /***************************************************************************
   *                                                                          *
@@ -88,6 +89,9 @@ module.exports.routes = {
   //  ╔╦╗╦╔═╗╔═╗
   //  ║║║║╚═╗║
   //  ╩ ╩╩╚═╝╚═╝
+
+  
+
 
   'GET /membership/admin/export.csv': 'MembershipController.csv',
   'GET /membership/chinesememberform_detail/:id': 'MembershipController.chineseMemberform_detail',
@@ -128,4 +132,18 @@ module.exports.routes = {
   'POST /admin/email/:id':'AdminController.email_detail',
 
   'GET /admin/user':'AdminController.user_list',
+
+//********************Competition Application routes****************
+
+  'POST /competition/form/rgt': 'ApplicationController.create',
+  'POST /competition/form/gfa': 'ApplicationController.gfa',
+
+
+  'GET /pages/competition/formn/annex1': 'TSRGCompetitionController.annex1',
+  'GET /pages/competition/form/Team_School_HKRGAgeGroupCompetitionform': 'TSRGCompetitionController.Team_School_HKRGAgeGroupCompetitionform',
+  'POST /pages/competition/form/Team_School_HKRGAgeGroupCompetitionform': 'TSRGCompetitionController.Team_School_HKRGAgeGroupCompetitionform',
+  'GET /pages/competition/form/Team_HKRGAgeGroupCompetitionform': 'TRGCompetitionController.Team_HKRGAgeGroupCompetitionform',
+  'POST /pages/competition/form/Team_HKRGAgeGroupCompetitionform': 'TRGCompetitionController.Team_HKRGAgeGroupCompetitionform',
+  'POST /pages/competition/form/Team_School_HKRGAgeGroupCompetitionFormPreview': 'TSRGCompetitionController.Team_School_HKRGAgeGroupCompetitionFormPreview',
+
 };
