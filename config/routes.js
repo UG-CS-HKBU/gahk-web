@@ -24,6 +24,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  '/': { view: 'pages/form' },
+
   '/': 'NewsController.index',
   '/aboutus': { view: 'pages/aboutus/index' },
   '/aboutus/office-bearers': { view: 'pages/aboutus/bearers' },
@@ -88,6 +90,9 @@ module.exports.routes = {
   //  ╔╦╗╦╔═╗╔═╗
   //  ║║║║╚═╗║
   //  ╩ ╩╩╚═╝╚═╝
+
+  'GET /coach/coachform': 'CoachController.coachform',
+  'POST /coach/coachformPreview': 'CoachController.coachformPreview',
 
   'GET /membership/admin/export.csv': 'MembershipController.csv',
   'GET /membership/chinesememberform_detail/:id': 'MembershipController.chineseMemberform_detail',
