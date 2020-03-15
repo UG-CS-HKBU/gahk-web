@@ -9,10 +9,20 @@ module.exports = {
 
   coachform: async function (req, res) {
 
-    if (req.method == 'GET')
-    {return res.view('membership/coachform', { 'data': req.session.data || {} });}
-    req.session.data = req.body.Coach;
-    return res.view('membership/coachformPreview', { 'data': req.session.data || {} });
+    if (req.method == "GET")
+        {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+
+  //  if (!req.body.Coach)
+  //      return res.badRequest("Form-data not received.");
+
+    await Coach.create(req.body.Coach);
+
+    return res.ok("Successfully created!");
+
+  //  if (req.method == 'GET')
+  //  {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+  //  req.session.data = req.body.Coach;
+  //  return res.view('coach/confirm_Coach', { 'data': req.session.data || {} });
 
 
   },
@@ -22,7 +32,7 @@ module.exports = {
 
       req.session.data = req.body.Coach;
 
-      return res.view('coach/confirm', { 'data': req.session.data || {} });
+      return res.view('coach/confirm_Coach', { 'data': req.session.data || {} });
     }
 
   },
@@ -35,19 +45,20 @@ module.exports = {
 
       req.session.data = {};  //clear data of session
 
-      console.log(coach.Email);
+      // console.log(coach.Email);
       // var models = await User.find();
-      var html = await sails.renderView('membership/Email3', { coach: coach, layout: false });
-      await sails.helpers.sendSingleEmail({
-        to: coach.Email,
-        from: sails.config.custom.mailgunFrom,
-        subject: '已收到閣下的申請表',
-        html: html
-      });
+      // var html = await sails.renderView('membership/Email3', { coach: coach, layout: false });
+      // await sails.helpers.sendSingleEmail({
+        // to: coach.Email,
+        // from: sails.config.custom.mailgunFrom,
+        // subject: '已收到閣下的申請表',
+        // html: html
+      // });
 
 
 
-      return res.redirect('personal_login');
+      // return res.redirect('personal_login');
+      return res.ok("Successfully created!");
     }
 
   },
