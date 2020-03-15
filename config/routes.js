@@ -93,8 +93,10 @@ module.exports.routes = {
 
   'GET /membership/coachform': 'CoachController.coachform',
   'POST /membership/coachform': 'CoachController.coachform',
-  // 'GET /coach/coachformPreview': 'CoachController.coachformPreview',
-  // 'POST /coach/coachformPreview': 'CoachController.coachformPreview',
+  'GET /membership/confirm_Coach': 'CoachController.confirm',
+  'POST /membership/confirm_Coach': 'CoachController.confirm',
+  'GET /membership/coachformPreview': 'CoachController.coachformPreview',
+  'POST /membership/coachformPreview': 'CoachController.coachformPreview',
 
   'GET /membership/admin/export.csv': 'MembershipController.csv',
   'GET /membership/chinesememberform_detail/:id': 'MembershipController.chineseMemberform_detail',

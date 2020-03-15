@@ -9,20 +9,20 @@ module.exports = {
 
   coachform: async function (req, res) {
 
-    if (req.method == "GET")
-        {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+  //  if (req.method == "GET")
+  //      {return res.view('membership/coachform', { 'data': req.session.data || {} });}
 
   //  if (!req.body.Coach)
   //      return res.badRequest("Form-data not received.");
 
-    await Coach.create(req.body.Coach);
+  //  await Coach.create(req.body.Coach);
 
-    return res.ok("Successfully created!");
+  //  return res.ok("Successfully created!");
 
-  //  if (req.method == 'GET')
-  //  {return res.view('membership/coachform', { 'data': req.session.data || {} });}
-  //  req.session.data = req.body.Coach;
-  //  return res.view('coach/confirm_Coach', { 'data': req.session.data || {} });
+    if (req.method == 'GET')
+    {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+    req.session.data = req.body.Coach;
+    return res.view('membership/coachformPreview', { 'data': req.session.data || {} });
 
 
   },
@@ -32,7 +32,7 @@ module.exports = {
 
       req.session.data = req.body.Coach;
 
-      return res.view('coach/confirm_Coach', { 'data': req.session.data || {} });
+      return res.view('membership/confirm_Coach', { 'data': req.session.data || {} });
     }
 
   },
@@ -43,7 +43,9 @@ module.exports = {
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
 
-      req.session.data = {};  //clear data of session
+      await Coach.create(req.body.Coach);
+
+    //  req.session.data = {};  //clear data of session
 
       // console.log(coach.Email);
       // var models = await User.find();
