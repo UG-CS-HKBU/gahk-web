@@ -2,7 +2,7 @@
   <section>
     <h6 class="side-heading3"><span class="reflect" data-text="教練通訊">教練通訊</span></h6>
     <ul class="list-unstyled">
-      <li><a class="side-button1 active" href="/coach">註冊教練名單</a></li>
+      <li><a class="side-button1 <%= req.path == '/coach' ? 'active':'' %>" href="/coach">註冊教練名單</a></li>
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_MAG.pdf">男子競技體操註冊教練</a></li>
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_WAG.pdf">女子競技體操註冊教練</a></li>
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_RG.pdf">藝術體操註冊教練</a></li>
@@ -10,6 +10,7 @@
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_AER.pdf">健美體操註冊教練</a></li>
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_ACRO.pdf">技巧體操註冊教練</a></li>
       <li><a class="side-button1" target="_blank" href="/profile/index">教練資訊</a></li>
+      
     </ul>
   </section>
 </aside>
