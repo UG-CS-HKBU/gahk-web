@@ -64,6 +64,7 @@ module.exports.routes = {
 
 
 
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
@@ -138,4 +139,5 @@ module.exports.routes = {
 
   'GET /admin/user':'AdminController.user_list',
   '/profile/index': { view: 'profile/index'},
+  '/profile/index': { view: 'profile/detail' },
 };
