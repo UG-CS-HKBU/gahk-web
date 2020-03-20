@@ -208,7 +208,7 @@ module.exports = {
 
 
       if (models.length > 0)
-      {return res.redirect('/coach/coach_record');}
+      {return res.redirect('/membership/coach_record');}
 
 
       else
