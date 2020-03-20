@@ -99,6 +99,7 @@ module.exports.routes = {
   'GET /membership/coachformPreview': 'CoachController.coachformPreview',
   'POST /membership/coachformPreview': 'CoachController.coachformPreview',
 
+
   'GET /membership/admin/export.csv': 'MembershipController.csv',
   'GET /membership/chinesememberform_detail/:id': 'MembershipController.chineseMemberform_detail',
   'GET /membership/update_membership/:id': 'MembershipController.update_membership',
@@ -119,6 +120,9 @@ module.exports.routes = {
   'POST /coach/update_coach/:id': 'CoachController.update_coach',
   '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
+  '/index' : 'CoachController.coach_record',
+  'GET /index': 'CoachController.coach_record',
+
 
   'GET /user':'UserController.index',
   '/user/login':'UserController.login',
@@ -138,6 +142,4 @@ module.exports.routes = {
   'POST /admin/email/:id':'AdminController.email_detail',
 
   'GET /admin/user':'AdminController.user_list',
-  '/profile/index': { view: 'profile/index'},
-  '/profile/index': { view: 'profile/detail' },
 };

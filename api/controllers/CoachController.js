@@ -90,10 +90,6 @@ module.exports = {
     }
     model = model[0];
 
-
-
-
-
     var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
     await sails.helpers.sendSingleEmail({
       to: '16228375@life.hkbu.edu.hk',
@@ -229,10 +225,6 @@ module.exports = {
   },
 
 
-
-
-
-
   csv: async function (req, res) {
     var csv = require('fast-csv');
     var arr = [];
@@ -319,11 +311,6 @@ module.exports = {
         舉辦機構: element.Coaching_workshops_organization,
         聲明: element.hope,
 
-
-
-
-
-
       });
 
     });
@@ -337,10 +324,7 @@ module.exports = {
     var coach = await Coach.findOne(req.params.id);
     if (req.method == 'GET')
     {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
-
   },
-
-
 
 
   canel_coach: async function (req, res) {
@@ -352,8 +336,6 @@ module.exports = {
 
     return res.redirect('/coach/coach_record');
 
-
   },
-
 
 };
