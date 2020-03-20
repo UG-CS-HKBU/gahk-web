@@ -60,7 +60,7 @@ module.exports = {
 
 
       // return res.redirect('personal_login');
-      return res.ok("Successfully created!");
+      return res.redirect("/");
     }
 
   },
