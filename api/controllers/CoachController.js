@@ -215,8 +215,6 @@ module.exports = {
 
   //show all coach record
   coach_record: async function (req, res) {
-
-
     var coach = await Coach.find();
     return res.view('membership/coach_record', { 'coach': coach });
 
@@ -333,6 +331,12 @@ module.exports = {
     }).fetch();
 
     return res.redirect('/coach/coach_record');
+
+  },
+
+  status: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/status', { 'coach': coach });
 
   },
 

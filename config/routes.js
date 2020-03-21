@@ -61,6 +61,7 @@ module.exports.routes = {
   '/badge': { view: 'pages/badge' },
   '/downloads': { view: 'pages/downloads' },
   '/links': { view: 'pages/links' },
+  
 
 
 
@@ -126,6 +127,8 @@ module.exports.routes = {
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
   '/index' : 'CoachController.coach_record',
   'GET /index': 'CoachController.coach_record',
+  '/status' : 'CoachController.status',
+  'GET /status': 'CoachController.status',
 
 
   'GET /user':'UserController.index',
