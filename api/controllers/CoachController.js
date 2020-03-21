@@ -204,14 +204,12 @@ module.exports = {
 
 
       if (models.length > 0)
-      {return res.redirect('/index');}
+      {return res.redirect('/membership/coach_record');}
 
 
       else
       {return res.send('No such coach!');}
-
     }
-
   },
 
 
