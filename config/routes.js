@@ -92,6 +92,10 @@ module.exports.routes = {
   //  ║║║║╚═╗║
   //  ╩ ╩╩╚═╝╚═╝
 
+  'GET /membership/update_coach/:id': 'CoachController.update_coach',
+  'POST /membership/update_coach/:id': 'CoachController.update_coach',
+  'GET /membership/coach_record': 'CoachController.coach.csv',
+  'POST /membership/coach_record': 'CoachController.coach.csv',
   'GET /membership/coachform': 'CoachController.coachform',
   'POST /membership/coachform': 'CoachController.coachform',
   'GET /membership/confirm_Coach': 'CoachController.confirm',
@@ -116,8 +120,8 @@ module.exports.routes = {
 
   'GET /coach/coach_record/export.csv': 'CoachController.csv',
   'GET /coach/coachform_detail/:id': 'CoachController.coachform_detail',
-  'GET /coach/update_coach/:id': 'CoachController.update_coach',
-  'POST /coach/update_coach/:id': 'CoachController.update_coach',
+//  'GET /coach/update_coach/:id': 'CoachController.update_coach',
+//  'POST /coach/update_coach/:id': 'CoachController.update_coach',
   '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
   '/index' : 'CoachController.coach_record',
