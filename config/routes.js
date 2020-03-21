@@ -61,6 +61,8 @@ module.exports.routes = {
   '/badge': { view: 'pages/badge' },
   '/downloads': { view: 'pages/downloads' },
   '/links': { view: 'pages/links' },
+  
+
 
 
 
@@ -102,6 +104,7 @@ module.exports.routes = {
   'GET /membership/coachformPreview': 'CoachController.coachformPreview',
   'POST /membership/coachformPreview': 'CoachController.coachformPreview',
 
+
   'GET /membership/admin/export.csv': 'MembershipController.csv',
   'GET /membership/chinesememberform_detail/:id': 'MembershipController.chineseMemberform_detail',
   'GET /membership/update_membership/:id': 'MembershipController.update_membership',
@@ -122,6 +125,11 @@ module.exports.routes = {
 //  'POST /coach/update_coach/:id': 'CoachController.update_coach',
   '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
+  '/index' : 'CoachController.coach_record',
+  'GET /index': 'CoachController.coach_record',
+  '/status' : 'CoachController.status',
+  'GET /status': 'CoachController.status',
+
 
   'GET /user':'UserController.index',
   '/user/login':'UserController.login',

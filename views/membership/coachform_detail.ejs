@@ -1,9 +1,18 @@
-<div class="card col-12">
-    <h1 style="text-align:center">
-        <教練資料>
-    </h1>
+<%- partial('./partial/sidemenu.ejs') %>
+<section class="content aboutus flex-lg-grow-1">
+        <h5 class="main-heading1">教練<span class="highlight">資料</span></h5>
+      <div class="container-fluid">
+      
+            <div class="card col">
+                    <div class="row">
+                            <div class="col-lg-4">
+                                <div class="profile-img-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                                </div>
+                            </div>
     <div class="col-12">
             <ul class="list-group">
+
                 <li class="list-group-item">
                     <span class="font-weight-bold">1. 申請類別：</span>
                     <%= coach.New_coach%>
@@ -38,10 +47,7 @@
                 </li>
 
 
-                <li class="list-group-item">
-                    <span class="font-weight-bold">香港身份證號碼:</span>
-                    <%=coach.Id%>
-                </li>
+               
 
                 <li class="list-group-item">
                     <span class="font-weight-bold">性別:</span>
@@ -49,10 +55,7 @@
                 </li>
 
 
-                <li class="list-group-item">
-                    <span class="font-weight-bold">出生日期:</span>
-                    <%= coach.Birthd%>
-                </li>
+                
 
 
                 <li class="list-group-item">
@@ -66,11 +69,6 @@
 
                 </li>
 
-                <li class="list-group-item">
-                    <span class="font-weight-bold">住宅:</span>
-                    <%=coach.Hnumber%>
-
-                </li>
 
                 <li class="list-group-item">
                     <span class="font-weight-bold">手提:</span>
@@ -85,11 +83,7 @@
 
                 </li>
 
-                <li class="list-group-item">
-                    <span class="font-weight-bold">通訊地址:</span>
-                    <%=coach.ChiAddress%>
-
-                </li>
+                
 
                 <li class="list-group-item">
                     <span class="font-weight-bold">5. 體操教學經驗: </span>
@@ -260,40 +254,8 @@
 
 
                 </li>
-
-
-                <li class="list-group-item">
-                    <span class="font-weight-bold">聲明：</span>
-
-                    <%= coach.hope%> <br>
-                </li>
-
-
-                <li class="list-group-item">
-                    <span class="font-weight-bold">日期: </span>
-
-                    <%= coach.date_applicant%> <br>
-                </li>
-
-                <li class="list-group-item">
-                    <span class="font-weight-bold">校長簽署: </span>
-
-                    <%= coach.sign_principal%> <br>
-                </li>
-
-
-
-
-
-
-
-
+                
             </ul></div>
 
 
-
-
-
-
 </div>
-© 2019 GitHub, Inc.
