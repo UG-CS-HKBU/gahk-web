@@ -9,6 +9,16 @@ module.exports = {
 
   coachform: async function (req, res) {
 
+  //  if (req.method == "GET")
+  //      {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+
+  //  if (!req.body.Coach)
+  //      return res.badRequest("Form-data not received.");
+
+  //  await Coach.create(req.body.Coach);
+
+  //  return res.ok("Successfully created!");
+
     if (req.method == 'GET')
     {return res.view('membership/coachform', { 'data': req.session.data || {} });}
     req.session.data = req.body.Coach;
@@ -22,7 +32,7 @@ module.exports = {
 
       req.session.data = req.body.Coach;
 
-      return res.view('coach/confirm', { 'data': req.session.data || {} });
+      return res.view('membership/confirm_Coach', { 'data': req.session.data || {} });
     }
 
   },
@@ -33,21 +43,24 @@ module.exports = {
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
 
-      req.session.data = {};  //clear data of session
+      await Coach.create(req.body.Coach);
 
-      console.log(coach.Email);
+    //  req.session.data = {};  //clear data of session
+
+      // console.log(coach.Email);
       // var models = await User.find();
-      var html = await sails.renderView('membership/Email3', { coach: coach, layout: false });
-      await sails.helpers.sendSingleEmail({
-        to: coach.Email,
-        from: sails.config.custom.mailgunFrom,
-        subject: '已收到閣下的申請表',
-        html: html
-      });
+      // var html = await sails.renderView('membership/Email3', { coach: coach, layout: false });
+      // await sails.helpers.sendSingleEmail({
+        // to: coach.Email,
+        // from: sails.config.custom.mailgunFrom,
+        // subject: '已收到閣下的申請表',
+        // html: html
+      // });
 
 
 
-      return res.redirect('personal_login');
+      // return res.redirect('personal_login');
+      return res.redirect("/coach");
     }
 
   },
@@ -76,10 +89,6 @@ module.exports = {
       }).fetch();
     }
     model = model[0];
-
-
-
-
 
     var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
     await sails.helpers.sendSingleEmail({
@@ -113,12 +122,12 @@ module.exports = {
       var model = await Coach.findOne(pid);
       if (model.CheckNo != req.body.Coach.CheckNo) {
         var html = await sails.renderView('membership/check_email', { model: model, layout: false });
-        await sails.helpers.sendSingleEmail({
-          to: model.Email,
-          from: sails.config.custom.mailgunFrom,
-          subject: '已收到閣下的支票',
-          html: html
-        });
+    //    await sails.helpers.sendSingleEmail({
+    //      to: model.Email,
+    //      from: sails.config.custom.mailgunFrom,
+    //      subject: '已收到閣下的支票',
+    //      html: html
+    //    });
       }
 
       var models = await Coach.update(pid).set({
@@ -195,29 +204,21 @@ module.exports = {
 
 
       if (models.length > 0)
-      {return res.redirect('/coach/coach_record');}
+      {return res.redirect('/membership/coach_record');}
 
 
       else
       {return res.send('No such coach!');}
-
     }
-
   },
 
 
   //show all coach record
   coach_record: async function (req, res) {
-
-
     var coach = await Coach.find();
     return res.view('membership/coach_record', { 'coach': coach });
 
   },
-
-
-
-
 
 
   csv: async function (req, res) {
@@ -306,11 +307,6 @@ module.exports = {
         舉辦機構: element.Coaching_workshops_organization,
         聲明: element.hope,
 
-
-
-
-
-
       });
 
     });
@@ -324,10 +320,7 @@ module.exports = {
     var coach = await Coach.findOne(req.params.id);
     if (req.method == 'GET')
     {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
-
   },
-
-
 
 
   canel_coach: async function (req, res) {
@@ -339,8 +332,12 @@ module.exports = {
 
     return res.redirect('/coach/coach_record');
 
-
   },
 
+  status: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/status', { 'coach': coach });
+
+  },
 
 };

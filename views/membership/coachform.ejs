@@ -18,7 +18,9 @@
   </table>
 
 
-  <form action="/coach/coachform" method="POST" onsubmit="return submitForm(this);">
+  
+  <form action="/membership/coachform" method="POST">
+  <!-- <form action="/membership/coachform" method="POST" onsubmit="return submitForm(this);"> -->
 
     <br>
 
@@ -204,7 +206,7 @@
         *
       </label>
       <input type="text" name="Coach[Engname]" value="<%= data.Engname%>"
-        onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,'')" required>
+        onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')" required>
       <label style="font-size:13px">姓名 (中文)
         Name (Chi)</label><label style="font-size:14px;color:red">
         *
@@ -268,7 +270,7 @@
 
       <br><br>
       <div class="form-group">
-        <label><b>上載學歷檔案 Upload a personal photo document (pdf檔)</b></label>
+        <label><b>上載學歷檔案 Upload a educational level document (pdf檔)</b></label>
 
         <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
         <div id="preview"></div>
@@ -647,7 +649,7 @@
           <tr>
 
             <td> <input type="text" name="Coach[date_training]" value="<%= data.date_training%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')"></td>
+                onkeyup="value=value.replace(/[^0-9]/g,'/')"></td>
             <td> <input type="text" name="Coach[school_training]" value="<%= data.school_training%>"></td>
             <td> <input type="text" name="Coach[Discipline_training]" value="<%= data.Discipline_training%>"></td>
           </tr>
@@ -682,7 +684,7 @@
           <tr>
 
             <td> <input type="text" name="Coach[Badges_date]" value="<%= data.Badges_date%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')"></td>
+                onkeyup="value=value.replace(/[^0-9]/g,'/')"></td>
             <td> <input type="text" name="Coach[Badges_school]" value="<%=data.Badges_school%>"></td>
             <td> <input type="text" name="Coach[Badges_no]" value="<%= data.Badges_no%>"></td>
           </tr>
@@ -720,7 +722,7 @@
           <tr>
 
             <td> <input type="text" name="Coach[Activities_date]" value="<%= data.Activities_date%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')"></td>
+                onkeyup="value=value.replace(/[^0-9]/g,'/')"></td>
             <td> <input type="text" name="Coach[Activities_event]" value="<%= data.Activities_event%>"></td>
             <td> <input type="text" name="Coach[Activities_badges]" value="<%= data.Activities_badges%>"></td>
           </tr>
@@ -760,7 +762,7 @@
           <tr>
 
             <td> <input type="text" name="Coach[Coaching_workshops_date]" value="<%= data.Coaching_workshops_date%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')">
+                onkeyup="value=value.replace(/[^0-9]/g,'/')">
             </td>
             <td> <input type="text" name="Coach[Coaching_workshops_event]" value="<%=data.Coaching_workshops_event%>">
             </td>
@@ -880,8 +882,8 @@
      
         <div class="form-group">
           <br>
-          <label><b>上載校長簽署 Upload a personal photo</b></label>
-          <input type="file" accept="image/*" onchange="handleFile2(this.files)" />
+          <label><b>上載校長簽署 Upload a principal's signature</b></label>
+          <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" />
           <div id="preview2"></div>
           <% if (data.avatar_sign) { %>
       <img src="<%=data.avatar_sign%>" />
