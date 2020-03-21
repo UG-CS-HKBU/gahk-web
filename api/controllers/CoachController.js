@@ -122,12 +122,12 @@ module.exports = {
       var model = await Coach.findOne(pid);
       if (model.CheckNo != req.body.Coach.CheckNo) {
         var html = await sails.renderView('membership/check_email', { model: model, layout: false });
-        await sails.helpers.sendSingleEmail({
-          to: model.Email,
-          from: sails.config.custom.mailgunFrom,
-          subject: '已收到閣下的支票',
-          html: html
-        });
+    //    await sails.helpers.sendSingleEmail({
+    //      to: model.Email,
+    //      from: sails.config.custom.mailgunFrom,
+    //      subject: '已收到閣下的支票',
+    //      html: html
+    //    });
       }
 
       var models = await Coach.update(pid).set({
