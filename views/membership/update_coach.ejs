@@ -19,15 +19,15 @@
   
   
     <form action="/membership/update_coach/<%=coach.id%>" method="POST">
-      <div class="form-group">
+    <!--  <div class="form-group">
         <br>
           <label style="font-size:14px"><b>支票號碼</b></label>
   
           <input type="text" name="Coach[CheckNo]"  onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%=coach.CheckNo%>">
         
-      </div>
+      </div> -->
 
-      <div class="form-group">
+    <!--  <div class="form-group">
         <label style="font-size:14px"><b>確認教練?</b></label>
   
         <% if (coach.comfirm_coach=="是"){ %>
@@ -36,7 +36,7 @@
      <p style="font-size:16pt"><a href="/coach/confirm_coach/<%=coach.id%>">確認 Submit</a></p> 
      <% } %>
   
-      </div> -->
+      </div>  -->
 
       <br>
       <p style="font-size:13px">請在適用的空格內加上勾號 Please tick in appropriate boxes</p>
@@ -236,7 +236,7 @@
         <label style="font-size:13px"> 姓名 (英文)
           Name (Eng)</label>
         <input type="text" name="Coach[Engname]" value="<%= coach.Engname%>"
-          onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,'')">
+          onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')">
         <label style="font-size:13px">姓名 (中文)
           Name (Chi)</label>
         <input type="text" name="Coach[ChiName]" value="<%= coach.ChiName%>"
@@ -672,7 +672,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[date_training]" onkeyup="value=value.replace(/[^0-9]/g,'')"  value="<%= coach.date_training%>"></td>
+              <td> <input type="text" name="Coach[date_training]" onkeyup="value=value.replace(/[^0-9]/g,'/')"  value="<%= coach.date_training%>"></td>
               <td> <input type="text" name="Coach[school_training]" value="<%= coach.school_training%>"></td>
               <td> <input type="text" name="Coach[Discipline_training]" value="<%= coach.Discipline_training%>"></td>
             </tr>
@@ -706,7 +706,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[Badges_date]" onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= coach.Badges_date%>"></td>
+              <td> <input type="text" name="Coach[Badges_date]" onkeyup="value=value.replace(/[^0-9]/g,'/')" value="<%= coach.Badges_date%>"></td>
               <td> <input type="text" name="Coach[Badges_school]" value="<%=coach.Badges_school%>"></td>
               <td> <input type="text" name="Coach[Badges_no]" value="<%= coach.Badges_no%>"></td>
             </tr>
@@ -743,7 +743,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[Activities_date]" onkeyup="value=value.replace(/[^0-9]/g,'')"  value="<%= coach.Activities_date%>"></td>
+              <td> <input type="text" name="Coach[Activities_date]" onkeyup="value=value.replace(/[^0-9]/g,'/')"  value="<%= coach.Activities_date%>"></td>
               <td> <input type="text" name="Coach[Activities_event]" value="<%= coach.Activities_event%>"></td>
               <td> <input type="text" name="Coach[Activities_badges]" value="<%= coach.Activities_badges%>"></td>
             </tr>
@@ -782,7 +782,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[Coaching_workshops_date]" onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= coach.Coaching_workshops_date%>">
+              <td> <input type="text" name="Coach[Coaching_workshops_date]" onkeyup="value=value.replace(/[^0-9]/g,'/')" value="<%= coach.Coaching_workshops_date%>">
               </td>
               <td> <input type="text" name="Coach[Coaching_workshops_event]" value="<%=coach.Coaching_workshops_event%>">
               </td>
@@ -905,7 +905,7 @@
           及 and 學校蓋印 School Chop：</label>
           <div class="form-group">
             <br>
-            <label><b>上載校長簽署 Upload a personal photo</b></label>
+            <label><b>上載校長簽署 Upload a principal's signature</b></label>
             <input type="file" accept="image/*" onchange="handleFile2(this.files)" />
             <div id="preview2"></div>
             <% if (coach.avatar_sign) { %>
