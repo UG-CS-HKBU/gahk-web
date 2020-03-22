@@ -236,19 +236,19 @@
         <label style="font-size:13px"> 姓名 (英文)
           Name (Eng)</label>
         <input type="text" name="Coach[Engname]" value="<%= coach.Engname%>"
-          onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')">
+          onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')" required>
         <label style="font-size:13px">姓名 (中文)
           Name (Chi)</label>
         <input type="text" name="Coach[ChiName]" value="<%= coach.ChiName%>"
-          onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')">
+          onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
       </div>
       <br>
       <div class="form-group">
         <label style="font-size:13px"> 香港身份證號碼
           HKID no.
         </label>
-        <input type="text" name="Coach[Id]" value="<%= coach.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
-       >
+        <input type="text" name="Coach[Id]" value="<%= coach.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9()]/g,'')"
+        required>
 
         
         <label style="font-size:13px"> 性別
@@ -278,18 +278,18 @@
         <label style="font-size:13px">出生日期
           Date of birth
         </label>
-        <input type="date" name="Coach[Birthd]" value="<%= coach.Birthd%>">
+        <input type="date" name="Coach[Birthd]" value="<%= coach.Birthd%>" required>
       
         <label style="font-size:13px"> 職業
           Occupation</label>
-        <input type="text" name="Coach[Occupation]" value="<%=coach.Occupation%>">
+        <input type="text" name="Coach[Occupation]" value="<%=coach.Occupation%>" required>
       </div>
       <br>
       <div class="form-group">
         <label style="font-size:13px"> 學歷
           Education level
         </label>
-        <input type="text" name="Coach[Education]" value="<%= coach.Education%>">
+        <input type="text" name="Coach[Education]" value="<%= coach.Education%>" required>
        
         <label style="font-size:12px"> *請提供相關證書副本
           * Please provide certificate copies
@@ -305,7 +305,7 @@
         <input type="text" name="Coach[Hnumber]" value="<%= coach.Hnumber%>" maxlength="8" pattern="\d{8}">
         <label style="font-size:13px">( 手提 Moblie)
         </label>
-        <input type="text" name="Coach[Mnumber]" value="<%= coach.Mnumber%>" maxlength="8" pattern="\d{8}">
+        <input type="text" name="Coach[Mnumber]" value="<%= coach.Mnumber%>" maxlength="8" pattern="\d{8}" required>
       </div>
       <br>
       <div class="form-group">
@@ -314,7 +314,7 @@
         </label>
   
         <input type="email" name="Coach[Email]" value="<%= coach.Email%>"
-          pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt">
+          pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required>
         <label style="font-size:12px"> *以此電郵作主要通訊之用
         </label>
       </div>
@@ -325,7 +325,7 @@
         </label>
   
         <input type="text" name="Coach[ChiAddress]" value="<%= coach.ChiAddress%>"
-        style="width:350pt">
+        style="width:350pt" required>
   
       </div>
   
