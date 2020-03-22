@@ -125,8 +125,28 @@ module.exports.routes = {
 //  'POST /coach/update_coach/:id': 'CoachController.update_coach',
   '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
+
   '/index' : 'CoachController.coach_record',
   'GET /index': 'CoachController.coach_record',
+  
+  '/indexACRO' : 'CoachController.indexACRO',
+  'GET /indexACRO': 'CoachController.indexACRO',
+
+  '/indexAER' : 'CoachController.indexAER',
+  'GET /indexAER': 'CoachController.indexAER',
+
+  '/indexMAG' : 'CoachController.indexMAG',
+  'GET /indexMAG': 'CoachController.indexMAG',
+
+  '/indexRG' : 'CoachController.indexRG',
+  'GET /indexRG': 'CoachController.indexRG',
+
+  '/indexTRA' : 'CoachController.indexTRA',
+  'GET /indexTRA': 'CoachController.indexTRA',
+
+  '/indexWAG' : 'CoachController.indexWAG',
+  'GET /indexWAG': 'CoachController.indexWAG',
+
   '/status' : 'CoachController.status',
   'GET /status': 'CoachController.status',
 

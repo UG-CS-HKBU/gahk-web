@@ -187,11 +187,6 @@ module.exports = {
         hope: req.body.Coach.hope,
         avatar_sign: req.body.Coach.avatar_sign,
 
-
-
-
-
-
       }).fetch();
 
 
@@ -219,6 +214,38 @@ module.exports = {
     return res.view('membership/coach_record', { 'coach': coach });
 
   },
+
+  indexACRO: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/indexACRO', { 'coach': coach });
+  },
+
+  indexAER: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/indexAER', { 'coach': coach });
+
+  },
+  indexMAG: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/indexMAG', { 'coach': coach });
+
+  },
+  indexWAG: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/indexWAG', { 'coach': coach });
+  },
+
+  indexRG: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/indexRG', { 'coach': coach });
+  },
+
+  indexTRA: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/indexTRA', { 'coach': coach });
+  },
+
+  
 
 
   csv: async function (req, res) {
