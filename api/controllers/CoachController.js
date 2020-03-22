@@ -43,7 +43,7 @@ module.exports = {
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
 
-      await Coach.create(req.body.Coach);
+    //  await Coach.create(req.body.Coach);
 
     //  req.session.data = {};  //clear data of session
 
@@ -199,7 +199,7 @@ module.exports = {
 
 
       if (models.length > 0)
-      {return res.redirect('/membership/coach_record');}
+      {return res.redirect('/status');}
 
 
       else

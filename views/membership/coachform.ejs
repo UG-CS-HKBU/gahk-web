@@ -19,7 +19,7 @@
 
 
   
-  <form action="/membership/coachform" method="POST">
+  <form action="/coach/coachform" method="POST">
   <!-- <form action="/membership/coachform" method="POST" onsubmit="return submitForm(this);"> -->
 
     <br>
@@ -221,7 +221,7 @@
       </label><label style="font-size:14px;color:red">
         *
       </label>
-      <input type="text" name="Coach[Id]" value="<%= data.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
+      <input type="text" name="Coach[Id]" value="<%= data.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9()]/g,'')"
         required>
       <label style="font-size:13px"> 性別
         Gender</label><label style="font-size:14px;color:red">
@@ -272,7 +272,7 @@
       <div class="form-group">
         <label><b>上載學歷檔案 Upload a educational level document (pdf檔)</b></label>
 
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" />
         <div id="preview"></div>
       </div>
 
@@ -776,7 +776,7 @@
       </table>
       <div class="form-group">
         <label><b>上載文件 Upload a document (pdf檔)</b></label>
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile3(this.files)" />
+        <input type="file" accept="application/pdf" onchange="handleFile3(this.files)" />
         <div id="preview3"></div>
       </div>
 
