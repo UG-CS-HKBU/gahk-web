@@ -19,7 +19,7 @@
 
 
   
-  <form action="/membership/coachform" method="POST">
+  <form action="/coach/coachform" method="POST">
   <!-- <form action="/membership/coachform" method="POST" onsubmit="return submitForm(this);"> -->
 
     <br>
@@ -272,7 +272,7 @@
       <div class="form-group">
         <label><b>上載學歷檔案 Upload a educational level document (pdf檔)</b></label>
 
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" />
         <div id="preview"></div>
       </div>
 
@@ -776,7 +776,7 @@
       </table>
       <div class="form-group">
         <label><b>上載文件 Upload a document (pdf檔)</b></label>
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile3(this.files)" />
+        <input type="file" accept="application/pdf" onchange="handleFile3(this.files)" />
         <div id="preview3"></div>
       </div>
 

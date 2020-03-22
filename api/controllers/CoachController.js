@@ -60,7 +60,7 @@ module.exports = {
 
 
       // return res.redirect('personal_login');
-      return res.ok("Successfully created!");
+      return res.redirect("/coach");
     }
 
   },
@@ -89,10 +89,6 @@ module.exports = {
       }).fetch();
     }
     model = model[0];
-
-
-
-
 
     var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
     await sails.helpers.sendSingleEmail({
@@ -208,29 +204,21 @@ module.exports = {
 
 
       if (models.length > 0)
-      {return res.redirect('/membership/coach_record');}
+      {return res.redirect('/status');}
 
 
       else
       {return res.send('No such coach!');}
-
     }
-
   },
 
 
   //show all coach record
   coach_record: async function (req, res) {
-
-
     var coach = await Coach.find();
     return res.view('membership/coach_record', { 'coach': coach });
 
   },
-
-
-
-
 
 
   csv: async function (req, res) {
@@ -319,11 +307,6 @@ module.exports = {
         舉辦機構: element.Coaching_workshops_organization,
         聲明: element.hope,
 
-
-
-
-
-
       });
 
     });
@@ -337,10 +320,7 @@ module.exports = {
     var coach = await Coach.findOne(req.params.id);
     if (req.method == 'GET')
     {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
-
   },
-
-
 
 
   canel_coach: async function (req, res) {
@@ -352,8 +332,12 @@ module.exports = {
 
     return res.redirect('/coach/coach_record');
 
-
   },
 
+  status: async function (req, res) {
+    var coach = await Coach.find();
+    return res.view('profile/status', { 'coach': coach });
+
+  },
 
 };
