@@ -221,7 +221,7 @@
       </label><label style="font-size:14px;color:red">
         *
       </label>
-      <input type="text" name="Coach[Id]" value="<%= data.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
+      <input type="text" name="Coach[Id]" value="<%= data.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9()]/g,'')"
         required>
       <label style="font-size:13px"> 性別
         Gender</label><label style="font-size:14px;color:red">
