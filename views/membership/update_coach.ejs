@@ -901,42 +901,27 @@
   
        
   
-        <label style="font-size:10px">校長簽署 Signature of Principal
-          及 and 學校蓋印 School Chop：</label>
-          <div class="form-group">
-            <br>
-            <label><b>上載校長簽署 Upload a principal's signature</b></label>
-            <input type="file" accept="image/*" onchange="handleFile2(this.files)" />
-            <div id="preview2"></div>
-            <% if (coach.avatar_sign) { %>
-            <img src="<%=coach.avatar_sign%>" />
-            <input type="hidden" name="Coach[avatar_sign]" value="<%= coach.avatar_sign%>" />
-            <% } %>
       
-          </div>
-        <label style="font-size:10px">* (現職體育教師必須得到校長簽署及學校蓋印<br>
-          Principal's signature and school chop are
-          required for P.E. teacher)</label>
   
   
       </div>
-  
-  
+
+      <div class="form-group">
+        <label><b>下載 校長簽署 download principal's signature</b></label>
+        <% if (coach.avatar_sign) { %>
+          <img src="<%coach.avatar_sign%>" />
+          <a download="校長簽署副本.jpeg" href="<%=coach.avatar_sign%>" target="_blank">下載</a>
+
+          <% } %>
+      </div> 
       <br>
-     
-
-
-
       <div class="form-group">
           <label><b>下載 學歷證書副本 download certificate copies</b></label>
           <% if (coach.avatar) { %>
           <img src="<%coach.avatar%>" />
           <a download="學歷證書副本.pdf" href="<%=coach.avatar%>" target="_blank">下載</a>
-  
-  
-            <% } %>
-  
-  
+    
+            <% } %>  
         </div>
       <br>
       <div class="form-group">
