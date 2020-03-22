@@ -272,7 +272,7 @@
       <div class="form-group">
         <label><b>上載學歷檔案 Upload a educational level document (pdf檔)</b></label>
 
-        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" />
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required/>
         <div id="preview"></div>
       </div>
 
@@ -883,7 +883,7 @@
         <div class="form-group">
           <br>
           <label><b>上載校長簽署 Upload a principal's signature</b></label>
-          <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" />
+          <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" required/>
           <div id="preview2"></div>
           <% if (data.avatar_sign) { %>
       <img src="<%=data.avatar_sign%>" />
