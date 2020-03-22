@@ -17,6 +17,7 @@
                     </thead>                  
     <tbody>
             <% coach.forEach(function(model) { %>
+              <% if (model.ChiName != ""){ %>
             <tr>
               <th scope="row"></th>
               <td>INDC<%=model.CoachNo%></td>
@@ -25,6 +26,7 @@
               <td>待審批</td>
               <td><button type="submit" class="btn btn-danger">審批</button></td>
             </tr>
+            <%}%>
             <% }); %>
             
         </tbody>
