@@ -131,6 +131,31 @@ module.exports.routes = {
   'GET /status': 'CoachController.status',
 
 
+  '/index' : 'CoachController.coach_record',
+  'GET /index': 'CoachController.coach_record',
+  
+  '/indexACRO' : 'CoachController.indexACRO',
+  'GET /indexACRO': 'CoachController.indexACRO',
+
+  '/indexAER' : 'CoachController.indexAER',
+  'GET /indexAER': 'CoachController.indexAER',
+
+  '/indexMAG' : 'CoachController.indexMAG',
+  'GET /indexMAG': 'CoachController.indexMAG',
+
+  '/indexRG' : 'CoachController.indexRG',
+  'GET /indexRG': 'CoachController.indexRG',
+
+  '/indexTRA' : 'CoachController.indexTRA',
+  'GET /indexTRA': 'CoachController.indexTRA',
+
+  '/indexWAG' : 'CoachController.indexWAG',
+  'GET /indexWAG': 'CoachController.indexWAG',
+
+  '/status' : 'CoachController.status',
+  'GET /status': 'CoachController.status',
+
+
   'GET /user':'UserController.index',
   '/user/login':'UserController.login',
   '/user/update_user/:id': 'UserController.Update_User',
