@@ -289,11 +289,19 @@
         <label style="font-size:13px"> 學歷
           Education level
         </label>
-        <input type="text" name="Coach[Education]" value="<%= coach.Education%>" required>
+        <select name="Coach[Education]" value="<%= coach.Education%>" required>
+          <option value=""></option>
+          <option value="Associate">Associate degree</option>
+          <option value="Bachelor">Bachelor’s degree</option>
+          <option value="Master">Master’s degree</option>
+          <option value="Professional">Professional degree</option>
+          <option value="Doctorate">Doctorate degree</option>
+      </select>
+      <!--  <input type="text" name="Coach[Education]" value="<%= coach.Education%>" required>
        
         <label style="font-size:12px"> *請提供相關證書副本
           * Please provide certificate copies
-        </label>
+        </label> -->
       </div>
       <br>
       <div class="form-group">

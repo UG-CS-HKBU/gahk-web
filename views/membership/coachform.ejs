@@ -260,17 +260,24 @@
       <input type="text" name="Coach[Occupation]" value="<%=data.Occupation%>" required>
     </div>
     <br>
-    <div class="form-group">
-      <label style="font-size:13px"> 學歷
+
+    <div>
+      <span><label style="font-size:13px"> 學歷
         Education level
       </label><label style="font-size:14px;color:red">
         *
-      </label>
-      <input type="text" name="Coach[Education]" value="<%= data.Education%>" required>
-
+      </label></span>
+      <select name="Coach[Education]" value="<%= data.Education%>" required>
+          <option value=""></option>
+          <option value="Associate">Associate degree</option>
+          <option value="Bachelor">Bachelor’s degree</option>
+          <option value="Master">Master’s degree</option>
+          <option value="Professional">Professional degree</option>
+          <option value="Doctorate">Doctorate degree</option>
+      </select>
       <br><br>
       <div class="form-group">
-        <label><b>上載學歷檔案 Upload a educational level document (pdf檔)</b></label>
+        <label><b>上載學歷檔案 Upload an educational level document (pdf檔)</b></label>
 
         <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required/>
         <div id="preview"></div>
@@ -280,7 +287,29 @@
       <label style="font-size:12px"> *請提供相關證書副本
         * Please provide certificate copies
       </label>
-    </div>
+  </div>
+
+    <!-- <div class="form-group">
+      <label style="font-size:13px"> 學歷
+        Education level
+      </label><label style="font-size:14px;color:red">
+        *
+      </label>
+      <input type="text" name="Coach[Education]" value="<%= data.Education%>" required>
+
+      <br><br>
+      <div class="form-group">
+        <label><b>上載學歷檔案 Upload an educational level document (pdf檔)</b></label>
+
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required/>
+        <div id="preview"></div>
+      </div>
+
+
+      <label style="font-size:12px"> *請提供相關證書副本
+        * Please provide certificate copies
+      </label>
+    </div> -->
 
 
 
@@ -883,7 +912,8 @@
         <div class="form-group">
           <br>
           <label><b>上載校長簽署 Upload a principal's signature</b></label>
-          <input type="file" accept="image/*" onchange="handleFile2(this.files)" required/>
+          <input type="file" accept="image/*" required/>
+        <!--  <input type="file" accept="image/*" onchange="handleFile2(this.files)" required/> -->
           <div id="preview2"></div>
           <% if (data.avatar_sign) { %>
       <img src="<%=data.avatar_sign%>" />
@@ -910,6 +940,7 @@
 </div>
 
 <script>
+
   function handleFile(files) {
     const file = files[0];
     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
