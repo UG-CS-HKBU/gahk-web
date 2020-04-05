@@ -9,15 +9,15 @@
   <% coach.forEach(function(model) { %>
       <% if (model.Disciplines3=="RG"){ %>
      <!-- Team item -->
-<div class="col-xl-6 col-sm-6 mb-5">
-      <div class="card" style="width: 350px; height: 300px; margin: auto;">
-        <img src="<%=req.session.data.Personal_photo%>" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"><a href="/coach/coachform_detail/<%=model.id%>"> <%= model.ChiName %>教練</a></h5>
-            <!-- <a href="/coach/update_coach/<%=model.id%>" class="btn btn-danger" role="button">Update</a> -->
-          </div>
+     <div class="container">
+      <div class="card" style="width:250px">
+        <img class="card-img-top" src="<%=req.session.data.Personal_photo%>" alt="Card image" style="width:100%">
+        <div class="card-body">
+          <h5 class="card-title"><a href="/coach/coachform_detail/<%=model.id%>"> <%= model.ChiName %>教練</a></h5>
         </div>
-  </div><!-- End -->
+      </div>
+      <br>
+
   <%}%>
       <% }); %>
   </div>
