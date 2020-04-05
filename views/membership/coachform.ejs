@@ -1058,10 +1058,10 @@
     const file = files[0];
     if (!file.type.startsWith('image/')) return;
 
-    if (file.size > 4194304) {
-      alert("請重新上載4MB相片");
-      return;
-    }
+    // if (file.size > 4194304) {
+    //   alert("請重新上載4MB相片");
+    //   return;
+    // }
     var preview4 = document.getElementById('preview4');
     var reader = new FileReader();
     reader.onload = function (e) {

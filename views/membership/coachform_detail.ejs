@@ -3,15 +3,12 @@
         <h5 class="main-heading1">教練<span class="highlight">資料</span></h5>
       <div class="container-fluid">
       
-            <div class="card col">
-                    <div class="row">
-                            <div class="col-lg-4">
-                                <div class="profile-img-center">
-                                    <%= data.Personal_photo %>
-                                </div>
-                            </div>
     <div class="col-12">
             <ul class="list-group">
+
+                <li class="list-group-item">
+                    <img src="<%=req.session.data.Personal_photo%>" class="card-img-top" alt="...">
+                </li>
 
                 <li class="list-group-item">
                     <span class="font-weight-bold">1. 教練註冊級別:</span>
