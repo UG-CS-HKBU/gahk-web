@@ -71,6 +71,11 @@ module.exports = {
 
     },
 
+    Personal_photo:{
+      type:'string',
+
+    },
+
 
     Engname:{
       type:'string',
@@ -132,6 +137,11 @@ module.exports = {
 
     },
 
+    Highlight_property5:{
+      type:'boolean',
+      
+    },
+
     HaveBeenCoach:{
       type:'string',
 
@@ -149,6 +159,11 @@ module.exports = {
     Have2:{
       type:'string',
 
+    },
+
+    Highlight_property6:{
+      type:'boolean',
+      
     },
 
 
@@ -236,6 +251,11 @@ module.exports = {
       type:'string',
 
 
+    },
+
+    Highlight_property7:{
+      type:'boolean',
+      
     },
 
 

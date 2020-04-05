@@ -18,9 +18,9 @@
   </table>
 
 
-  
+
   <form action="/coach/coachform" method="POST">
-  <!-- <form action="/membership/coachform" method="POST" onsubmit="return submitForm(this);"> -->
+    <!-- <form action="/membership/coachform" method="POST" onsubmit="return submitForm(this);"> -->
 
     <br>
 
@@ -201,6 +201,17 @@
     <p style="font-size:16px"><b>4. 個人資料 Personal Particulars：</b></p>
 
     <div class="form-group">
+      <label style="font-size:13px">上載個人相片 Upload a personal photo</label>
+      <input type="file" accept="image/*" onchange="handleFile4(this.files)" required />
+      <div id="preview4"></div>
+      <% if (data.Personal_photo) { %>
+      <img src="<%=data.Personal_photo%>" />
+      <input type="hidden" name="Coach[Personal_photo]" value="<%= data.Personal_photo%>" />
+      <% } %>
+
+    </div>
+
+    <div class="form-group">
       <label style="font-size:13px"> 姓名 (英文)
         Name (Eng)</label><label style="font-size:14px;color:red">
         *
@@ -263,23 +274,23 @@
 
     <div>
       <span><label style="font-size:13px"> 學歷
-        Education level
-      </label><label style="font-size:14px;color:red">
-        *
-      </label></span>
+          Education level
+        </label><label style="font-size:14px;color:red">
+          *
+        </label></span>
       <select name="Coach[Education]" value="<%= data.Education%>" required>
-          <option value=""></option>
-          <option value="Associate">Associate degree</option>
-          <option value="Bachelor">Bachelor’s degree</option>
-          <option value="Master">Master’s degree</option>
-          <option value="Professional">Professional degree</option>
-          <option value="Doctorate">Doctorate degree</option>
+        <option value="">請選擇 Please select</option>
+        <option value="Associate">Associate degree</option>
+        <option value="Bachelor">Bachelor’s degree</option>
+        <option value="Master">Master’s degree</option>
+        <option value="Professional">Professional degree</option>
+        <option value="Doctorate">Doctorate degree</option>
       </select>
       <br><br>
       <div class="form-group">
         <label><b>上載學歷檔案 Upload an educational level document (pdf檔)</b></label>
 
-        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required/>
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required />
         <div id="preview"></div>
       </div>
 
@@ -287,7 +298,7 @@
       <label style="font-size:12px"> *請提供相關證書副本
         * Please provide certificate copies
       </label>
-  </div>
+    </div>
 
     <!-- <div class="form-group">
       <label style="font-size:13px"> 學歷
@@ -358,6 +369,10 @@
 
     <br>
     <p style="font-size:16px"><b>5. 體操教學經驗 Coaching Experience：(請選擇)</b></p>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property5]">
+      <label label>向公眾展示該資料 Show this information to public</label>
+    </div>
     <div class="form-group">
 
       <% if (data.HaveBeenCoach=="選擇"){ %>
@@ -408,6 +423,10 @@
 
 
     <p style="font-size:16px"> <b>6. 教練資歷 Coach Qualification (請選擇)</b></p>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property6]">
+      <label label>向公眾展示該資料 Show this information to public</label>
+    </div>
 
     <div class="form-group">
 
@@ -594,6 +613,10 @@
       <br>
       (如空位不敷應用，請另紙填寫 If space is insufficient, please provide details in a separate sheet)</b>
     </p>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property7]">
+      <label label>向公眾展示該資料 Show this information to public</label>
+    </div>
     <div class="form-group">
 
       <label style="font-size:12px"> (A) 是否已考取本地/國際裁判資歷？ <br>
@@ -912,8 +935,8 @@
         <div class="form-group">
           <br>
           <label><b>上載校長簽署 Upload a principal's signature</b></label>
-          <input type="file" accept="image/*" required/>
-        <!--  <input type="file" accept="image/*" onchange="handleFile2(this.files)" required/> -->
+          <!-- <input type="file" accept="image/*" required/> -->
+          <input type="file" accept="image/*" onchange="handleFile2(this.files)" required/>
           <div id="preview2"></div>
           <% if (data.avatar_sign) { %>
       <img src="<%=data.avatar_sign%>" />
@@ -960,15 +983,12 @@
     }
     reader.readAsDataURL(file);
   }
+
   function handleFile2(files) {
 
     const file = files[0];
     if (!file.type.startsWith('image/')) return;
 
-    if (file.size > 4194304) {
-      alert("請重新上載4MB相片");
-      return;
-    }
     var preview2 = document.getElementById('preview2');
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -986,6 +1006,33 @@
     }
     reader.readAsDataURL(file);
   }
+
+  // function handleFile2(files) {
+
+  //   const file = files[0];
+  //   if (!file.type.startsWith('image/')) return;
+
+  //   if (file.size > 4194304) {
+  //     alert("請重新上載4MB相片");
+  //     return;
+  //   }
+  //   var preview2 = document.getElementById('preview2');
+  //   var reader = new FileReader();
+  //   reader.onload = function (e) {
+  //     preview2.innerHTML = "";
+  //     var img = document.createElement('img');
+  //     img.src = e.target.result;
+  //     preview2.appendChild(img);
+  //     var input = document.createElement('input');
+  //     input.type = 'hidden';
+  //     input.name = 'Coach[avatar_sign]';
+  //     input.value = e.target.result;
+  //     img.style.width = "200px";
+  //     img.style.height = "200px";
+  //     preview2.appendChild(input);
+  //   }
+  //   reader.readAsDataURL(file);
+  // }
   function handleFile3(files) {
     const file = files[0];
     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
@@ -1002,6 +1049,33 @@
       input.value = e.target.result;
 
       preview.appendChild(input);
+    }
+    reader.readAsDataURL(file);
+  }
+
+  function handleFile4(files) {
+
+    const file = files[0];
+    if (!file.type.startsWith('image/')) return;
+
+    if (file.size > 4194304) {
+      alert("請重新上載4MB相片");
+      return;
+    }
+    var preview4 = document.getElementById('preview4');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      preview4.innerHTML = "";
+      var img = document.createElement('img');
+      img.src = e.target.result;
+      preview4.appendChild(img);
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'Coach[Personal_photo]';
+      input.value = e.target.result;
+      img.style.width = "200px";
+      img.style.height = "250px";
+      preview4.appendChild(input);
     }
     reader.readAsDataURL(file);
   }
@@ -1030,19 +1104,19 @@
       alert("請勾選複選框。")
     }
 
-  
+
 
 
 
     if (((result1 && result2) > 0) && ((result3 && result4) > 0) || ((!result1 && !result2) > 0) && ((result3 && result4) > 0) || ((result1 && result2) > 0) && ((!result3 && !result4) > 0)) {
-     
+
       return true;
     } else {
       return false;
 
-   
-  }
-    
+
+    }
+
 
   }
 </script>

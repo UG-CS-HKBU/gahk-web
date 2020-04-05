@@ -915,6 +915,15 @@
       </div>
 
       <div class="form-group">
+        <label><b>下載 個人相片 download personal photo</b></label>
+        <% if (coach.Personal_photo) { %>
+          <img src="<%coach.Personal_photo%>" />
+          <a download="個人相片.jpeg" href="<%=coach.Personal_photo%>" target="_blank">下載</a>
+
+          <% } %>
+      </div> 
+      <br>
+      <div class="form-group">
         <label><b>下載 校長簽署 download principal's signature</b></label>
         <% if (coach.avatar_sign) { %>
           <img src="<%coach.avatar_sign%>" />
