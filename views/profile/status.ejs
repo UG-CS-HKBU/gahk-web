@@ -1,4 +1,4 @@
- <%- partial('./partial/sidemenu.ejs') %>
+<%- partial('./partial/sidemenu.ejs') %>
 
 <section class="content aboutus flex-lg-grow-1">
         <h5 class="main-heading1">審批<span class="highlight">列表</span></h5>
@@ -25,6 +25,7 @@
               <td><a href="/coach/update_coach/<%=model.id%>">  <%= model.ChiName %> </a></td>
               <td>待審批</td>
               <td><button type="submit" class="btn btn-danger">審批</button></td>
+              <td><button type="submit" class="btn btn-primary" action="/export_xlsx">export</button></td>
             </tr>
             <%}%>
             <% }); %>
@@ -42,5 +43,3 @@
         </script>
         </div>
     </section>
-
-    
