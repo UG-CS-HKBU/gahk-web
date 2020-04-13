@@ -376,15 +376,16 @@ module.exports = {
     
     var ws = XLSX.utils.json_to_sheet(models.map(model => {
       return {
-        Engname: req.body.Coach.Engname,
-        ChiName: req.body.Coach.ChiName,
-        Id: req.body.Coach.Id,
+        
+        ChiName: model.ChiName,
+        Id: model.New_coach,
       }
     }));
-    XLSX.utils.book_append_sheet(wb, ws, "coach");
+    XLSX.utils.book_append_sheet(wb, ws, "Coach");
     
     res.set("Content-disposition", "attachment; filename=coach.xlsx");
     return res.end(XLSX.write(wb, {type:"buffer", bookType:"xlsx"}));
+    
   },
 
 };
