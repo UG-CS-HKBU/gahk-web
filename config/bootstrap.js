@@ -20,6 +20,7 @@ module.exports.bootstrap = async function(done) {
   if (!admin) {
     await User.create({Username:'admin1', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'kenny@admin.com',Date:new Date()});
     await User.create({Username:'admin2', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'kennycheng@comp.hkbu.edu.hk',Date:new Date()});
+    await User.create({Username:'coach1', Password:await bcrypt.hash('hkbu123456', 10), role:'coach',Chiname:'教練',EngName:'Coach',Email:'coach@coach.com',Date:new Date()});
   }
 
   if (await Email.count() == 0) {
