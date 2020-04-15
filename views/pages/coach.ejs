@@ -9,10 +9,10 @@
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_TRA.pdf">彈網註冊教練</a></li>
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_AER.pdf">健美體操註冊教練</a></li>
       <li><a class="side-button1" target="_blank" href="/doc/Registered Coach_2019.2.22_ACRO.pdf">技巧體操註冊教練</a></li>
-      
-      <% if (req.session.role == 'admin') {%>
+      <li><a class="side-button1 <%= req.path == '/status' ? 'active':'' %>" href="/status">審批列表</a></li>
+      <!-- <% if (req.session.role == 'admin') {%>
         <li><a class="side-button1 <%= req.path == '/status' ? 'active':'' %>" href="/status">審批列表</a></li>
-        <% } %>
+        <% } %> -->
       <li class="dropdown">
 
         <a href="/index" class="side-button1 dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 教練資訊 <span class="caret"></span></a>
