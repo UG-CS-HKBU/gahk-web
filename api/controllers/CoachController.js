@@ -367,4 +367,25 @@ module.exports = {
 
   },
 
+  export_xlsx: async function(req, res) {
+
+    var models = await Coach.find();
+    
+    var XLSX = require('xlsx');
+    var wb = XLSX.utils.book_new();
+    
+    var ws = XLSX.utils.json_to_sheet(models.map(model => {
+      return {
+        
+        ChiName: model.ChiName,
+        Id: model.New_coach,
+      }
+    }));
+    XLSX.utils.book_append_sheet(wb, ws, "Coach");
+    
+    res.set("Content-disposition", "attachment; filename=coach.xlsx");
+    return res.end(XLSX.write(wb, {type:"buffer", bookType:"xlsx"}));
+    
+  },
+
 };
