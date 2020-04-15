@@ -32,7 +32,12 @@
             
         </tbody>
     </table>
-    <td><button type="submit" class="btn btn-primary" action="/coach/export_xlsx">Export</button></td>
+    <form method="get" action="/coach/export_xlsx">
+      <button type="submit" class="btn btn-primary">Export</button>
+  </form>
+
+    
+   
     <script>
             var table = document.getElementsByTagName('table')[0],
                 rows = table.getElementsByTagName('tr'),
