@@ -440,7 +440,6 @@ module.exports = {
         學校機構名稱: model.school_training,
         教授項目: model.Discipline_training,
 
-
         曾教導學生考取章別計劃之數量舉辦日期: model.Badges_date,
         訓練班學校機構名稱: model.Badges_school,
         級別及數量: model.Badges_no,
