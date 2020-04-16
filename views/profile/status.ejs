@@ -18,8 +18,8 @@
         </tr>
       </thead>
       <tbody>
-       
-          
+
+
 
 
         <% coach.forEach(function(model) { %>
@@ -29,27 +29,23 @@
           <td>INDC<%=model.CoachNo%></td>
           <td><%= model.New_coach %></td>
           <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
-          <% if (model.comfirm_coach != "是" ){ %>
-            <td>待審批</td>
-            <%}%>
+          <% if (model.comfirm_coach == "" ){ %>
+          <td>待審批</td>
+          <td><button type="button" class="btn btn-danger" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
+          <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%= model.id%>')">拒絕</button></td>
 
-            <% if (model.comfirm_coach == "是" ){ %>
-              <td>已審批</td>
-              <%}%>
+          <% }else if (model.comfirm_coach == "是" ){ %>
+          <td>已審批</td>
+          <td><button type="button" class="btn btn-primary">已審批</button></td>
 
-         <% if (model.comfirm_coach == "是" ){ %>
-
-          <td><button type="button" class="btn btn-primary" >已審批</button></td>
+          <% } else if (model.comfirm_coach == "否" ){ %>
+          <td>已拒絕</td>
+          <td><button type="button" class="btn btn-primary">已拒絕</button></td>
           <%}%>
-
-          <% if (model.comfirm_coach != "是" ){ %>
-
-            <td><button type="button" class="btn btn-danger" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
-            <%}%>
         </tr>
 
         <%}%>
-            <% }); %>
+          <% }); %>
 
       </tbody>
     </table>
@@ -58,7 +54,7 @@
     <% } %>
 
     <% if (req.session.role == 'coach') {%>
-      
+
     <section class="content aboutus flex-lg-grow-1">
       <h5 class="main-heading1">審批<span class="highlight">列表</span></h5>
       <div class="container-fluid">
@@ -75,7 +71,7 @@
             </tr>
           </thead>
           <tbody>
-           
+
 
             <% coach.forEach(function(model) { %>
             <% if (model.ChiName != "" && model.ChiName==req.session.ChiName){ %>
@@ -84,25 +80,27 @@
               <td>INDC<%=model.CoachNo%></td>
               <td><%= model.New_coach %></td>
               <td><%= model.ChiName %> </a></td>
-              
-              <% if (model.comfirm_coach != "是" ){ %>
-              <td>待審批</td>
-              <%}%>
 
-              <% if (model.comfirm_coach == "是" ){ %>
-                <td>已審批</td>
-                <%}%>
+              <% if (model.comfirm_coach == "" ){ %>
+              <td>待審批</td>
+
+              <% }else if (model.comfirm_coach == "是" ){ %>
+              <td>已審批</td>
+
+              <% } else if (model.comfirm_coach == "否" ){ %>
+              <td>已拒絕</td>
+              <%}%>
 
               <
             </tr>
 
             <%}%>
-            
-                  <% }); %>
+
+              <% }); %>
 
           </tbody>
         </table>
-        
+
 
         <% } %>
         <script>
@@ -114,6 +112,31 @@
             if (r) {
 
               var response = await fetch("/coach/confirm_coach/" + id, {
+                method: "POST",
+                credentials: 'same-origin',
+              });
+
+              if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+              } else {
+                alert(response.status + ": " + response.statusText);
+              }
+
+            } else {
+              alert("cancelled");
+            }
+
+          };
+
+          async function cancelCoach(id) {
+
+            var r = confirm("Reject Coach?");
+
+            if (r) {
+
+              var response = await fetch("/coach/canel_coach/" + id, {
                 method: "POST",
                 credentials: 'same-origin',
               });

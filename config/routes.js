@@ -125,6 +125,7 @@ module.exports.routes = {
 //  'POST /coach/update_coach/:id': 'CoachController.update_coach',
   '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
+  '/coach/cancel_coach/:id' : 'CoachController.cancel_coach',
   '/index' : 'CoachController.coach_record',
   'GET /index': 'CoachController.coach_record',
   '/status' : 'CoachController.status',
