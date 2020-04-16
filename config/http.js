@@ -52,7 +52,7 @@ module.exports.http = {
 
     bodyParser: (function _configureBodyParser(){
       var skipper = require('skipper');
-      var middlewareFn = skipper({ strict: true, maxWaitTimeBeforePassingControlToApp: 9999999 });
+      var middlewareFn = skipper({ strict: true, maxWaitTimeBeforePassingControlToApp: 10000, limit: 9999999999999 });
       return middlewareFn;
     })(),
 
