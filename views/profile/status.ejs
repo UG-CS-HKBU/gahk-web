@@ -38,8 +38,11 @@
         <% }); %>
       </tbody>
     </table>
-    <form method="get" action="/coach/export_xlsx">
-      <button type="submit" class="btn btn-primary">Export</button>
+    <form method="get" action="/coach/export_xlsx_Approved">
+      <button type="submit" class="btn btn-primary">Export Approved Coaches</button>
+
+      <form method="get" action="/coach/export_xlsx_Pending">
+        <button type="submit" class="btn btn-primary">Export Pending Coaches</button>      
 <% } %>
 
     <% if (req.session.role == 'coach') {%>
@@ -61,6 +64,7 @@
           </thead>
           <tbody>
             <% coach.forEach(function(model) { %>
+          
             <% if (model.ChiName == req.session.ChiName && model.ChiName != ""){ %>
             <tr>
               <th scope="row"></th>
@@ -74,7 +78,6 @@
               <td>已審批</td>
               <%}%>
             </tr>
-
             <%}%>
             <% }); %>
 

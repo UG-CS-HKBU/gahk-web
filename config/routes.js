@@ -174,6 +174,7 @@ module.exports.routes = {
   'POST /admin/email/:id':'AdminController.email_detail',
 
   'GET /admin/user':'AdminController.user_list',
-  '/coach/export_xlsx': 'CoachController.export_xlsx',
+  '/coach/export_xlsx_Pending': 'CoachController.export_xlsx_Pending',
+  '/coach/export_xlsx_Approved': 'CoachController.export_xlsx_Approved',
   
 };
