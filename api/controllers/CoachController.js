@@ -394,7 +394,11 @@ module.exports = {
 
     }).fetch();
 
-    return res.redirect('/coach/coach_record');
+    if (req.wantsJSON) {
+      return res.json({ message: "reject successfully！", url: '/status' });    // for ajax request
+    }
+
+    //return res.redirect('/coach/coach_record');
 
   },
 
