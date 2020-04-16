@@ -42,6 +42,8 @@ module.exports = {
 
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
+ 
+
 
     //  await Coach.create(req.body.Coach);
 
@@ -81,26 +83,31 @@ module.exports = {
         CoachNo: model.CoachNo + 1,
         comfirm_coach: '是',
       }).fetch();
+      
+
     } else {
 
       model = await Coach.update(pid).set({
         CoachNo: num + 1,
         comfirm_coach: '是',
       }).fetch();
+      
+
     }
     model = model[0];
 
-    var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
-    await sails.helpers.sendSingleEmail({
-      to: '16228375@life.hkbu.edu.hk',
-      from: sails.config.custom.mailgunFrom,
-      subject: '已確認成為教練',
-      html: html
-    });
+    // var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
+    // await sails.helpers.sendSingleEmail({
+    //   to: '16228375@life.hkbu.edu.hk',
+    //   from: sails.config.custom.mailgunFrom,
+    //   subject: '已確認成為教練',
+    //   html: html
+    // });
 
 
-    return res.redirect('/coach/coach_record');
-
+    if (req.wantsJSON){
+      return res.json({message: "confirm successfully！", url: '/status'});    // for ajax request
+  } 
   },
 
   update_coach: async function (req, res) {
