@@ -18,6 +18,10 @@
         </tr>
       </thead>
       <tbody>
+       
+          
+
+
         <% coach.forEach(function(model) { %>
         <% if (model.ChiName != ""){ %>
         <tr>
@@ -25,30 +29,38 @@
           <td>INDC<%=model.CoachNo%></td>
           <td><%= model.New_coach %></td>
           <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
-          <% if (model.confirm_coach != "是"){ %>
-          <td>待審批</td>
+          <% if (model.comfirm_coach != "是" ){ %>
+            <td>待審批</td>
+            <%}%>
+
+            <% if (model.comfirm_coach == "是" ){ %>
+              <td>已審批</td>
+              <%}%>
+
+         <% if (model.comfirm_coach == "是" ){ %>
+
+          <td><button type="button" class="btn btn-primary" >已審批</button></td>
           <%}%>
-          <% if (model.confirm_coach == "是"){ %>
-          <td>已審批</td>
-          <%}%>
-          <td><button type="button" class="btn btn-danger" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
+
+          <% if (model.comfirm_coach != "是" ){ %>
+
+            <td><button type="button" class="btn btn-danger" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
+            <%}%>
         </tr>
 
         <%}%>
-        <% }); %>
+            <% }); %>
+
       </tbody>
     </table>
-    <form method="get" action="/coach/export_xlsx_Approved">
-      <button type="submit" class="btn btn-primary">Export Approved Coaches</button>
+    <td><button type="submit" class="btn btn-primary" action="/coach/export_xlsx">Export</button></td>
 
-      <form method="get" action="/coach/export_xlsx_Pending">
-        <button type="submit" class="btn btn-primary">Export Pending Coaches</button>      
-<% } %>
+    <% } %>
 
     <% if (req.session.role == 'coach') {%>
-
+      
     <section class="content aboutus flex-lg-grow-1">
-      <h5 class="main-heading1">申請<span class="highlight">狀況</span></h5>
+      <h5 class="main-heading1">審批<span class="highlight">列表</span></h5>
       <div class="container-fluid">
 
         <table class="table">
@@ -63,23 +75,30 @@
             </tr>
           </thead>
           <tbody>
+           
+
             <% coach.forEach(function(model) { %>
-          
-            <% if (model.ChiName == req.session.ChiName && model.ChiName != ""){ %>
+            <% if (model.ChiName != "" && model.ChiName==req.session.ChiName){ %>
             <tr>
               <th scope="row"></th>
               <td>INDC<%=model.CoachNo%></td>
               <td><%= model.New_coach %></td>
-              <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
-              <% if (model.confirm_coach != "是"){ %>
+              <td><%= model.ChiName %> </a></td>
+              
+              <% if (model.comfirm_coach != "是" ){ %>
               <td>待審批</td>
               <%}%>
-              <% if (model.confirm_coach == "是"){ %>
-              <td>已審批</td>
-              <%}%>
+
+              <% if (model.comfirm_coach == "是" ){ %>
+                <td>已審批</td>
+                <%}%>
+
+              <
             </tr>
+
             <%}%>
-            <% }); %>
+            
+                  <% }); %>
 
           </tbody>
         </table>
