@@ -142,6 +142,16 @@ module.exports = {
       
     },
 
+    Highlight_property5a:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property5b:{
+      type:'boolean',
+      
+    },
+
     HaveBeenCoach:{
       type:'string',
 
@@ -166,7 +176,30 @@ module.exports = {
       
     },
 
+    Highlight_property6a:{
+      type:'boolean',
+      
+    },
 
+    Highlight_property6b:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6c:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6d:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6e:{
+      type:'boolean',
+      
+    },
 
 
     Qualification:{
@@ -254,6 +287,31 @@ module.exports = {
     },
 
     Highlight_property7:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7a:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7b:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7c:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7d:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7e:{
       type:'boolean',
       
     },

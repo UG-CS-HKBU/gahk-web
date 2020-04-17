@@ -9,18 +9,17 @@ module.exports = {
 
   coachform: async function (req, res) {
 
-  //  if (req.method == "GET")
-  //      {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+    //  if (req.method == "GET")
+    //      {return res.view('membership/coachform', { 'data': req.session.data || {} });}
 
-  //  if (!req.body.Coach)
-  //      return res.badRequest("Form-data not received.");
+    //  if (!req.body.Coach)
+    //      return res.badRequest("Form-data not received.");
 
-  //  await Coach.create(req.body.Coach);
+    //  await Coach.create(req.body.Coach);
 
-  //  return res.ok("Successfully created!");
+    //  return res.ok("Successfully created!");
 
-    if (req.method == 'GET')
-    {return res.view('membership/coachform', { 'data': req.session.data || {} });}
+    if (req.method == 'GET') { return res.view('membership/coachform', { 'data': req.session.data || {} }); }
     req.session.data = req.body.Coach;
     return res.view('membership/coachformPreview', { 'data': req.session.data || {} });
 
@@ -42,21 +41,21 @@ module.exports = {
 
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
- 
 
 
-    //  await Coach.create(req.body.Coach);
 
-    //  req.session.data = {};  //clear data of session
+      //  await Coach.create(req.body.Coach);
+
+      //  req.session.data = {};  //clear data of session
 
       // console.log(coach.Email);
       // var models = await User.find();
       // var html = await sails.renderView('membership/Email3', { coach: coach, layout: false });
       // await sails.helpers.sendSingleEmail({
-        // to: coach.Email,
-        // from: sails.config.custom.mailgunFrom,
-        // subject: '已收到閣下的申請表',
-        // html: html
+      // to: coach.Email,
+      // from: sails.config.custom.mailgunFrom,
+      // subject: '已收到閣下的申請表',
+      // html: html
       // });
 
 
@@ -83,7 +82,7 @@ module.exports = {
         CoachNo: model.CoachNo + 1,
         comfirm_coach: '是',
       }).fetch();
-      
+
 
     } else {
 
@@ -91,7 +90,7 @@ module.exports = {
         CoachNo: num + 1,
         comfirm_coach: '是',
       }).fetch();
-      
+
 
     }
     model = model[0];
@@ -105,9 +104,45 @@ module.exports = {
     // });
 
 
-    if (req.wantsJSON){
-      return res.json({message: "confirm successfully！", url: '/status'});    // for ajax request
-  } 
+    if (req.wantsJSON) {
+      return res.json({ message: "confirm successfully！", url: '/status' });    // for ajax request
+    }
+  },
+
+  cancel_coach: async function (req, res) {
+    var year = new Date().getFullYear();
+    var pid = parseInt(req.params.id) || -1;
+    var num = (year % 100) * 1000;
+    var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
+    var model = models[0];
+    if (models.length > 0) {
+      var model = await Coach.update(pid).set({
+        comfirm_coach: '否',
+      }).fetch();
+
+
+    } else {
+
+      model = await Coach.update(pid).set({
+        comfirm_coach: '否',
+      }).fetch();
+
+
+    }
+    model = model[0];
+
+    // var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
+    // await sails.helpers.sendSingleEmail({
+    //   to: '16228375@life.hkbu.edu.hk',
+    //   from: sails.config.custom.mailgunFrom,
+    //   subject: '已確認成為教練',
+    //   html: html
+    // });
+
+
+    if (req.wantsJSON) {
+      return res.json({ message: "reject successfully！", url: '/status' });    // for ajax request
+    }
   },
 
   update_coach: async function (req, res) {
@@ -119,22 +154,20 @@ module.exports = {
 
       var model = await Coach.findOne(pid);
 
-      if (model != null)
-      {return res.view('membership/update_coach', { 'coach': model });}
-      else
-      {return res.send('No such coach!');}
+      if (model != null) { return res.view('membership/update_coach', { 'coach': model }); }
+      else { return res.send('No such coach!'); }
 
     } else {
 
       var model = await Coach.findOne(pid);
       if (model.CheckNo != req.body.Coach.CheckNo) {
         var html = await sails.renderView('membership/check_email', { model: model, layout: false });
-    //    await sails.helpers.sendSingleEmail({
-    //      to: model.Email,
-    //      from: sails.config.custom.mailgunFrom,
-    //      subject: '已收到閣下的支票',
-    //      html: html
-    //    });
+        //    await sails.helpers.sendSingleEmail({
+        //      to: model.Email,
+        //      from: sails.config.custom.mailgunFrom,
+        //      subject: '已收到閣下的支票',
+        //      html: html
+        //    });
       }
 
       var models = await Coach.update(pid).set({
@@ -160,22 +193,22 @@ module.exports = {
         Email: req.body.Coach.Email,
         ChiAddress: req.body.Coach.ChiAddress,
         HaveBeenCoach: req.body.Coach.HaveBeenCoach || 'off',
-        HaveBeenCoach1:req.body.Coach.HaveBeenCoach1 || 'off',
+        HaveBeenCoach1: req.body.Coach.HaveBeenCoach1 || 'off',
         Have: req.body.Coach.Have,
         Have2: req.body.Coach.Have2,
         Qualification: req.body.Coach.Qualification || 'off',
         Cert_no: req.body.Coach.Cert_no,
         date_Qualification: req.body.Coach.date_Qualification,
-        Qualification1: req.body.Coach.Qualification1|| 'off',
+        Qualification1: req.body.Coach.Qualification1 || 'off',
         Accredited_coachNo: req.body.Coach.Accredited_coachNo,
         date_Qualification1: req.body.Coach.date_Qualification1,
-        Qualification2: req.body.Coach.Qualification2|| 'off',
+        Qualification2: req.body.Coach.Qualification2 || 'off',
         Cert_no2: req.body.Coach.Cert_no2,
         date_Qualification2: req.body.Coach.date_Qualification2,
-        Qualification3: req.body.Coach.Qualification3|| 'off',
+        Qualification3: req.body.Coach.Qualification3 || 'off',
         Issued_by: req.body.Coach.Issued_by,
         date_Qualification3: req.body.Coach.date_Qualification3,
-        Qualification4: req.body.Coach.Qualification4|| 'off',
+        Qualification4: req.body.Coach.Qualification4 || 'off',
         others: req.body.Coach.others,
         judges: req.body.Coach.judges,
         date_qualification5: req.body.Coach.date_qualification5,
@@ -197,20 +230,19 @@ module.exports = {
       }).fetch();
 
 
-      if(req.body.Coach.CheckNo!=''){
+      if (req.body.Coach.CheckNo != '') {
         models = await Coach.update(pid).set({
           check: '是',
 
-        }).fetch();}
+        }).fetch();
+      }
 
 
 
-      if (models.length > 0)
-      {return res.redirect('/status');}
+      if (models.length > 0) { return res.redirect('/status'); }
 
 
-      else
-      {return res.send('No such coach!');}
+      else { return res.send('No such coach!'); }
     }
   },
 
@@ -252,12 +284,11 @@ module.exports = {
     return res.view('profile/indexTRA', { 'coach': coach });
   },
 
-  coachform_detail: async function (req, res) {
 
-    var coach = await Coach.findOne(req.params.id);
-    if (req.method == 'GET')
-    {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
-  },
+  //   var coach = await Coach.findOne(req.params.id);
+  //   if (req.method == 'GET')
+  //   {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
+  // },
 
 
   canel_coach: async function (req, res) {
@@ -269,8 +300,14 @@ module.exports = {
 
     return res.redirect('/coach/coach_record');
 
+        // 男子競技體操: element.Disciplines1,
+        // 女子競技體操: element.Disciplines2,
+        // 藝術體操: element.Disciplines3,
+        // 技巧體操: element.Disciplines4,
+        // 彈網: element.Disciplines5,
+        // 健美體操: element.Disciplines6,
   },
-
+  
   status: async function (req, res) {
     var coach = await Coach.find();
     return res.view('profile/status', { 'coach': coach });
@@ -314,10 +351,10 @@ module.exports = {
         // 狀態: model.Highlight_property5,
 
         //
-        曾任教本會舉辦之課程: model.HaveBeenCoach,
-        如有: model.Have,
-        其他有關體操教學經驗:model.HaveBeenCoach1,
-        請列明: model.Have2,
+        曾任教本會舉辦之課程: element.HaveBeenCoach,
+        如有: element.Have,
+        其他有關體操教學經驗: element.HaveBeenCoach1,
+        請列明: element.Have2,
 
         //
         本會發出之體操教練證書: model.Qualification,
