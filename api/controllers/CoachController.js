@@ -285,11 +285,12 @@ module.exports = {
   },
 
 
-  //   var coach = await Coach.findOne(req.params.id);
-  //   if (req.method == 'GET')
-  //   {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
-  // },
+  coachform_detail: async function (req, res) {
 
+    var coach = await Coach.findOne(req.params.id);
+    if (req.method == 'GET')
+    {return res.view('membership/coachform_detail', { 'coach': coach, 'reg': 0 });}
+  },
 
   canel_coach: async function (req, res) {
     var pid = parseInt(req.params.id) || -1;
