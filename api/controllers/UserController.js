@@ -42,6 +42,7 @@ module.exports = {
       req.session.userId = user.id;
 
       req.session.ChiName = user.ChiName;
+      req.session.Email = user.Email;
 
       req.session.role = user.role;
       req.session.user = user;

@@ -1,30 +1,19 @@
-
 <%- partial('./partial/sidemenu.ejs') %>
 <section class="content aboutus flex-lg-grow-1">
   <h5 class="main-heading1">教練<span class="highlight">資訊</span></h5>
 <div class="container-fluid">
 <div class="row text-center">
   
-<table class="table">
   <% coach.forEach(function(model) { %>
-      <% if (model.Disciplines2=="WAG"){ %>
-        <div class="container">
+      <% if (model.Disciplines2=="WAG" && model.comfirm_coach=="是"){ %>
+        <div class="col-6">
           <div class="card" style="width:250px">
             <img class="card-img-top" src="<%=model.Personal_photo%>" alt="Card image" style="width:100%">
             <div class="card-body">
               <h5 class="card-title"><a href="/coach/coachform_detail/<%=model.id%>"> <%= model.ChiName %>教練</a></h5>
             </div>
           </div>
-          <br>
-     <!-- Team item -->
-<!-- <div class="col-xl-6 col-sm-6 mb-5">
-      <div class="card" style="width: 350px; height: 300px; margin: auto;">
-        <img src="<%=req.session.data.Personal_photo%>" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"><a href="/coach/coachform_detail/<%=model.id%>"> <%= model.ChiName %>教練</a></h5>
-          </div>
-        </div> -->
-  <!-- End -->
+        </div>
   <%}%>
       <% }); %>
   </div>

@@ -277,14 +277,13 @@ module.exports = {
 
   },
 
-  export_xlsx_Approved: async function(req, res) {
-
+  export_xlsx: async function(req, res) {
+    sails.log("enter approved funtion ")
     var models = await Coach.find();
-    
     var XLSX = require('xlsx');
     var wb = XLSX.utils.book_new();
     
-    var ws = XLSX.utils.json_to_sheet(models.map(model => {
+    var ws = XLSX.utils.json_to_sheet(models.filter(model=>model.confirm_coach=="是").map(model => {
       return {
         
         教練編號: 'INDC' + model.CoachNo,
@@ -364,23 +363,10 @@ module.exports = {
         聲明: model.hope,
         // 校長簽署: model.avatar_sign,
 
-      }
+      }     
     }));
-    XLSX.utils.book_append_sheet(wb, ws, "Coach");
-    
-    res.set("Content-disposition", "attachment; filename=Approved_coach.xlsx");
-    return res.end(XLSX.write(wb, {type:"buffer", bookType:"xlsx"}));
-    
-  },
 
-  export_xlsx_Pending: async function(req, res) {
-
-    var models = await Coach.find();
-    
-    var XLSX = require('xlsx');
-    var wb = XLSX.utils.book_new();
-    
-    var ws = XLSX.utils.json_to_sheet(models.map(model => {
+       var ws1 = XLSX.utils.json_to_sheet(models.filter(model=>model.confirm_coach!="是" && model.confirm_coach!="否").map(model => {
       return {
         
         教練編號: 'INDC' + model.CoachNo,
@@ -459,12 +445,13 @@ module.exports = {
         舉辦機構: model.Coaching_workshops_organization,
         聲明: model.hope,
         // 校長簽署: model.avatar_sign,
-
       }
     }));
-    XLSX.utils.book_append_sheet(wb, ws, "Coach");
     
-    res.set("Content-disposition", "attachment; filename=Pending_coach.xlsx");
+      XLSX.utils.book_append_sheet(wb, ws1, "Pending_Coach");
+      XLSX.utils.book_append_sheet(wb, ws, "Approved_Coach");
+    
+    res.set("Content-disposition", "attachment; filename=Coach.xlsx");
     return res.end(XLSX.write(wb, {type:"buffer", bookType:"xlsx"}));
     
   },
