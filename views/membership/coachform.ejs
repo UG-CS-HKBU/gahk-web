@@ -369,10 +369,10 @@
 
     <br>
     <p style="font-size:16px"><b>5. 體操教學經驗 Coaching Experience：(請選擇)</b></p>
-    <div class="form-group form-check">
+    <!-- <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property5]">
       <label label>向公眾展示該資料 Show this information to public</label>
-    </div>
+    </div> -->
     <div class="form-group">
 
       <% if (data.HaveBeenCoach=="選擇"){ %>
@@ -395,12 +395,18 @@
       <input type="text" name="Coach[Have]" value="<%= data.Have%>" id="coachH_if">
       <%}%>
   
-  
+      <% if (data.Highlight_property5a=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property5a]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property5a]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%>
 
     </div>
     <div class="form-group">
 
-        <% if (data.HaveBeenCoach1=="選擇"){ %>
+      <% if (data.HaveBeenCoach1=="選擇"){ %>
       <input type="checkbox" name="Coach[HaveBeenCoach1]" value="選擇" id="coachH_other" checked>
       <label style="font-size:10px"> 其他有關體操教學經驗，請列明：
         Other coaching experience related to gymnastics, please give details:
@@ -416,17 +422,25 @@
       <input type="text" name="Coach[Have2]" value="<%= data.Have2%>" id="coachH_other_if">
       <%}%>
 
-    
+      <% if (data.Highlight_property5b=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property5b]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property5b]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%>
+
+
     </div>
 
     <br>
 
 
     <p style="font-size:16px"> <b>6. 教練資歷 Coach Qualification (請選擇)</b></p>
-    <div class="form-group form-check">
+    <!-- <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property6]">
       <label label>向公眾展示該資料 Show this information to public</label>
-    </div>
+    </div> -->
 
     <div class="form-group">
 
@@ -465,6 +479,14 @@
       <input type="text" name="Coach[date_Qualification]" id="date_Qualification"
         onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= data.date_Qualification%>" style="width:140px">
 
+      <% }%>
+
+      <% if (data.Highlight_property6a=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property6a]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property6a]" value="true">
+      向公眾展示該資料 Show this information to public
       <% }%>
     </div>
 
@@ -506,7 +528,13 @@
         value="<%= data.date_Qualification1%>" style="width:150px">
       <% }%>
 
-
+      <% if (data.Highlight_property6b=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property6b]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property6b]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%>
 
 
     </div>
@@ -549,6 +577,14 @@
 
       <% }%>
 
+      <% if (data.Highlight_property6c=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property6c]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property6c]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
+
     </div>
 
     <div class="form-group">
@@ -587,6 +623,14 @@
         name="Coach[date_Qualification3]" value="<%= data.date_Qualification3%>">
       <%}%>
 
+      <% if (data.Highlight_property6d=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property6d]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property6d]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
+
     </div>
     <div class="form-group">
 
@@ -606,6 +650,14 @@
       <input type="text" name="Coach[others]" style="width:350px" id="others" value="<%= data.others%>">
       <%}%>
 
+      <% if (data.Highlight_property6e=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property6e]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property6e]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
+
 
     </div>
     <br><br>
@@ -613,10 +665,10 @@
       <br>
       (如空位不敷應用，請另紙填寫 If space is insufficient, please provide details in a separate sheet)</b>
     </p>
-    <div class="form-group form-check">
+    <!-- <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property7]">
       <label label>向公眾展示該資料 Show this information to public</label>
-    </div>
+    </div> -->
     <div class="form-group">
 
       <label style="font-size:12px"> (A) 是否已考取本地/國際裁判資歷？ <br>
@@ -676,6 +728,14 @@
 
       <p style="font-size:12px">(不適用於註冊核準及一級教練 Not applicable for Accredited Coaches and Level 1 registration)</p>
 
+      <% if (data.Highlight_property7a=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7a]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7a]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
+
 
     </div>
     <div class="form-group">
@@ -711,6 +771,14 @@
         </tbody>
       </table>
 
+      <% if (data.Highlight_property7b=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7b]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7b]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
+
 
     </div>
     <div class="form-group">
@@ -745,6 +813,14 @@
 
         </tbody>
       </table>
+
+      <% if (data.Highlight_property7c=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7c]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7c]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
 
 
     </div>
@@ -782,6 +858,14 @@
 
         </tbody>
       </table>
+
+      <% if (data.Highlight_property7d=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7d]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7d]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
 
 
     </div>
@@ -831,6 +915,14 @@
         <input type="file" accept="application/pdf" onchange="handleFile3(this.files)" />
         <div id="preview3"></div>
       </div>
+
+      <% if (data.Highlight_property7e=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7e]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7e]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
 
     </div>
     <div class="form-group">
