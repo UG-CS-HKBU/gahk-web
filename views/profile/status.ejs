@@ -48,13 +48,6 @@
         </tr>
 
         <%}%>
-
-
-      
-
-
-
-
           <% }); %>
 
 
@@ -167,7 +160,7 @@
 
 
             <% coach.forEach(function(model) { %>
-            <% if (model.ChiName != "" && model.ChiName==req.session.ChiName){ %>
+            <% if (model.ChiName != "" && model.ChiName==req.session.ChiName && model.Email==req.session.Email){ %>
             <tr>
               <th scope="row"></th>
               <td>INDC<%=model.CoachNo%></td>
