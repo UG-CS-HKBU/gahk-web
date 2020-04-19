@@ -447,10 +447,10 @@ module.exports = {
         // 狀態: model.Highlight_property5,
 
         //
-        曾任教本會舉辦之課程: element.HaveBeenCoach,
-        如有: element.Have,
-        其他有關體操教學經驗: element.HaveBeenCoach1,
-        請列明: element.Have2,
+        曾任教本會舉辦之課程: model.HaveBeenCoach,
+        如有: model.Have,
+        其他有關體操教學經驗: model.HaveBeenCoach1,
+        請列明: model.Have2,
 
         //
         本會發出之體操教練證書: model.Qualification,
