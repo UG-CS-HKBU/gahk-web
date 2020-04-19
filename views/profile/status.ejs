@@ -19,6 +19,9 @@
       </thead>
       <tbody>
 
+
+
+
         <% coach.forEach(function(model) { %>
         <% if (model.ChiName != ""&& model.comfirm_coach==""){ %>
         <tr>
@@ -54,7 +57,10 @@
 
     <table class="table">
 
+
       <% coach.forEach(function(model) { %>
+
+
 
       <% if (model.ChiName != ""&& model.comfirm_coach=="否"){ %>
       <tr>
@@ -79,11 +85,23 @@
 
         <% }); %>
 
+
+
+
+
+
+
+
     </table>
+
+
     <table class="table">
 
 
       <% coach.forEach(function(model) { %>
+
+
+
       <% if (model.ChiName != ""&& model.comfirm_coach=="是"){ %>
       <tr>
         <th scope="row">√</th>
@@ -99,10 +117,26 @@
         <td><button type="button" class="btn btn-primary">審批完畢</button></td>
         <%}%>
           </tr>
+  
           <%}%>
+
+
+
+
         <% }); %>
+
+
+
+
+
+
+
+
     </table>
-    <td><button type="submit" class="btn btn-primary" action="/coach/export_xlsx">Export</button></td>
+
+
+    <form method="get" action="/coach/export_xlsx">
+      <button type="submit" class="btn btn-primary">Export</button>
 
     <% } %>
 
@@ -144,9 +178,7 @@
               <td>已拒絕</td>
               <%}%>
 
-              <% if (model.comfirm_coach == "是" ){ %>
-                  <td>已審批</td>
-                  <%}%>
+              
             </tr>
 
             <%}%>
@@ -157,47 +189,33 @@
         </table>
 
 
-            <% } %>
-            <script>
+        <% } %>
+        <script>
 
-              async function confirmCoach(id) {
+          async function confirmCoach(id) {
 
-                var r = confirm("Confirm Coach?");
+            var r = confirm("Confirm Coach?");
 
-                if (r) {
+            if (r) {
 
-                  var response = await fetch("/coach/confirm_coach/" + id, {
-                    method: "POST",
-                    credentials: 'same-origin',
-                  });
+              var response = await fetch("/coach/confirm_coach/" + id, {
+                method: "POST",
+                credentials: 'same-origin',
+              });
 
-                  if (response.ok) {
-                    var data = await response.json();
-                    alert(data.message);
-                    window.location = data.url;
-                  } else {
-                    alert(response.status + ": " + response.statusText);
-                  }
-
-                } else {
-                  alert("cancelled");
-                }
-              };
-
-              var table = document.getElementsByTagName('table')[0],
-                rows = table.getElementsByTagName('tr'),
-                text = 'textContent' in document ? 'textContent' : 'innerText';
-
-              for (var i = 0, len = rows.length; i < len; i++) {
-                rows[i + 1].children[0][text] = (i + 1) + '.    ' + rows[i + 1].children[0][text];
+              if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+              } else {
+                alert(response.status + ": " + response.statusText);
               }
 
+            } else {
+              alert("cancelled");
+            }
 
-                 async function confirmCoach(id) {
-
-                var r = confirm("Confirm Coach?");
-
-                if (r) {
+          };
 
           async function cancelCoach(id) {
 
@@ -228,19 +246,9 @@
             rows = table.getElementsByTagName('tr'),
             text = 'textContent' in document ? 'textContent' : 'innerText';
 
-                  if (response.ok) {
-                    var data = await response.json();
-                    alert(data.message);
-                    window.location = data.url;
-                  } else {
-                    alert(response.status + ": " + response.statusText);
-                  }
-
-                } else {
-                  alert("cancelled");
-                }
-              };
-              
-            </script>
-          </div>
-        </section>
+          for (var i = 0, len = rows.length; i < len; i++) {
+            rows[i + 1].children[0][text] = (i + 1) + '.    ' + rows[i + 1].children[0][text];
+          }
+        </script>
+      </div>
+    </section>
