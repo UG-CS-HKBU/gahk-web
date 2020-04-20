@@ -857,7 +857,7 @@
 
 
 <script>
-    window.onload = function () { disableform('GRGP', '<%= grgp.formStatus%>') };
+    window.onload = function () { disableform('Admin_GRGP_form', '<%= grgp.formStatus%>') };
     function disableform(formId, formStatus) {
         if (formStatus == "rejected") {
             var f = document.forms[formId].getElementsByTagName('input');

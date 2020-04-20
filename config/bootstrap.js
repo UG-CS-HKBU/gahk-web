@@ -102,9 +102,9 @@ module.exports.bootstrap = async function (done) {
 
   if (await GFA.count() == 0) {
     await GFA.createEach([
-      {teamName: "普及第一隊", receiptHeader: "普及第一隊行政部", address: "Flat 601, 6/F, Sun Sun Building, Hong Kong", category: "幼稚園 Kindergarten", cpChiName:"陳楚", cpEngName: "Chan Cho", cpDayPhone: "23567456", cpMobilePhone: "90786678", email: "chancho@gmail.com", applicantNum: 18, crewNum: 3, checkNum: "C1234567", bankName: "恒生銀行", payStatus: "unpaid", formStatus: "ToBeCon", idCode: "GFA2020-1"},
-      {teamName: "普及第二隊", receiptHeader: "普及第二隊行政部", address: "Flat 708, 7/F, Rainy Building, Hong Kong", category: "小學組 Primary School", cpChiName:"蔡芷芊", cpEngName: "Choy Ji Chin", cpDayPhone: "25567898", cpMobilePhone: "58339980", email: "jichinchoy@gmail.com", applicantNum: 20, crewNum: 5, checkNum: "A1234567", bankName: "中國銀行", payStatus: "unpaid", formStatus: "ToBeCon", idCode: "GFA2020-2"},
-      {teamName: "普及第三隊", receiptHeader: "普及第三隊行政部", address: "Flat 2B, 2/F, SunShine Building, Hong Kong", category: "公開組 Open Group", cpChiName:"林木", cpEngName: "Lam Mo", cpDayPhone: "27654798", cpMobilePhone: "95657976", email: "momolam@gmail.com", applicantNum: 20, crewNum: 2, checkNum: "B12345677", bankName: "恒生銀行", payStatus: "unpaid", formStatus: "ToBeCon", idCode: "GFA2020-3"},
+      {teamName: "普及第一隊", receiptHeader: "普及第一隊行政部", address: "Flat 601, 6/F, Sun Sun Building, Hong Kong", category: "幼稚園 Kindergarten", cpChiName:"陳楚", cpEngName: "Chan Cho", cpDayPhone: "23567456", cpMobilePhone: "90786678", email: "chancho@gmail.com", applicantNum: 18, crewNum: 3, checkNum: "C1234567", bankName: "恒生銀行", payStatus: "unpaid", formStatus: "ToBeCon",teamStatus:"suTeam", idCode: "GFA2020-1"},
+      {teamName: "普及第二隊", receiptHeader: "普及第二隊行政部", address: "Flat 708, 7/F, Rainy Building, Hong Kong", category: "小學組 Primary School", cpChiName:"蔡芷芊", cpEngName: "Choy Ji Chin", cpDayPhone: "25567898", cpMobilePhone: "58339980", email: "jichinchoy@gmail.com", applicantNum: 20, crewNum: 5, checkNum: "A1234567", bankName: "中國銀行", payStatus: "unpaid", formStatus: "ToBeCon",teamStatus:"suTeam", idCode: "GFA2020-2"},
+      {teamName: "普及第三隊", receiptHeader: "普及第三隊行政部", address: "Flat 2B, 2/F, SunShine Building, Hong Kong", category: "公開組 Open Group", cpChiName:"林木", cpEngName: "Lam Mo", cpDayPhone: "27654798", cpMobilePhone: "95657976", email: "momolam@gmail.com", applicantNum: 20, crewNum: 2, checkNum: "B12345677", bankName: "恒生銀行", payStatus: "unpaid", formStatus: "ToBeCon",teamStatus:"suTeam", idCode: "GFA2020-3"},
     ]);
   }
 

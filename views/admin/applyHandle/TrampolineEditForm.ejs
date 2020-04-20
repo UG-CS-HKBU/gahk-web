@@ -181,7 +181,7 @@
     }
 </style>
 
-<form action="/admin/applyHandle/TrampolineEditForm/<%= trampoline.id %>" method="POST" id="trampoline">
+<form action="/admin/applyHandle/TrampolineEditForm/<%= trampoline.id %>" method="POST" id="trampoline_admin">
     <div class="row mx-sm-2">
         <!-- Reject button -->
         <div class="form-group col-12" style="text-align: right;">
@@ -664,7 +664,7 @@
 </div>
 
 <script>
-    window.onload = function () { disableform('Trampoline', '<%= trampoline.formStatus%>') };
+    window.onload = function () { disableform('trampoline_admin', '<%= trampoline.formStatus%>') };
     function disableform(formId, formStatus) {
         if (formStatus == "rejected") {
             var f = document.forms[formId].getElementsByTagName('input');

@@ -64,6 +64,49 @@ module.exports = {
     },
 
     //admin
+    // action - update
+    update: async function (req, res) {
+
+        if (req.method == "GET") {
+            var model = await GFA.findOne(req.params.id);
+
+            if (!model) return res.notFound();
+
+            return res.view('admin/applyHandle/GFAEditForm', { gfa: model });
+
+        }
+        else {
+
+            if (!req.body.GFA)
+                return res.badRequest("Form-data not received.");
+
+            var models = await GFA.update(req.params.id).set({
+                teamName: req.body.GFA.teamName,
+                receiptHeader: req.body.GFA.receiptHeader,
+                address: req.body.GFA.address,
+                category: req.body.GFA.category,
+                havecname: req.body.GFA.havecname,
+                cpChiName1: req.body.GFA.cpChiName1,
+                cpEngName1: req.body.GFA.cpEngName1,
+                cpDayPhone: req.body.GFA.cpDayPhone,
+                cpMobilePhone: req.body.GFA.cpMobilePhone,
+                email: req.body.GFA.email,
+                applicantNum: req.body.GFA.applicantNum,
+                crewNum: req.body.GFA.crewNum,
+                checkNum: req.body.GFA.checkNum,
+                bankName: req.body.GFA.bankName,
+                document: req.body.GFA.document,
+                payStatus: req.body.GFA.payStatus,
+                formStatus: req.body.GFA.formStatus,
+                teamStatus: req.body.GFA.teamStatus,
+            }).fetch();
+
+            if (models.length == 0) return res.notFound();
+
+            return res.redirect('/admin/applyHandle/search');
+        }
+    },
+
     reject: async function (req, res) {
         if (req.method == "GET") return res.forbidden();
 
@@ -154,6 +197,131 @@ module.exports = {
         }
 
     },
+
+    export_xlsx: async function (req, res) {
+        var condition = {};
+
+        if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
+        if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
+        if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
+        if (req.session.searchResult.teamStatus) condition.teamStatus = req.session.searchResult.teamStatus;
+
+        var models = await GFA.find({
+            where: condition
+        });
+
+        var XLSX = require('xlsx');
+        var wb = XLSX.utils.book_new();
+        var payStatus, formStatus, teamStatus;
+        var ws = XLSX.utils.json_to_sheet(models.map(model => {
+
+            var n = new Date(model.createdAt);
+            var cmonth = n.getMonth() + 1;
+            var applyDate = n.getDate() + "/" + cmonth + "/" + n.getFullYear();
+
+            var m = new Date(model.updatedAt);
+            var umonth = m.getMonth() + 1;
+            var updateDate = m.getDate() + "/" + umonth + "/" + m.getFullYear() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds();
+
+            if (model.payStatus == "paid") {
+                payStatus = "已付款 Paid";
+            } else {
+                payStatus = "未付款 Unpaid";
+            }
+
+            if (model.formStatus == "ToBeCon") {
+                formStatus = "待處理 To be handled";
+            } else if (model.formStatus == "accepted") {
+                formStatus = "已確認 Accepted";
+            } else if (model.formStatus == "rejected") {
+                formStatus = "已拒絕 Rejected";
+            } else if (model.formStatus == "dataDef") {
+                formStatus = "資料不全 Data Deficiency";
+            }
+
+            if (model.teamStatus == "suTeam") {
+                teamStatus = "正選 Successful Team";
+            } else {
+                teamStatus = "後補 Team on Waitiing List";
+            }
+
+            return {
+                "申請表編號 Application Number": model.idCode,
+                "團體名稱 Group Name": model.teamName,
+                "收據抬頭 Receipt Header": model.receiptHeader,
+                "聯絡地址 Address": model.address,
+                "參賽組別 Category": model.category,
+                "聯絡人是否有中文姓名 Contact Person Any Chinese name": model.havecname,
+                "聯絡人中文姓名 Contact Person Name in Chinese": model.cpChiName,
+                "聯絡人英文姓名 Contact Person Name in English": model.cpEngName,
+                "聯絡電話(日間) Contact Number(Office Hour)": model.cpDayPhone,
+                "聯絡電話(手提) Contact Number(Mobile)": model.cpMobilePhone,
+                "聯絡人電郵地址 Contact Person Email Address": model.email,
+                "參加人數 Number of Applicants": model.applicantNum,
+                "工作人員人數 Number of Crews": model.crewNum,
+                "支票編號 Check Number": model.checkNum,
+                "銀行名稱 Name of Bank": model.bankName,
+                "付款狀況 Payment Status": payStatus,
+                "申請狀況 Apply Status": formStatus,
+                "隊伍/團體狀況 Team Status": teamStatus,
+                "提交日期 Apply Date": applyDate,
+                "上次更新 Last upadated": updateDate,
+            }
+        }));
+        XLSX.utils.book_append_sheet(wb, ws, "GFA");
+        res.set("Content-disposition", "attachment; filename=GFA.xlsx");
+        return res.end(XLSX.write(wb, { type: "buffer", bookType: "xlsx" }));
+    },
+
+    import_xlsx: async function (req, res) {
+        if (req.method == "GET") return res.forbidden();
+
+        req.file('file').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
+            if (err) { return res.serverError(err); }
+            if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
+
+            var XLSX = require('xlsx');
+            var workbook = XLSX.readFile(uploadedFiles[0].fd);
+            var ws = workbook.Sheets[workbook.SheetNames[0]];
+            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "teamName", "receiptHeader", "address", "category", "havecname", "cpChiName", "cpEngName", "cpDayPhone", "cpMobilePhone", "email", "applicantNum", "crewNum", "checkNum", "bankName", "payStatus", "formStatus", "teamStatus"] });
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].payStatus == "未付款 Unpaid") {
+                    data[i].payStatus = "unpaid";
+                } else if (data[i].payStatus == "已付款 Paid") {
+                    data[i].payStatus = "paid";
+                }
+
+                if (data[i].formStatus == "待處理 To be handled") {
+                    data[i].formStatus = "ToBeCon";
+                } else if (data[i].formStatus == "已確認 Accepted") {
+                    data[i].formStatus = "accepted";
+                } else if (data[i].formStatus == "已拒絕 Rejected") {
+                    data[i].formStatus = "rejected";
+                } else if (data[i].formStatus == "資料不全 Data Deficiency") {
+                    data[i].formStatus = "dataDef";
+                }
+
+                if (data[i].teamStatus == "正選 Successful Team") {
+                    data[i].teamStatus = "suTeam";
+                } else if (data[i].teamStatus == "後補 Team on Waitiing List") {
+                    data[i].teamStatus = "waitTeam";
+                }
+            }
+
+            console.log(data);
+
+
+            var models = await GFA.createEach(data).fetch();
+            if (models.length == 0) {
+                return res.badRequest("No data imported.");
+            }
+            return res.redirect('/admin/applyHandle/search');
+        });
+
+    },
+
+
 
 };
 
