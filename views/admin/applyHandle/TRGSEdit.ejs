@@ -203,12 +203,23 @@
             </div>
 
             <div class="form-group col-12" style="color: #888888;">
-                <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif; font-size:16pt;"><b>第63屆體育節 -
-                        2020年全港藝術體操分齡比賽</b></h1>
+                <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif; font-size:16pt;"><b>全港藝術體操分齡比賽</b></h1>
                 <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif; font-size:14pt;">
                     <u>團體項目報名表(學校組)</u>
                 </h2>
-                <br><br>
+                <br>
+            </div>
+
+             <!-- 比賽年份 Year of Competition -->
+             <div class="col-12">
+                <h5 id="labelHead">比賽年份 Year of Competition</h5>
+                <%var todayYear = new Date().getFullYear();
+                var end = todayYear + 2;%>
+                <select name="TRGS[compYear]" required>
+                    <% for (var year = todayYear; year <= end; year++){%>
+                    <option value="<%=year%>" <%if(year == TRGS.compYear) {%> selected<%}%> ><%=year%></option>
+                        <%}%>
+                </select>
             </div>
 
             <!-- 團體資料 Group Details -->
@@ -539,15 +550,29 @@
             <div class="form-group col-12">
                 <h5 id="labelHead">聲明 Declaration</h5>
                 <div class="form-group">
-                    <label>聲明書 Declaration(img/pdf檔)</label>
-                    <% if (TRGS.Declaration) {%>
-                    <a download="<%= TRGS.idCode%>_Declaration_聲明書" href="<%=TRGS.Declaration%>" target="_blank">下載
-                        Download</a>
-                    <br>
-                    <%}%>
-                    <label>更新 Update:</label>
-                    <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
-                    <div id="preview"></div>
+                    <% if(TRGS.Declaration) { 
+                        var type = TRGS.Declaration.split(';');%>
+                    <div>
+                        <% if(type[0] == 'data:application/pdf') { %>
+                        <a download="<%= TRGS.idCode%>_Declaration_聲明書.pdf" href="<%=TRGS.Declaration%>"
+                            target="_blank">下載聲明書 Download declartion</a>
+                        <br>
+                        <% } else if(type[0] == 'data:image/jpeg'|| type[0] == 'data:image/png') { %>
+                        <a download="<%= TRGS.idCode%>_Declaration_聲明書.jpg" href="<%=TRGS.Declaration%>"
+                            target="_blank">下載聲明書 Download declartion</a>
+                        <br>
+                        <img src="<%=TRGS.Declaration%>" style="height:150px; width:auto" />
+                        <% } %>
+                        <br>
+                    </div>
+                    <% } %>
+    
+                    <div>
+                        <label>重新上載聲明書 Reupload the declaration</label>
+                        <br>
+                        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
+                        <div id="preview"></div>
+                    </div>
     
                 </div>
     

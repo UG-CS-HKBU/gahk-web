@@ -196,7 +196,7 @@ module.exports.routes = {
   //*********Admin********
   'GET /admin/applyHandle/search': 'AdminController.apply_search',
 
-  'GET /admin/applyHandle/TrampolineEditForm/:id': 'TrampolineController.view',
+  'GET /admin/applyHandle/TrampolineEditForm/:id': 'TrampolineController.update',
   'POST /admin/applyHandle/TrampolineEditForm/:id': 'TrampolineController.update',
   'POST /admin/applyHandle/trampoline/confirmAll': 'TrampolineController.confirmAll',
   'POST /admin/applyHandle/reject/trampoline/:id': 'TrampolineController.reject',

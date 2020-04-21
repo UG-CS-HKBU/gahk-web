@@ -206,102 +206,55 @@
         <!-- Title -->
         <div class="col-12" style="color: #888888; ">
             <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;">
-                <b>2020年香港彈網分齡賽</b>
+                <b>香港彈網分齡賽</b>
             </h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>雙人同步 報名表格</u>
             </h2>
-            <br><br>
         </div>
 
-        <!-- Rules -->
+        <!-- 比賽年份 Year of Competition -->
         <div class="col-12">
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
-                比賽規則及章程
-                Rules and Regulation</h5>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="Trampoline[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == trampoline.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
-        <div class="col-12">
-            <a href="/formDoc/TRAagegroup2020.pdf" target="_blank" style="text-align: center;"><u>2020年香港彈網分齡賽章程
-                    Prospectus of
-                    TrampolineAgeGroupCompetition</u></a>
-        </div>
 
         <!-- Team details -->
         <div class="col-12">
             <br><br>
             <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
-                隊伍資料
-                Group
-                Details</h5>
+                隊伍資料 Group Details</h5>
         </div>
 
         <div class="col-12">
             <p>
                 <label for="gender">性別 Gender: </label>
-                <% if(trampoline.gender == "男 Male") {%>
-                <input name="Trampoline[gender]" type="radio" id="male" value="男 Male" checked required />
+                <input name="Trampoline[gender]" type="radio" id="male" value="男 Male" required <% if(trampoline.gender == "男 Male") {%>checked<%}%> />
                 <label for="male">男 Male</label>
-                <input name="Trampoline[gender]" type="radio" id="female" value="女 Female" required />
+                <input name="Trampoline[gender]" type="radio" id="female" value="女 Female" required <% if(trampoline.gender == "女 Female") {%>checked<%}%> />
                 <label for="female">女 Female</label>
-                <%} else if(trampoline.gender == "女 Female"){%>
-                <input name="Trampoline[gender]" type="radio" id="male" value="男 Male" required />
-                <label for="male">男 Male</label>
-                <input name="Trampoline[gender]" type="radio" id="female" value="女 Female" checked required />
-                <label for="female">女 Female</label>
-                <%}%>
-
             </p>
             <p>
                 <label for="category">參賽組別 Category: </label>
 
-
-                <% if(trampoline.category == "14 歲或以下 14 years old or below") {%>
-
                 <input name="Trampoline[category]" type="radio" value="14 歲或以下 14 years old or below" id="youngest"
-                    onclick="limitBirth()" checked required />
+                onclick="limitBirth()" required <% if(trampoline.category == "14 歲或以下 14 years old or below") {%>checked<%}%> />
                 <label for="youngest">14 歲或以下 14 years old or below &nbsp; </label>
-                <input name="Trampoline[category]" type="radio" value="15 至 16 歲 15 to 16 years old" id="median"
-                    onclick="limitBirth()" required />
+            
+                <input name="Trampoline[category]" type="radio" value="15 至 16 歲 15 to 16 years old" id="median" 
+                onclick="limitBirth()" required <% if(trampoline.category == "15 至 16 歲 15 to 16 years old") {%>checked<%}%> />
                 <label for="median">15 至 16 歲 15 to 16 years old</label>
                 <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input name="Trampoline[category]" type="radio" value="17 歲或以上 17 years old or above" id="eldest"
-                    onclick="limitBirth()" required />
+                onclick="limitBirth()" required <% if(trampoline.category == "17 歲或以上 17 years old or above") {%>checked<%}%> />
                 <label for="eldest">17 歲或以上 17 years old or above</label>
-
-                <%} else if(trampoline.category == "15 至 16 歲 15 to 16 years old"){%>
-
-                <input name="Trampoline[category]" type="radio" value="14 歲或以下 14 years old or below" id="youngest"
-                    onclick="limitBirth()" required />
-                <label for="youngest">14 歲或以下 14 years old or below &nbsp; </label>
-                <input name="Trampoline[category]" type="radio" value="15 至 16 歲 15 to 16 years old" id="median"
-                    onclick="limitBirth()" checked required />
-                <label for="median">15 至 16 歲 15 to 16 years old</label>
-                <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                <input name="Trampoline[category]" type="radio" value="17 歲或以上 17 years old or above" id="eldest"
-                    onclick="limitBirth()" required />
-                <label for="eldest">17 歲或以上 17 years old or above</label>
-
-                <%}else if(trampoline.category == "17 歲或以上 17 years old or above"){%>
-
-                <input name="Trampoline[category]" type="radio" value="14 歲或以下 14 years old or below" id="youngest"
-                    onclick="limitBirth()" required />
-                <label for="youngest">14 歲或以下 14 years old or below &nbsp; </label>
-                <input name="Trampoline[category]" type="radio" value="15 至 16 歲 15 to 16 years old" id="median"
-                    onclick="limitBirth()" required />
-                <label for="median">15 至 16 歲 15 to 16 years old</label>
-                <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                <input name="Trampoline[category]" type="radio" value="17 歲或以上 17 years old or above" id="eldest"
-                    onclick="limitBirth()" checked required />
-                <label for="eldest">17 歲或以上 17 years old or above</label>
-
-                <%}%>
-
             </p>
 
         </div>
@@ -315,56 +268,45 @@
 
             <div>
                 <label>是否有中文姓名 Any Chinese name? </label>
-                <% if (trampoline.havecname1 == "是 Yes") { %>
-                <input type="radio" name="Trampoline[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
-                    checked required />
+                <input type="radio" name="Trampoline[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()" required 
+                <% if (trampoline.havecname1 == "是 Yes") { %>checked<%}%> />
                 <label class="form-check-label" for="havecname1">是 Yes</label>
 
                 &nbsp;<input type="radio" name="Trampoline[havecname1]" value="否 No" id="No1"
-                    onclick="havechinesename()" required />
+                    onclick="havechinesename()" required <% if (trampoline.havecname1 == "否 No") { %>checked<%}%> />
                 <label class="form-check-label" for="havecname1">否 No</label>
-                <% }else {%>
-                <input type="radio" name="Trampoline[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
-                    required />
-                <label class="form-check-label" for="havecname1">是 Yes</label>
-
-                &nbsp;<input type="radio" name="Trampoline[havecname1]" value="否 No" id="No1"
-                    onclick="havechinesename()" checked required />
-                <label class="form-check-label" for="havecname1">否 No</label>
-                <% } %>
         </div>
         <div>
             <label for="chiName1">中文姓名 Name in Chinese:</label>
-            <input id="chiName1" type="text" class="form-group" value=<%= trampoline.chiName1%>
-                name="Trampoline[chiName1]" id="chiName1" placeholder="e.g. 陳大文"
-                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+            <input id="chiName1" type="text" class="form-group" value="<%= trampoline.chiName1%>"
+                name="Trampoline[chiName1]"  placeholder="e.g. 陳大文"
+                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required <% if (trampoline.havecname1 == "否 No") { %>disabled<%}%> >
         </div>
         <div>
             <label>英文姓名 Name in English: </label>
-            <input type="text" class="form-group" value=<%= trampoline.engName1%> name="Trampoline[engName1]"
+            <input type="text" class="form-group" value="<%= trampoline.engName1%>" name="Trampoline[engName1]"
                 placeholder="e.g. Chan Tai Man" onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
         </div>
         <div>
             <label>出生年份 Year of Birth:</label>
-            <select id="year1" class="form-group" value=<%= trampoline.birth1%> name="Trampoline[birth1]"
+            <select id="year1" class="form-group" value="<%= trampoline.birth1%>" name="Trampoline[birth1]"
                 required></select>
             <br>
         </div>
         <div>
             <label>聯絡電話 Contact Number:</label>
-            <input type="tel" pattern=[0-9]{8} class="form-group" value=<%= trampoline.phone1%>
+            <input type="tel" pattern=[0-9]{8} class="form-group" value="<%= trampoline.phone1%>"
                 name="Trampoline[phone1]" required>
         </div>
         <div>
             <label>電郵 Email Address:</label>
-
-            <input type="email" class="form-group" value=<%= trampoline.email1%> name="Trampoline[email1]"
+            <input type="email" class="form-group" value="<%= trampoline.email1%>" name="Trampoline[email1]"
                 style="width: 220pt;" required>
 
         </div>
         <div>
             <label>通訊地址 Postal Address:</label>
-            <input type="text" class="form-group" value=<%= trampoline.address1%> name="Trampoline[address1]"
+            <input type="text" class="form-group" value="<%= trampoline.address1%>" name="Trampoline[address1]"
                 style="width:340pt" required>
             <br>
         </div>
@@ -381,33 +323,24 @@
 
         <div>
             <label>是否有中文姓名 Any Chinese name? </label>
-            <% if (trampoline.havecname2 == "是 Yes") { %>
             <input type="radio" name="Trampoline[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
-                checked required />
+               required <% if (trampoline.havecname2 == "是 Yes") { %>checked<%}%> />
             <label class="form-check-label" for="havecname2">是 Yes</label>
 
             &nbsp;<input type="radio" name="Trampoline[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
-                required />
+                required <% if (trampoline.havecname2 == "否 No") { %>checked<%}%> />
             <label class="form-check-label" for="havecname2">否 No</label>
-            <% }else { %>
-            <input type="radio" name="Trampoline[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
-                checked required />
-            <label class="form-check-label" for="havecname2">是 Yes</label>
-
-            &nbsp;<input type="radio" name="Trampoline[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
-                checked required />
-            <label class="form-check-label" for="havecname2">否 No</label>
-            <% } %>
         </div>
 
         <div>
             <label>中文姓名 Name in Chinese:</label>
-            <input type="text" class="form-group" value=<%= trampoline.chiName2%> name="Trampoline[chiName2]"
-                id="chiName2" placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+            <input type="text" class="form-group" value="<%= trampoline.chiName2%>" name="Trampoline[chiName2]"
+                id="chiName2" placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required
+                <% if (trampoline.havecname2 == "否 No") { %>disabled<%}%>>
         </div>
         <div>
             <label>英文姓名 Name in English: </label>
-            <input type="text" class="form-group" value=<%= trampoline.engName2%> name="Trampoline[engName2]"
+            <input type="text" class="form-group" value="<%= trampoline.engName2%>" name="Trampoline[engName2]"
                 placeholder="e.g. Chan Tai Man" onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
         </div>
         <div>
@@ -417,19 +350,19 @@
         </div>
         <div>
             <label>聯絡電話 Contact Number:</label>
-            <input type="tel" pattern=[0-9]{8} value=<%= trampoline.phone2%> class="form-group"
+            <input type="tel" pattern=[0-9]{8} value="<%= trampoline.phone2%>" class="form-group"
                 name="Trampoline[phone2]" required>
         </div>
         <div>
             <label>電郵 Email Address:</label>
 
-            <input type="email" class="form-group" value=<%= trampoline.email2%> name="Trampoline[email2]"
+            <input type="email" class="form-group" value="<%= trampoline.email2%>" name="Trampoline[email2]"
                 style="width: 220pt;" required>
 
         </div>
         <div>
             <label>通訊地址 Postal Address:</label>
-            <input type="text" class="form-group" value=<%= trampoline.address2%> name="Trampoline[address2]"
+            <input type="text" class="form-group" value="<%= trampoline.address2%>" name="Trampoline[address2]"
                 style="width: 340pt;" required>
             <br>
         </div>
@@ -444,33 +377,29 @@
 
     <div class="col-12">
         <label>團體名稱 Organization Name:</label>
-        <input type="text" class="form-group" value=<%= trampoline.teamName%> name="Trampoline[teamName]"
+        <input type="text" class="form-group" value="<%= trampoline.teamName%>" name="Trampoline[teamName]"
             style="width: 400pt;" required>
     </div>
 
     <div class="col-12 col-sm-6">
         <label>教練姓名 Coach Name:</label>
-        <input type="text" class="form-group" value=<%= trampoline.coachName%> name="Trampoline[coachName]" required>
+        <input type="text" class="form-group" value="<%= trampoline.coachName%>" name="Trampoline[coachName]" required>
     </div>
 
     <div class="col-12 col-sm-6">
         <label>聯絡電話 Contact Number:</label>
-        <input type="tel" pattern=[0-9]{8} class="form-group" value=<%= trampoline.coachPhone%>
+        <input type="tel" pattern=[0-9]{8} class="form-group" value="<%= trampoline.coachPhone%>"
             name="Trampoline[coachPhone]" required>
     </div>
 
     <div class="col-12">
         <label>註冊教練編號(如適用) Registered Coach No.(If applicable):</label>
-        <% if(trampoline.coachNum == ""){%>
-        <input type="text" class="form-group" name="Trampoline[coachNum]">
-        <%} else {%>
-        <b><input type="text" class="form-group" value=<%=trampoline.coachNum%> name="Trampoline[coachNum]"></b>
-        <%}%>
+        <input type="text" class="form-group" value="<%=trampoline.coachNum%>" name="Trampoline[coachNum]">
     </div>
 
     <div class="col-12">
         <label>通訊地址 Postal Address:</label>
-        <input type="text" class="form-group" value=<%= trampoline.coachAddress%> name="Trampoline[coachAddress]"
+        <input type="text" class="form-group" value="<%= trampoline.coachAddress%>" name="Trampoline[coachAddress]"
         style="width: 400pt;" required>
     </div>
 
@@ -502,8 +431,9 @@
     <div class="col-12">
         <br>
         <label>參加者(1)家長姓名 Applicant(1)'s Parent Name: </label>
-        <input id="parentName1" type="text" class="form-group" name="Trampoline[parentName1]" value=<%= trampoline.parentName1%> required />
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,0)"/>
+        <input id="parentName1" type="text" class="form-group" name="Trampoline[parentName1]"
+            value=<%= trampoline.parentName1%> required />
+        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,0)" />
         <div id="preview0"></div>
         <br>
     </div>
@@ -512,12 +442,12 @@
         var type = trampoline.declaration1.split(';');%>
     <div class="col-12 col-sm-6">
         <% if(type[0] == 'data:application/pdf') { %>
-        <a download="<%= trampoline.idCode %>_Declaration1_聲明1.pdf" href="<%= trampoline.declaration1%>"
+        <a download="<%= trampoline.idCode %>_Declaration1_聲明2" href="<%= trampoline.declaration1%>"
             target="_blank">下載聲明書2
             Download declartion</a>
         <br>
         <% } else if(type[0] == 'data:image/jpeg' || type[0] == 'data:image/png') { %>
-        <a download="<%= trampoline.idCode %>_Declaration1_聲明1.jpg" href="<%= trampoline.declaration1%>"
+        <a download="<%= trampoline.idCode %>_Declaration1_聲明2" href="<%= trampoline.declaration1%>"
             target="_blank">下載聲明書2
             Download declartion</a>
         <br>
@@ -529,8 +459,9 @@
     <div class="col-12">
         <br>
         <label>參加者(2)家長姓名 Applicant(2)'s Parent Name: </label>
-        <input id="parentName2" type="text" class="form-group" name="Trampoline[parentName2]" value=<%= trampoline.parentName1%> required />
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,1)"/>
+        <input id="parentName2" type="text" class="form-group" name="Trampoline[parentName2]"
+            value=<%= trampoline.parentName1%> required />
+        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,1)" />
         <div id="preview1"></div>
     </div>
 
@@ -677,7 +608,7 @@
     }
 
     // Get the modal
-    var modal = document.getElementById('askModal');
+    var modal = document.getElementById('<%= trampoline.id%>');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
@@ -762,7 +693,7 @@
 </script>
 
 <script>
-    birthYearOption(1950, new Date().getFullYear());
+    birthYearOption(1990, new Date().getFullYear());
 
     function limitBirth() {
         var todayYear = new Date().getFullYear();
@@ -779,7 +710,7 @@
             birthYearOption(minYear, maxYear);
         } else if (eldest.checked == true) { //17 years old or above
             var maxYear = todayYear - 17;
-            birthYearOption(1950, maxYear);
+            birthYearOption(1990, maxYear);
         }
     }
 

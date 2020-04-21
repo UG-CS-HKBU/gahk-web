@@ -213,33 +213,27 @@
         </div>
 
         <!-- Title -->
-        <div class="col-12" style="color: #888888; ">
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;">
-                <b>2020年香港技巧體操公開賽</b>
-            </h1>
-            <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u>
-            </h2>
-            <br><br>
+        <div class="col-12" style="color: #888888;">
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>香港技巧體操公開賽</b></h1>
+            <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u></h2>
         </div>
 
-        <!-- Rules -->
+        <!-- 比賽年份 Year of Competition -->
         <div class="col-12">
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
-                比賽規則及章程
-                Rules and Regulation</h5>
+            <h5 id="labelHead">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="Acroage[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == acroage.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
-        <div class="col-12">
-            <a href="/formDoc/AcroOpen2020_Prospectus.pdf" target="_blank"
-                style="text-align: center;"><u>2020年香港技巧體操公開賽章程
-                    Prospectus of AcrobaticOpenCompetition</u></a>
-        </div>
-
-        <!-- Team details -->
+        <!-- 組別資料 Category Details -->
         <div class="col-12">
             <br><br>
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
-                隊伍資料 Group Details</h5>
+            <h6 id="labelHead">組別資料 Category Details</h6>
         </div>
 
         <div class="form-group col-12">
@@ -271,62 +265,62 @@
                 <label for="item">項目 Item: </label>
                 <input name="Acroage[item]" type="radio" id="menDou" value="男子雙人 Men's Double" onclick="multiFunction()" required 
                 <% if(acroage.item == "男子雙人 Men's Double") {%>checked<%}%>/>
-                <label for="male">男子雙人<br>Men's Double</label>
+                <label for="item">男子雙人<br>Men's Double</label>
                 &nbsp;<input name="Acroage[item]" type="radio" id="womenDou" value="女子雙人 Women's Double" onclick="multiFunction()" required 
                 <% if(acroage.item == "女子雙人 Women's Double") {%>checked<%}%>/>
-                <label for="female">女子雙人<br>Women's Double</label>
+                <label for="item">女子雙人<br>Women's Double</label>
                 &nbsp;<input name="Acroage[item]" type="radio" id="mixDou" value="混合雙人 Mixed double" onclick="multiFunction()" required 
                 <% if(acroage.item == "混合雙人 Mixed double") {%>checked<%}%>/>
-                <label for="female">混合雙人<br>Mixed double</label>
+                <label for="item">混合雙人<br>Mixed double</label>
                 &nbsp;<input name="Acroage[item]" type="radio" id="womenTri" value="女子三人 Women's trio" onclick="multiFunction()" required 
                 <% if(acroage.item == "女子三人 Women's trio") {%>checked<%}%>/>
-                <label for="female">女子三人<br>Women's trio</label>
+                <label for="item">女子三人<br>Women's trio</label>
         </div>
 
         <!-- Applicants details -->
         <!-- 1 -->
         <div class="card col-12 col-sm-6" style="background: transparent;">
             <br>
-            <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">參加者(1)個人資料
-                Applicant(1)'s Personal Details</h6>
+            <h6 id="labelHead">參加者(1)個人資料 Applicant(1)'s Personal Details</h6>
+            <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name? </label>
-                <% if (acroage.havecname1 == "是 Yes") { %> <input type="radio" name="Acroage[havecname1]" value="是 Yes"
+            <label>是否有中文姓名 Any Chinese name? </label>
+            <% if (acroage.havecname1 == "是 Yes") { %> <input type="radio" name="Acroage[havecname1]" value="是 Yes"
                 id="Yes1" onclick="havechinesename()" checked required />
+            <label class="form-check-label" for="havecname1">是 Yes</label>
+
+            &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1" onclick="havechinesename()"
+                required />
+            <label class="form-check-label" for="havecname1">否 No</label>
             <% }else {%>
             <input type="radio" name="Acroage[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
                 required />
-            <% } %>
             <label class="form-check-label" for="havecname1">是 Yes</label>
 
-            <% if (acroage.havecname1 == "否 No") {%>
             &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1" onclick="havechinesename()"
                 checked required />
-            <% }else {%>
-            &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1" onclick="havechinesename()"
-                required />
-            <% } %>
             <label class="form-check-label" for="havecname1">否 No</label>
+            <% } %>
         </div>
 
-        <div class="form-group">
-
+        <div>
             <label for="cpChiName1">中文姓名 Name in Chinese:</label>
             <% if (acroage.havecname1 == "否 No") {%>
-            <input id="cpChiName1" type="text" name="Acroage[cpChiName1]" placeholder="e.g. 陳大文"
+            <input class="form-group" id="cpChiName1" type="text" name="Acroage[cpChiName1]" placeholder="e.g. 陳大文"
                 onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required disabled>
             <%} else {%>
-            <input id="cpChiName1" type="text" value="<%= acroage.cpChiName1%>" name="Acroage[cpChiName1]"
-                placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+            <input class="form-group" id="cpChiName1" type="text" value="<%= acroage.cpChiName1%>"
+                name="Acroage[cpChiName1]" placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+                required>
             <%}%>
         </div>
 
-        <div class="form-group">
+        <div>
             <label>英文姓名 Name in English: </label>
-            <input id="cpEngName1" type="text"  value="<%= acroage.cpEngName1%>" name="Acroage[cpEngName1]"
-            placeholder="e.g. Chan Tai Man"
-            onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
+            <input class="form-group" id="cpEngName1" type="text"  value="<%= acroage.cpEngName1%>"
+            name="Acroage[cpEngName1]"
+            placeholder="e.g. Chan Tai Man" onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
         </div>
 
         <!-- 性別 Gender -->
@@ -338,40 +332,40 @@
             <label for="female">女 Female</label>
         </div>
 
-        <div class="form-group">
+        <div>
             <label>出生日期 Date of Birth (dd/mm/yyyy): </label>
-            <input type="date" id="birth1" name="Acroage[birthday1]" value="<%= acroage.birth1%>" required>
-        </div>
-
-        <div class="form-group">
-            <label>身份證號碼 ID Card Number: </label>
-            <input type="text" name="Acroage[idNo1]" id="id1" value="<%= acroage.idNo1 %>" placeholder=" A123456(7)"
+            <input class="form-group" type="date" id="birth1" name="Acroage[birthday1]" value="<%= acroage.birthday1%>"
                 required>
         </div>
-        <div class="form-group">
+
+        <div>
+            <label>身份證號碼 ID Card Number: </label>
+            <input class="form-group" type="text" name="Acroage[idNo1]" id="id1" value="<%= acroage.idNo1 %>"
+                placeholder=" A123456(7)" required>
+        </div>
+        <div>
             <label>聯絡電話 Contact No.:</label>
-            <input type="tel" pattern=[0-9]{8} class="form-group" value="<%= acroage.contactNo1%>"
+            <input class="form-group" type="tel" pattern=[0-9]{8} value="<%= acroage.contactNo1%>"
                 name="Acroage[contactNo1]" placeholder="12345678" required>
         </div>
-        <div class="form-group">
+        <div>
             <label>電郵 Email Address: </label>
-            <input type="email" class="form-group" value="<%= acroage.email1%>" name="Acroage[email1]"
+            <input class="form-group" type="email" value="<%= acroage.email1%>" name="Acroage[email1]"
                 placeholder="example@gmail.com" style="width: 220pt;" required>
-
         </div>
-        <div class="form-group">
+        <div>
             <label>聯絡地址 Contact Address: </label>
             <input type="text" class="form-group" value="<%= acroage.address1%>" name="Acroage[address1]"
                 style="width:350pt" required>
             <br>
         </div>
 
-        <% if(acroage.imgIDCard0) { %>
+        <% if(acroage.photo0) { %>
         <div>
-            <a download="<%= acroage.idCode %>_Athlete(1)photo_運動員(1)相片.jpg" href="<%= acroage.imgIDCard0%>"
+            <a download="<%= acroage.idCode %>_Athlete(1)photo_運動員(1)相片" href="<%= acroage.photo0%>"
                 target="_blank">下載運動員(1)相片 Download Athlete(1) photo</a>
             <br>
-            <img src="<%=acroage.imgIDCard0%>" style="height:150px; width:auto;" />
+            <img src="<%=acroage.photo0%>" style="height:150px; width:auto;" />
         </div>
         <br>
         <% } %>
@@ -386,7 +380,7 @@
 
         <% if(acroage.imgIDCard0) { %>
         <div>
-            <a download="<%= acroage.idCode %>_idCopy1_身份證副本1.jpg" href="<%= acroage.imgIDCard0%>"
+            <a download="<%= acroage.idCode %>_idCopy1_身份證副本1" href="<%= acroage.imgIDCard0%>"
                 target="_blank">下載運動員(1)的身份證副本 Download ID copy of the Athlete(1)</a>
             <br>
             <img src="<%=acroage.imgIDCard0%>" style="height:150px; width:auto;" />
@@ -407,44 +401,46 @@
     <!-- 2 -->
     <div class="card col-12 col-sm-6" style="background: transparent;">
         <br>
-        <h6 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
-            參加者(2)個人資料
-            Applicant(2)'s Personal Details</h6>
+        <h6 id="labelHead">參加者(2)個人資料 Applicant(2)'s Personal Details</h6>
+        <br>
 
 
-        <div class="form-group">
+        <div>
             <label>是否有中文姓名 Any Chinese name? </label>
-            <% if (acroage.havecname2 == "是 Yes") { %>
+            <% if (acroage.havecname1 == "是 Yes") { %>
             <input type="radio" name="Acroage[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()" checked
                 required />
+            <label class="form-check-label" for="havecname2">是 Yes</label>
+
+            &nbsp;<input type="radio" name="Acroage[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
+                required />
+            <label class="form-check-label" for="havecname2">否 No</label>
             <% }else {%>
             <input type="radio" name="Acroage[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
                 required />
-            <% } %>
             <label class="form-check-label" for="havecname2">是 Yes</label>
 
-            <% if (acroage.havecname2 == "否 No") {%>
             &nbsp;<input type="radio" name="Acroage[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
                 checked required />
-            <% }else {%>
-            &nbsp;<input type="radio" name="Acroage[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
-                required />
-            <% } %>
             <label class="form-check-label" for="havecname2">否 No</label>
+            <% } %>
         </div>
-        <div class="form-group">
+
+        <div>
             <label for="cpChiName2">中文姓名 Name in Chinese:</label>
             <% if (acroage.havecname2 == "否 No") {%>
-            <input id="cpChiName2" type="text" name="Acroage[cpChiName2]" placeholder="e.g. 陳大文"
+            <input class="form-group" id="cpChiName2" type="text" name="Acroage[cpChiName2]" placeholder="e.g. 陳大文"
                 onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required disabled>
             <%} else {%>
-            <input id="cpChiName2" type="text" value="<%= acroage.cpChiName2%>" name="Acroage[cpChiName2]"
-                placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+            <input class="form-group" id="cpChiName2" type="text" value="<%= acroage.cpChiName2%>"
+                name="Acroage[cpChiName2]" placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+                required>
             <%}%>
         </div>
-        <div class="form-group">
+
+        <div>
             <label>英文姓名 Name in English: </label>
-            <input id="cpEngName2" type="text"  value="<%= acroage.cpEngName2%>"
+            <input class="form-group" id="cpEngName2" type="text"  value="<%= acroage.cpEngName2%>"
             name="Acroage[cpEngName2]" placeholder="e.g. Chan Tai Man"
             onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
         </div>
@@ -458,39 +454,41 @@
             <label for="female2">女 Female</label>
         </div>
 
-        <div class="form-group">
+        <div>
         <label>出生日期 Date of Birth (dd/mm/yyyy): </label>
-        <input type="date" id="birth2" name="Acroage[birthday2]" value="<%= acroage.birth2%>" required>
-        </div>
-
-        <div class="form-group">
-            <label>身份證號碼 ID Card Number: </label>
-            <input type="text" name="Acroage[idNo2]" id="id2" value="<%= acroage.idNo2 %>" placeholder=" A123456(7)"
+        <input class="form-group" type="date" id="birth2" name="Acroage[birthday2]" value="<%= acroage.birthday2%>"
                 required>
         </div>
-        <div class="form-group">
-            <label>聯絡電話 Contact No.:</label>
-            <input type="tel" pattern=[0-9]{8} value="<%= acroage.contactNo2%>" name="Acroage[contactNo2]"
-                placeholder="12345678" required>
+
+        <div>
+            <label>身份證號碼 ID Card Number: </label>
+            <input class="form-group" type="text" name="Acroage[idNo2]" id="id2" value="<%= acroage.idNo2 %>"
+                placeholder=" A123456(7)" required>
         </div>
-        <div class="form-group">
+        <div>
+            <label>聯絡電話 Contact No.:</label>
+            <input class="form-group" type="tel" pattern=[0-9]{8} value="<%= acroage.contactNo2%>"
+                name="Acroage[contactNo2]" placeholder="12345678" required>
+        </div>
+        <div>
             <label>電郵 Email Address: </label>
-            <input type="email" value="<%= acroage.email2%>" name="Acroage[email2]" placeholder="example@gmail.com"
-                style="width: 220pt;" required>
+            <input class="form-group" type="email" value="<%= acroage.email2%>" name="Acroage[email2]"
+                placeholder="example@gmail.com" style="width: 220pt;" required>
 
         </div>
-        <div class="form-group">
+        <div>
             <label>聯絡地址 Contact Address: </label>
-            <input type="text" value="<%= acroage.address2%>" name="Acroage[address2]" style="width:350pt" required>
+            <input class="form-group" type="text" value="<%= acroage.address2%>" name="Acroage[address2]"
+                style="width:350pt" required>
             <br>
         </div>
 
-        <% if(acroage.imgIDCard1) { %>
+        <% if(acroage.photo1) { %>
         <div>
-            <a download="<%= acroage.idCode %>_Athlete(2)photo_運動員(2)相片.jpg" href="<%= acroage.imgIDCard1%>"
+            <a download="<%= acroage.idCode %>_Athlete(2)photo_運動員(2)相片" href="<%= acroage.photo1%>"
                 target="_blank">下載運動員(2)相片 Download Athlete(2) photo</a>
             <br>
-            <img src="<%=acroage.imgIDCard1%>" style="height:150px; width:auto;" />
+            <img src="<%=acroage.photo1%>" style="height:150px; width:auto;" />
         </div>
         <br>
         <% } %>
@@ -505,7 +503,7 @@
 
         <% if(acroage.imgIDCard1) { %>
         <div>
-            <a download="<%= acroage.idCode %>_idCopy2_身份證副本2.jpg" href="<%= acroage.imgIDCard1%>"
+            <a download="<%= acroage.idCode %>_idCopy2_身份證副本2" href="<%= acroage.imgIDCard1%>"
                 target="_blank">下載運動員(2)的身份證副本 Download ID copy of the Athlete(2)</a>
             <br>
             <img src="<%=acroage.imgIDCard1%>" style="height:150px; width:auto;" />
@@ -582,7 +580,7 @@
 
         <div class="form-group col-12 col-sm-6">
         <label>出生日期 Date of Birth (dd/mm/yyyy): </label>
-        <input type="date" id="birth3" name="Acroage[birthday3]" value="<%= acroage.birth3%>">
+        <input type="date" id="birth3" name="Acroage[birthday3]" value="<%= acroage.birthday3%>">
         </div>
         <div class="form-group col-12 col-sm-6">
             <label>身份證號碼 ID Card Number: </label>
@@ -606,12 +604,12 @@
             <br>
         </div>
 
-        <% if(acroage.imgIDCard2) { %>
+        <% if(acroage.photo2) { %>
         <div class="form-group col-12">
-            <a download="<%= acroage.idCode %>_Athlete(3)photo_運動員(3)相片.jpg" href="<%= acroage.imgIDCard2%>"
+            <a download="<%= acroage.idCode %>_Athlete(3)photo_運動員(3)相片" href="<%= acroage.photo2%>"
                 target="_blank">下載運動員(3)相片 Download Athlete(3) photo</a>
             <br>
-            <img src="<%=acroage.imgIDCard2%>" style="height:150px; width:auto;" />
+            <img src="<%=acroage.photo2%>" style="height:150px; width:auto;" />
         </div>
         <br>
         <% } %>
@@ -626,7 +624,7 @@
 
         <% if(acroage.imgIDCard2) { %>
         <div class="form-group col-12">
-            <a download="<%= acroage.idCode %>_idCopy3_身份證副本3.jpg" href="<%= acroage.imgIDCard2%>"
+            <a download="<%= acroage.idCode %>_idCopy3_身份證副本3" href="<%= acroage.imgIDCard2%>"
                 target="_blank">下載運動員(3)的身份證副本
                 Download ID copy of
                 the Athlete(3)</a>
@@ -703,12 +701,12 @@
             var type = acroage.declaration0.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.pdf" href="<%= acroage.declaration0%>"
+            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
-            <% } else if(type[0] == 'data:image/jpeg') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.jpg" href="<%= acroage.declaration0%>"
+            <% } else { %>
+            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
@@ -733,12 +731,12 @@
             var type = acroage.declaration1.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.pdf" href="<%= acroage.declaration1%>"
+            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
-            <% } else if(type[0] == 'data:image/jpeg') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.jpg" href="<%= acroage.declaration1%>"
+            <% } else { %>
+            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
@@ -760,19 +758,19 @@
             <%}%>
             <br>
             <label>參加者(3)家長姓名 Applicant(3)'s Parent Name: </label>
-            <input type="text" class="form-group" value="<%= acroage.parentName3 %>" name="Acroage[parentName3]"
-            required>
+            <input type="text" id="parentName3" class="form-group" value="<%= acroage.parentName3 %>"
+            name="Acroage[parentName3]">
             <br>
             <% if(acroage.declaration2) { 
                 var type = acroage.declaration2.split(';');%>
             <div class="col-12 col-sm-6">
                 <% if(type[0] == 'data:application/pdf') { %>
-                <a download="<%= acroage.idCode %>_Declaration1_聲明1.pdf" href="<%= acroage.declaration2%>"
+                <a download="<%= acroage.idCode %>_Declaration1_聲明3" href="<%= acroage.declaration2%>"
                     target="_blank">下載聲明書
                     Download declartion</a>
                 <br>
-                <% } else if(type[0] == 'data:image/jpeg') { %>
-                <a download="<%= acroage.idCode %>_Declaration1_聲明1.jpg" href="<%= acroage.declaration2%>"
+                <% } else { %>
+                <a download="<%= acroage.idCode %>_Declaration1_聲明3" href="<%= acroage.declaration2%>"
                     target="_blank">下載聲明書
                     Download declartion</a>
                 <br>
@@ -916,7 +914,7 @@
 </div>
 
 <script>
-    window.onload = function () { disableform('Acroage', '<%= acroage.formStatus%>') };
+    window.onload = function () { disableform('acroage', '<%= acroage.formStatus%>') };
     function disableform(formId, formStatus) {
         if (formStatus == "rejected") {
             var f = document.forms[formId].getElementsByTagName('input');

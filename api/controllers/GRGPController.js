@@ -23,26 +23,30 @@ module.exports = {
             req.session.data.payStatus = "unpaid";
             req.session.data.formStatus = "ToBeCon";
             req.session.data.teamStatus = "suTeam";
+            var condition = {};
+            condition.compYear = req.session.data.compYear;
+
+            //Set idCode to GRGP
+            var modelNum = await GRGP.count({
+                where: condition
+            })
+            var newID = modelNum + 1;
+            var newIDCode = "GRGP" + req.session.data.compYear + "-" + newID;
+            req.session.data.idCode = newIDCode;
+
+            //create GRGP
             await GRGP.create(req.session.data);
 
-            //update form idCode
-            var model = await GRGP.findOne(req.session.data);
-            await GRGP.update(model.id).set({
-                idCode: "GRGP2020-" + model.id
-            })
-            model["idCode"] = "GRGP2020-" + model.id;
-            //
-
             //clear formdata in session and user
-            req.session.data = {};
-            req.session.GRGPdata = {};
+            req.session.data = null;
+            req.session.GRGPdata = null;
             var user = await User.update(req.session.userId).set({
-                GRGPdata: {}
+                GRGPdata: null
             }).fetch();
             if (user.length == 0) return res.notFound();
             //
 
-            return res.view('pages/competition/form/confirm_form', { 'form': model });
+            return res.view('pages/competition/form/confirm_form', { 'formIDCode': newIDCode});
         }
     },
 
@@ -84,6 +88,7 @@ module.exports = {
                 return res.badRequest("Form-data not received.");
 
             var models = await GRGP.update(req.params.id).set({
+                compYear: req.body.GRGP.compYear,
                 teamName: req.body.GRGP.teamName,
                 phone: req.body.GRGP.phone,
                 email: req.body.GRGP.email,
@@ -151,7 +156,7 @@ module.exports = {
         if (req.method == "GET") return res.forbidden();
 
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
         if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
@@ -243,7 +248,7 @@ module.exports = {
     export_xlsx: async function (req, res) {
 
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
         if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
@@ -302,6 +307,7 @@ module.exports = {
 
             return {
                 "申請表編號 Application Number": model.idCode,
+                "比賽年份 Year of Competition": model.compYear,
                 "隊伍名稱(中文) Team Name(Chinese)": model.teamName,
                 "聯絡電話 Contact Number": model.phone,
                 "聯絡電郵 Email Address": model.email,
@@ -370,7 +376,7 @@ module.exports = {
             var XLSX = require('xlsx');
             var workbook = XLSX.readFile(uploadedFiles[0].fd);
             var ws = workbook.Sheets[workbook.SheetNames[0]];
-            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "teamName", "phone", "email", "coachName", "coachPhone", "category", "havecname1", "chiName1", "engName1", "ID1", "birth1", "havecname2", "chiName2", "engName2", "ID2", "birth2", "havecname3", "chiName3", "engName3", "ID3", "birth3", "havecname4", "chiName4", "engName4", "ID4", "birth4", "havecname5", "chiName5", "engName5", "ID5", "birth5", "havecname6", "chiName6", "engName6", "ID6", "birth6", "leaderName", "leaderPosition", "NoOfTeam", "NoOfPeople", "teamFee", "insurance", "total", "payStatus", "formStatus", "teamStatus"] });
+            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "compYear", "teamName", "phone", "email", "coachName", "coachPhone", "category", "havecname1", "chiName1", "engName1", "ID1", "birth1", "havecname2", "chiName2", "engName2", "ID2", "birth2", "havecname3", "chiName3", "engName3", "ID3", "birth3", "havecname4", "chiName4", "engName4", "ID4", "birth4", "havecname5", "chiName5", "engName5", "ID5", "birth5", "havecname6", "chiName6", "engName6", "ID6", "birth6", "leaderName", "leaderPosition", "NoOfTeam", "NoOfPeople", "teamFee", "insurance", "total", "payStatus", "formStatus", "teamStatus"] });
 
             for (var i = 0; i < data.length; i++) {
                 var date1 = data[i].birth1.split('/');

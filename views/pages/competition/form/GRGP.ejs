@@ -2,16 +2,6 @@
     .card {
         border-radius: 0;
     }
-
-    .dot {
-        height: 15px;
-        width: 15px;
-        background-color:#bbb;
-        border-radius: 50%;
-        display: inline-block;
-        text-align: center;
-        font-size: smaller;
-    }
 </style>
 
 <form action="/competition/form/GRGP" method="POST" id=GRGP_form>
@@ -19,8 +9,7 @@
         <!-- Title -->
         <div class="col-12" style="color: #888888; ">
             <br>
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>第63屆體育節 -
-                    2020年全港藝術體操分齡比賽</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>全港藝術體操分齡比賽</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>集體項目報名表(公開組︰學校以外之團體)</u>
             </h2>
             <br><br>
@@ -34,8 +23,21 @@
 
         <div class="col-12">
             <a href="http://www.gahk.org.hk/doc/Rules_HKRGAgeGroupCompetition.pdf" target="_blank"
-                style="text-align: center;"><u>第63屆體育節2020年全港藝術體操分齡賽競賽要求 Rules of HKRGAgeGroupCompetition
+                style="text-align: center;"><u>全港藝術體操分齡賽競賽要求 Rules of HKRGAgeGroupCompetition
                 </u></a>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+             <%var todayYear = new Date().getFullYear();
+                var end = todayYear + 2;%>
+            <select id="compYear" name="GRGP[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(req.session.data == null && req.session.GRGPdata == null &&year == todayYear ||  req.session.GRGPdata != null && year == req.session.GRGPdata.compYear || req.session.data != null && year == req.session.data.compYear) {%> selected<%}%> ><%=year%></option>
+                <%}%>
+            </select>
         </div>
 
         <!-- Team details -->
@@ -147,9 +149,20 @@
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,0)" required />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,0)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.imgIDCard0 == "") { %>required <% } %> />
                 <br>
                 <div id="preview0"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.imgIDCard0 != "" && req.session.GRGPdata.imgIDCard0 != null) { %>
+                <input id="imgIDCard0" type="hidden" name="GRGP[imgIDCard0]"
+                    value="<%=req.session.GRGPdata.imgIDCard0%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <img src="<%=req.session.GRGPdata.imgIDCard0%>" style="height:150px; width:auto" />
+                <% } else {%>
+                <input id="imgIDCard0" type="hidden" name="GRGP[imgIDCard0]" />
+                <%}%>
             </div>
             <br>
         </div>
@@ -165,7 +178,7 @@
                 <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGP[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.Yes2 == true) { %> checked <% } %>
-                    required>
+                required>
                 <label class="form-check-label" for="havecname2">是 Yes</label>
                 <input type="radio" name="GRGP[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.No2 == true) { %> checked <% } %>
@@ -203,9 +216,20 @@
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,1)" required />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,1)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.imgIDCard1 == "") { %>required <% } %> />
                 <br>
                 <div id="preview1"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.imgIDCard1 != "" && req.session.GRGPdata.imgIDCard1 != null) { %>
+                <input id="imgIDCard1" type="hidden" name="GRGP[imgIDCard1]"
+                    value="<%=req.session.GRGPdata.imgIDCard1%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <img src="<%=req.session.GRGPdata.imgIDCard1%>" style="height:150px; width:auto" />
+                <% } else {%>
+                <input id="imgIDCard1" type="hidden" name="GRGP[imgIDCard1]" />
+                <%}%>
             </div>
             <br>
         </div>
@@ -221,7 +245,7 @@
                 <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGP[havecname3]" value="是 Yes" id="Yes3" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.Yes3 == true) { %> checked <% } %>
-                    required />
+                required />
                 <label class="form-check-label" for="havecname3">是 Yes</label>
                 <input type="radio" name="GRGP[havecname3]" value="否 No" id="No3" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.No3 == true) { %> checked <% } %>
@@ -259,9 +283,20 @@
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,2)" required />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,2)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.imgIDCard2 == "") { %>required <% } %> />
                 <br>
                 <div id="preview2"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.imgIDCard2 != "" && req.session.GRGPdata.imgIDCard2 != null) { %>
+                <input id="imgIDCard2" type="hidden" name="GRGP[imgIDCard2]"
+                    value="<%=req.session.GRGPdata.imgIDCard2%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <img src="<%=req.session.GRGPdata.imgIDCard2%>" style="height:150px; width:auto" />
+                <% } else {%>
+                <input id="imgIDCard2" type="hidden" name="GRGP[imgIDCard2]" />
+                <%}%>
             </div>
             <br>
         </div>
@@ -277,7 +312,7 @@
                 <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGP[havecname4]" value="是 Yes" id="Yes4" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.Yes4 == true) { %> checked <% } %>
-                    required />
+                required />
                 <label class="form-check-label" for="havecname4">是 Yes</label>
                 <input type="radio" name="GRGP[havecname4]" value="否 No" id="No4" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.No4 == true) { %> checked <% } %>
@@ -315,9 +350,21 @@
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,3)" required />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,3)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.imgIDCard3 == null) { %>required
+                    <% } %> />
                 <br>
                 <div id="preview3"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.imgIDCard3 != "" && req.session.GRGPdata.imgIDCard3 != null) { %>
+                <input id="imgIDCard3" type="hidden" name="GRGP[imgIDCard3]"
+                    value="<%=req.session.GRGPdata.imgIDCard3%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <img src="<%=req.session.GRGPdata.imgIDCard3%>" style="height:150px; width:auto" />
+                <% } else {%>
+                <input id="imgIDCard3" type="hidden" name="GRGP[imgIDCard3]" />
+                <%}%>
             </div>
             <br>
         </div>
@@ -333,7 +380,7 @@
                 <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGP[havecname5]" value="是 Yes" id="Yes5" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.Yes5 == true) { %> checked <% } %>
-                    required />
+                required />
                 <label class="form-check-label" for="havecname5">是 Yes</label>
                 <input type="radio" name="GRGP[havecname5]" value="否 No" id="No5" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.No5 == true) { %> checked <% } %>
@@ -371,9 +418,20 @@
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,4)" required />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,4)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.imgIDCard4 == "") { %>required <% } %> />
                 <br>
                 <div id="preview4"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.imgIDCard4 != "" && req.session.GRGPdata.imgIDCard4 != null) { %>
+                <input id="imgIDCard4" type="hidden" name="GRGP[imgIDCard4]"
+                    value="<%=req.session.GRGPdata.imgIDCard4%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <img src="<%=req.session.GRGPdata.imgIDCard4%>" style="height:150px; width:auto" />
+                <% } else {%>
+                <input id="imgIDCard4" type="hidden" name="GRGP[imgIDCard4]" />
+                <%}%>
             </div>
             <br>
         </div>
@@ -389,7 +447,7 @@
                 <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGP[havecname6]" value="是 Yes" id="Yes6" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.Yes6 == true) { %> checked <% } %>
-                    required />
+                required />
                 <label class="form-check-label" for="havecname6">是 Yes</label>
                 <input type="radio" name="GRGP[havecname6]" value="否 No" id="No6" onclick="havechinesename()"
                     <% if(req.session.GRGPdata != null && req.session.GRGPdata.No6 == true) { %> checked <% } %>
@@ -427,9 +485,20 @@
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,5)" required />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,5)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.imgIDCard5 == "") { %>required <% } %> />
                 <br>
                 <div id="preview5"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.imgIDCard5 != "" && req.session.GRGPdata.imgIDCard5 != null) { %>
+                <input id="imgIDCard5" type="hidden" name="GRGP[imgIDCard5]"
+                    value="<%=req.session.GRGPdata.imgIDCard5%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <img src="<%=req.session.GRGPdata.imgIDCard5%>" style="height:150px; width:auto" />
+                <% } else {%>
+                <input id="imgIDCard5" type="hidden" name="GRGP[imgIDCard5]" />
+                <%}%>
             </div>
             <br>
         </div>
@@ -457,123 +526,131 @@
             <input id="leaderName" type="text" class="form-group" name="GRGP[leaderName]"
                 <% if(req.session.GRGPdata != null && req.session.GRGPdata.leaderName != null) { %>
                 value="<%=req.session.GRGPdata.leaderName%>" <% } %> required>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <label>隊伍負責人職位 Leader's Position:</label>
+                <input id="leaderPosition" type="text" class="form-group" name="GRGP[leaderPosition]"
+                    <% if(req.session.GRGPdata != null && req.session.GRGPdata.leaderPosition != null) { %>
+                    value="<%=req.session.GRGPdata.leaderPosition%>" <% } %> required>
+            </div>
+
+            <!-- Fee -->
+            <div class="col-12">
+                <br><br>
+                <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">費用 Fee
+                </h5>
+            </div>
+
+            <div class="col-12 form-group">
+                <label>集體項目 Collective Subject: $150 X </label>
+                <input id="NoOfTeam" type="number" class="mx-sm-2" name="GRGP[NoOfTeam]" min=1 max=100
+                    onblur="calculateFee()"
+                    <% if(req.session.GRGPdata != null && req.session.GRGPdata.NoOfTeam != null) { %>
+                    value="<%=req.session.GRGPdata.NoOfTeam%>" <% } %> required />
+                <label>隊 team(s) = $</label>
+                <input id="teamFee" type="number" class="mx-sm-2" name="GRGP[teamFee]"
+                    <% if(req.session.data != null){ %> value="<%=req.session.data.teamFee%>"
+                    <% }else if(req.session.GRGPdata != null && req.session.GRGPdata.teamFee != null) { %>
+                    value="<%=req.session.GRGPdata.teamFee%>" <% } %> readonly />
+            </div>
+
+            <div class="col-12 form-group">
+                <label>保險 Insurance: $30 X </label>
+                <input id="NoOfPeople" type="number" class="mx-sm-2" name="GRGP[NoOfPeople]" min=1 max=100
+                    onblur="calculateInsurance()"
+                    <% if(req.session.GRGPdata != null && req.session.GRGPdata.NoOfPeople != "") { %>
+                    value="<%=req.session.GRGPdata.NoOfPeople%>" <% } %> required />
+                <label>人 people = $</label>
+                <input id="insurance" type="number" class="mx-sm-2" name="GRGP[insurance]"
+                    <% if(req.session.data != null){ %> value="<%=req.session.data.insurance%>"
+                    <% }else if(req.session.GRGPdata != null && req.session.GRGPdata.insurance != "") { %>
+                    value="<%=req.session.GRGPdata.insurance%>" <% } %> readonly />
+                <br><br>
+            </div>
+
+            <div class="col-12 form-group">
+                <label>總額 Total Price = $</label>
+                <input id="total" type="number" class="mx-sm-2" name="GRGP[total]" <% if(req.session.data != null){ %>
+                    value="<%=req.session.data.total%>"
+                    <% }else if(req.session.GRGPdata != null && req.session.GRGPdata.total != null) { %>
+                    value="<%=req.session.GRGPdata.total%>" <% } %> readonly />
+            </div>
+
+            <div class="col-12 form-group">
+                <span style="font-style: italic;">*請以支票付款，並以郵寄方式或親臨辦公室遞交支票<br>Please make payment by cheque and submit
+                    it by
+                    post or in person</span>
+            </div>
+
+            <!-- Declaration -->
+            <div class="col-12">
+                <br><br>
+                <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">聲明
+                    Declaration</h5>
+            </div>
+
+
+            <div class="col-12">
+                <label>請下載及列印 <a href="/formDoc/GRGO_declaration.pdf" download
+                        style="color:#83a70c"><u>聲明書.pdf</u></a>後簽署並上載文件 Please download and print the <a
+                        href="/formDoc/GRGS_declaration.pdf" download
+                        style="color:#83a70c"><u>declaration.pdf</u></a>,then
+                    sign and upload it</label>
+                <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)"
+                    <% if(req.session.GRGPdata == null || req.session.GRGPdata.declaration == "") { %> required
+                    <% } %> />
+                <div id="HF2preview"></div>
+                <% if(req.session.GRGPdata != null && req.session.GRGPdata.declaration != "" && req.session.GRGPdata.declaration != null) { %>
+                <input id="declaration" type="hidden" name="GRGP[declaration]"
+                    value="<%=req.session.GRGPdata.declaration%>" />
+                <br>
+                <label>原本文件 Original File</label>
+                <br>
+                <% var type = req.session.GRGPdata.declaration.split(';');
+                if(type[0] == 'data:application/pdf'){ %>
+                <a download="Declaration聲明" href="<%= req.session.GRGPdata.declaration%>" target="_blank">聲明書
+                    declartion</a>
+                <% } else { %>
+                <img src="<%=req.session.GRGPdata.declaration%>" style="height:150px; width:auto" />
+                <% }}else{ %>
+                <input id="declaration" type="hidden" name="GRGP[declaration]" />
+                <% } %>
+            </div>
+
+
+            <div class="col-12">
+                <br><br><br>
+                <input type="checkbox" required>
+                <label>我已仔細閱讀並清楚明白<a href="/competition/annex1" target="_blank"><u>參加者健康及體能須知</u></a><br> I have read
+                    carefully and
+                    understood the <a href="/competition/annex1" target="_blank"><u>Health and Fitness Guideline</u></a>
+                    for
+                    participants</label>
+            </div>
+
+            <!-- Button -->
+            <div class="col-12">
+                <br><br>
+                <!-- Sumbit -->
+                <button type="submit" class="btn btn-primary"
+                    style="background: #83a70c url(../img/overlay.png) repeat-x; border: none; float: right;">預覽 Preview
+                    >></button>
+                <!-- Save -->
+                <button type="button" class="btn btn-primary" onclick="saveForm()" style="background: red; border: none; float: left;">儲存 Save</button>
+            </div>
         </div>
-
-        <div class="col-12 col-sm-6">
-            <label>隊伍負責人職位 Leader's Position:</label>
-            <input id="leaderPosition" type="text" class="form-group" name="GRGP[leaderPosition]"
-                <% if(req.session.GRGPdata != null && req.session.GRGPdata.leaderPosition != null) { %>
-                value="<%=req.session.GRGPdata.leaderPosition%>" <% } %> required>
-        </div>
-
-        <!-- Fee -->
-        <div class="col-12">
-            <br><br>
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">費用 Fee</h5>
-        </div>
-
-        <div class="col-12 form-group">
-            <label>集體項目 Collective Subject: $150 X </label>
-            <input id="NoOfTeam" type="number" class="mx-sm-2" name="GRGP[NoOfTeam]" min=1 max=100
-                onblur="calculateFee()"
-                <% if(req.session.GRGPdata != null && req.session.GRGPdata.NoOfTeam != null) { %>
-                value="<%=req.session.GRGPdata.NoOfTeam%>" <% } %> required />
-            <label>隊 team(s) = $</label>
-            <input id="teamFee" type="number" class="mx-sm-2" name="GRGP[teamFee]" <% if(req.session.data != null){ %>
-                value="<%=req.session.data.teamFee%>"
-                <% }else if(req.session.GRGPdata != null && req.session.GRGPdata.teamFee != null) { %>
-                value="<%=req.session.GRGPdata.teamFee%>" <% } %> readonly />
-        </div>
-
-        <div class="col-12 form-group">
-            <label>保險 Insurance: $30 X </label>
-            <input id="NoOfPeople" type="number" class="mx-sm-2" name="GRGP[NoOfPeople]" min=1 max=100
-                onblur="calculateInsurance()"
-                <% if(req.session.GRGPdata != null && req.session.GRGPdata.NoOfPeople != null) { %>
-                value="<%=req.session.GRGPdata.NoOfPeople%>" <% } %> required />
-            <label>人 people = $</label>
-            <input id="insurance" type="number" class="mx-sm-2" name="GRGP[insurance]"
-                <% if(req.session.data != null){ %> value="<%=req.session.data.insurance%>"
-                <% }else if(req.session.GRGPdata != null && req.session.GRGPdata.insurance != null) { %>
-                value="<%=req.session.GRGPdata.insurance%>" <% } %> readonly />
-            <br><br>
-        </div>
-
-        <div class="col-12 form-group">
-            <label>總額 Total Price = $</label>
-            <input id="total" type="number" class="mx-sm-2" name="GRGP[total]" <% if(req.session.data != null){ %>
-                value="<%=req.session.data.total%>"
-                <% }else if(req.session.GRGPdata != null && req.session.GRGPdata.total != null) { %>
-                value="<%=req.session.GRGPdata.total%>" <% } %> readonly />
-        </div>
-
-        <div class="col-12 form-group">
-            <span style="font-style: italic;">*請以支票付款，並以郵寄方式或親臨辦公室遞交支票<br>Please make payment by cheque and submit it by
-                post or in person</span>
-        </div>
-
-        <!-- Declaration -->
-        <div class="col-12">
-            <br><br>
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">聲明
-                Declaration</h5>
-        </div>
-
-
-
-        <div class="col-12">
-            <label>請下載及列印 <a href="/formDoc/GRGO_declaration.pdf" download
-                    style="color:#83a70c"><u>聲明書.pdf</u></a>後簽署並上載文件 Please download and print the <a
-                    href="/formDoc/GRGS_declaration.pdf" download style="color:#83a70c"><u>declaration.pdf</u></a>,then
-                sign and upload it</label>
-            <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" required />
-            <div id="HF2preview"></div>
-        </div>
-
-
-        <div class="col-12">
-            <br><br><br>
-            <input type="checkbox" required>
-            <label>我已仔細閱讀並清楚明白<a href="/competition/annex1" target="_blank"><u>參加者健康及體能須知</u></a><br> I have read
-                carefully and
-                understood the <a href="/competition/annex1" target="_blank"><u>Health and Fitness Guideline</u></a> for
-                participants</label>
-        </div>
-
-        <!-- Button -->
-        <div class="col-12">
-            <br><br>
-            <!-- Sumbit -->
-            <button type="submit" class="btn btn-primary"
-                style="background: #83a70c url(../img/overlay.png) repeat-x; border: none; float: right;">預覽 Preview
-                >></button>
-            <!-- Save -->
-            <button type="button" class="btn btn-primary" onclick="saveForm()" onmouseover="showRemind()" onmouseout="hideRemind()"
-                style="background: red; border: none; float: left;">儲存 Save</button>
-                &nbsp;<p id="remind" style="display:none; font-size:smaller;"><span class="dot">!</span>已上載檔案將不會被儲存 The uploaded files will not be saved</p>
-        </div>
-    </div>
-    <br>
+        <br>
 
 </form>
 
 
 <script>
-    function showRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "inline";
-    }
-
-    function hideRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "none";
-
-    }
-
     async function saveForm() {
         var form = document.getElementById("GRGP_form");
-
+        
         var data = JSON.stringify({
+            compYear: form.compYear.value,
             teamName: form.teamName.value,
             phone: form.phone.value,
             email: form.email.value,
@@ -586,42 +663,42 @@
             engName1: form.engName1.value,
             ID1: form.ID1.value,
             birth1: form.birth1.value,
-            //imgIDCard0: img0,
+            imgIDCard0: form.imgIDCard0.value,
             Yes2: form.Yes2.checked,
             No2: form.No2.checked,
             chiName2: form.chiName2.value,
             engName2: form.engName2.value,
             ID2: form.ID2.value,
             birth2: form.birth2.value,
-            //imgIDCard1: img1,
+            imgIDCard1: form.imgIDCard1.value,
             Yes3: form.Yes3.checked,
             No3: form.No3.checked,
             chiName3: form.chiName3.value,
             engName3: form.engName3.value,
             ID3: form.ID3.value,
             birth3: form.birth3.value,
-            //imgIDCard2: img2,
+            imgIDCard2: form.imgIDCard2.value,
             Yes4: form.Yes4.checked,
             No4: form.No4.checked,
             chiName4: form.chiName4.value,
             engName4: form.engName4.value,
             ID4: form.ID4.value,
             birth4: form.birth4.value,
-            //imgIDCard3: img3,
+            imgIDCard3: form.imgIDCard3.value,
             Yes5: form.Yes5.checked,
             No5: form.No5.checked,
             chiName5: form.chiName5.value,
             engName5: form.engName5.value,
             ID5: form.ID5.value,
             birth5: form.birth5.value,
-            //imgIDCard4: img4,
+            imgIDCard4: form.imgIDCard4.value,
             Yes6: form.Yes6.checked,
             No6: form.No6.checked,
             chiName6: form.chiName6.value,
             engName6: form.engName6.value,
             ID6: form.ID6.value,
             birth6: form.birth6.value,
-            //imgIDCard5: img5,
+            imgIDCard5: form.imgIDCard5.value,
             coachName: form.coachName.value,
             coachPhone: form.coachPhone.value,
             leaderName: form.leaderName.value,
@@ -631,7 +708,7 @@
             NoOfPeople: form.NoOfPeople.value,
             insurance: form.insurance.value,
             total: form.total.value,
-            //decalartion: form.total.value
+            declaration: form.declaration.value
         });
 
         var response = await fetch("/competition/form/GRGP/save", {
@@ -683,15 +760,10 @@
             var img = document.createElement('img');
             img.src = e.target.result;
             preview.appendChild(img);
-
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'GRGP[imgIDCard' + p + ']';
-            input.value = e.target.result;
-
             img.style.width = "auto";
             img.style.height = "150px";
-            document.getElementById('GRGP_form').appendChild(input);
+
+            document.getElementById("imgIDCard" + p).value = e.target.result;
         }
         reader.readAsDataURL(file);
     }
@@ -708,22 +780,15 @@
                 var img = document.createElement('img');
                 img.src = e.target.result;
                 preview.appendChild(img);
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'GRGS[declaration]';
-                input.value = e.target.result;
                 img.style.width = "auto";
                 img.style.height = "150px";
-                preview.appendChild(input);
+
+                document.getElementById("declaration").value = e.target.result;
             }
         } else if (file.type == 'application/pdf') {
             reader.onload = function (e) {
                 preview.innerHTML = "";
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'GRGS[declaration]';
-                input.value = e.target.result;
-                preview.appendChild(input);
+                document.getElementById("declaration").value = e.target.result;
             }
         }
         reader.readAsDataURL(file);

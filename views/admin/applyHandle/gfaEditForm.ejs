@@ -205,23 +205,20 @@
         </div>
 
         <div class="col-12" style="color: #888888; ">
-            <br>
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>2020年香港普及體操節</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>香港普及體操節</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u></h2>
-            <br><br>
         </div>
 
-
+        <!-- 比賽年份 Year of Competition -->
         <div class="col-12">
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽規則及章程
-                Rules and Regulation</h5>
-        </div>
-
-
-        <div class="col-12">
-            <a href="/formDoc/Prospectus_GFAFestival2020.pdf" target="_blank"
-                style="text-align: center;"><u>2020年香港普及體操節章程
-                    Prospectus of GFAFestival2020</u></a>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="GFA[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == gfa.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
         <!-- Group Details -->
@@ -273,14 +270,24 @@
         </div>
 
         <div class="col-12">
-            <label>是否有中文姓名 Any Chinese name: </label>
+            <label>是否有中文姓名 Any Chinese name? </label>
+            <% if (gfa.havecname == "是 Yes") { %>
             <input type="radio" name="GFA[havecname]" value="是 Yes" id="Yes" onclick="havechinesename()"
-                <% if(gfa.havecname == "是 Yes"){ %> checked <% } %> required>
+                checked required />
             <label class="form-check-label" for="havecname">是 Yes</label>
 
-            &nbsp;<input type="radio" name="GFA[havecname]" value="否 No" id="No" onclick="havechinesename()"
-                <% if(gfa.havecname == "否 No"){ %> checked <% } %> required>
+            &nbsp;<input type="radio" name="GFA[havecname]" value="否 No" id="No"
+                onclick="havechinesename()" required />
             <label class="form-check-label" for="havecname">否 No</label>
+            <% }else {%>
+            <input type="radio" name="GFA[havecname]" value="是 Yes" id="Yes" onclick="havechinesename()"
+                required />
+            <label class="form-check-label" for="havecname">是 Yes</label>
+
+            &nbsp;<input type="radio" name="GFA[havecname]" value="否 No" id="No"
+                onclick="havechinesename()" checked required />
+            <label class="form-check-label" for="havecname">否 No</label>
+            <% } %>
         </div>
 
         <div class="col-12 col-sm-6">
@@ -539,7 +546,7 @@
     }
 
     // Get the modal
-    var modal = document.getElementById('askModal');
+    var modal = document.getElementById('<%= gfa.id%>');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {

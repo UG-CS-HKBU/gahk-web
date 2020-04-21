@@ -206,23 +206,20 @@
 
         <!-- Title -->
         <div class="col-12" style="color: #888888; ">
-            <br>
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>第63屆體育節 -
-                    2020年全港藝術體操分齡比賽</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>全港藝術體操分齡比賽</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>集體項目報名表(學校組)</u></h2>
-            <br><br>
         </div>
 
-        <!-- Rules -->
+        <!-- 比賽年份 Year of Competition -->
         <div class="col-12">
-            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽規則及章程
-                Rules and Regulation</h5>
-        </div>
-
-        <div class="col-12">
-            <a href="http://www.gahk.org.hk/doc/Rules_HKRGAgeGroupCompetition.pdf" target="_blank"
-                style="text-align: center;"><u>第63屆體育節2020年全港藝術體操分齡賽競賽要求 Rules of HKRGAgeGroupCompetition
-                </u></a>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="GRGS[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == grgs.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
         <!-- Team details -->
@@ -288,13 +285,33 @@
             <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name: </label>
+                <!-- <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGS[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()" required
                     <% if ( grgs.havecname1== "是 Yes" ) { %> checked <% } %> />
                 <label class="form-check-label" for="havecname1">是 Yes</label>
                 <input type="radio" name="GRGS[havecname1]" value="否 No" id="No1" onclick="havechinesename()" required
                     <% if ( grgs.havecname1== "否 No" ) { %> checked <% } %> />
+                <label class="form-check-label" for="havecname1">否 No</label> -->
+
+
+                <label>是否有中文姓名 Any Chinese name? </label>
+                <% if (grgs.havecname1 == "是 Yes") { %>
+                <input type="radio" name="GRGS[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
+                    checked required />
+                <label class="form-check-label" for="havecname1">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname1]" value="否 No" id="No1"
+                    onclick="havechinesename()" required />
                 <label class="form-check-label" for="havecname1">否 No</label>
+                <% }else {%>
+                <input type="radio" name="GRGS[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
+                    required />
+                <label class="form-check-label" for="havecname1">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname1]" value="否 No" id="No1"
+                    onclick="havechinesename()" checked required />
+                <label class="form-check-label" for="havecname1">否 No</label>
+                <% } %>
             </div>
             <div>
                 <label>中文姓名 Name in Chinese:</label>
@@ -320,7 +337,7 @@
 
             <% if(grgs.imgIDCard0) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy1_身份證副本1.jpg" href="<%= grgs.imgIDCard0%>"
+                <a download="<%= grgs.idCode %>_idCopy1_身份證副本1" href="<%= grgs.imgIDCard0%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -347,13 +364,33 @@
             <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name: </label>
+                <!-- <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGS[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()" required
                     <% if ( grgs.havecname2== "是 Yes" ) { %> checked <% } %> />
                 <label class="form-check-label" for="havecname2">是 Yes</label>
                 <input type="radio" name="GRGS[havecname2]" value="否 No" id="No2" onclick="havechinesename()" required
                     <% if ( grgs.havecname2== "否 No" ) { %> checked <% } %> />
+                <label class="form-check-label" for="havecname2">否 No</label> -->
+
+
+                <label>是否有中文姓名 Any Chinese name? </label>
+                <% if (grgs.havecname2 == "是 Yes") { %>
+                <input type="radio" name="GRGS[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
+                    checked required />
+                <label class="form-check-label" for="havecname2">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname2]" value="否 No" id="No2"
+                    onclick="havechinesename()" required />
                 <label class="form-check-label" for="havecname2">否 No</label>
+                <% }else {%>
+                <input type="radio" name="GRGS[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
+                    required />
+                <label class="form-check-label" for="havecname2">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname2]" value="否 No" id="No2"
+                    onclick="havechinesename()" checked required />
+                <label class="form-check-label" for="havecname2">否 No</label>
+                <% } %>
             </div>
             <div>
                 <label>中文姓名 Name in Chinese:</label>
@@ -379,7 +416,7 @@
 
             <% if(grgs.imgIDCard1) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy2_身份證副本2.jpg" href="<%= grgs.imgIDCard1%>"
+                <a download="<%= grgs.idCode %>_idCopy2_身份證副本2" href="<%= grgs.imgIDCard1%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -406,13 +443,24 @@
             <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name: </label>
-                <input type="radio" name="GRGS[havecname3]" value="是 Yes" id="Yes3" onclick="havechinesename()" required
-                    <% if ( grgs.havecname3== "是 Yes" ) { %> checked <% } %> />
+                <label>是否有中文姓名 Any Chinese name? </label>
+                <% if (grgs.havecname3 == "是 Yes") { %>
+                <input type="radio" name="GRGS[havecname3]" value="是 Yes" id="Yes3" onclick="havechinesename()"
+                    checked required />
                 <label class="form-check-label" for="havecname3">是 Yes</label>
-                <input type="radio" name="GRGS[havecname3]" value="否 No" id="No3" onclick="havechinesename()" required
-                    <% if ( grgs.havecname3== "否 No" ) { %> checked <% } %> />
+
+                &nbsp;<input type="radio" name="GRGS[havecname3]" value="否 No" id="No3"
+                    onclick="havechinesename()" required />
                 <label class="form-check-label" for="havecname3">否 No</label>
+                <% }else {%>
+                <input type="radio" name="GRGS[havecname3]" value="是 Yes" id="Yes3" onclick="havechinesename()"
+                    required />
+                <label class="form-check-label" for="havecname3">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname3]" value="否 No" id="No3"
+                    onclick="havechinesename()" checked required />
+                <label class="form-check-label" for="havecname3">否 No</label>
+                <% } %>
             </div>
             <div>
                 <label>中文姓名 Name in Chinese:</label>
@@ -438,7 +486,7 @@
 
             <% if(grgs.imgIDCard2) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy3_身份證副本3.jpg" href="<%= grgs.imgIDCard2%>"
+                <a download="<%= grgs.idCode %>_idCopy3_身份證副本3" href="<%= grgs.imgIDCard2%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -465,13 +513,24 @@
             <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name: </label>
-                <input type="radio" name="GRGS[havecname4]" value="是 Yes" id="Yes4" onclick="havechinesename()" required
-                    <% if ( grgs.havecname4== "是 Yes" ) { %> checked <% } %> />
+                <label>是否有中文姓名 Any Chinese name? </label>
+                <% if (grgs.havecname4 == "是 Yes") { %>
+                <input type="radio" name="GRGS[havecname4]" value="是 Yes" id="Yes4" onclick="havechinesename()"
+                    checked required />
                 <label class="form-check-label" for="havecname4">是 Yes</label>
-                <input type="radio" name="GRGS[havecname4]" value="否 No" id="No4" onclick="havechinesename()" required
-                    <% if ( grgs.havecname4== "否 No" ) { %> checked <% } %> />
+
+                &nbsp;<input type="radio" name="GRGS[havecname4]" value="否 No" id="No4"
+                    onclick="havechinesename()" required />
                 <label class="form-check-label" for="havecname4">否 No</label>
+                <% }else {%>
+                <input type="radio" name="GRGS[havecname4]" value="是 Yes" id="Yes4" onclick="havechinesename()"
+                    required />
+                <label class="form-check-label" for="havecname4">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname4]" value="否 No" id="No4"
+                    onclick="havechinesename()" checked required />
+                <label class="form-check-label" for="havecname4">否 No</label>
+                <% } %>
             </div>
             <div>
                 <label>中文姓名 Name in Chinese:</label>
@@ -497,7 +556,7 @@
 
             <% if(grgs.imgIDCard3) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy4_身份證副本4.jpg" href="<%= grgs.imgIDCard3%>"
+                <a download="<%= grgs.idCode %>_idCopy4_身份證副本4" href="<%= grgs.imgIDCard3%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -524,13 +583,24 @@
             <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name: </label>
-                <input type="radio" name="GRGS[havecname5]" value="是 Yes" id="Yes5" onclick="havechinesename()" required
-                    <% if ( grgs.havecname5== "是 Yes" ) { %> checked <% } %> />
+                <label>是否有中文姓名 Any Chinese name? </label>
+                <% if (grgs.havecname5 == "是 Yes") { %>
+                <input type="radio" name="GRGS[havecname5]" value="是 Yes" id="Yes5" onclick="havechinesename()"
+                    checked required />
                 <label class="form-check-label" for="havecname5">是 Yes</label>
-                <input type="radio" name="GRGS[havecname5]" value="否 No" id="No5" onclick="havechinesename()" required
-                    <% if ( grgs.havecname5== "否 No" ) { %> checked <% } %> />
+
+                &nbsp;<input type="radio" name="GRGS[havecname5]" value="否 No" id="No5"
+                    onclick="havechinesename()" required />
                 <label class="form-check-label" for="havecname5">否 No</label>
+                <% }else {%>
+                <input type="radio" name="GRGS[havecname5]" value="是 Yes" id="Yes5" onclick="havechinesename()"
+                    required />
+                <label class="form-check-label" for="havecname5">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname5]" value="否 No" id="No5"
+                    onclick="havechinesename()" checked required />
+                <label class="form-check-label" for="havecname5">否 No</label>
+                <% } %>
             </div>
             <div>
                 <label>中文姓名 Name in Chinese:</label>
@@ -556,7 +626,7 @@
 
             <% if(grgs.imgIDCard4) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy5_身份證副本5.jpg" href="<%= grgs.imgIDCard4%>"
+                <a download="<%= grgs.idCode %>_idCopy5_身份證副本5" href="<%= grgs.imgIDCard4%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -583,13 +653,24 @@
             <br>
 
             <div>
-                <label>是否有中文姓名 Any Chinese name: </label>
-                <input type="radio" name="GRGS[havecname6]" value="是 Yes" id="Yes6" onclick="havechinesename()" required
-                    <% if ( grgs.havecname6== "是 Yes" ) { %> checked <% } %> />
+                <label>是否有中文姓名 Any Chinese name? </label>
+                <% if (grgs.havecname6 == "是 Yes") { %>
+                <input type="radio" name="GRGS[havecname6]" value="是 Yes" id="Yes6" onclick="havechinesename()"
+                    checked required />
                 <label class="form-check-label" for="havecname6">是 Yes</label>
-                <input type="radio" name="GRGS[havecname6]" value="否 No" id="No6" onclick="havechinesename()" required
-                    <% if ( grgs.havecname6== "否 No" ) { %> checked <% } %> />
+
+                &nbsp;<input type="radio" name="GRGS[havecname6]" value="否 No" id="No6"
+                    onclick="havechinesename()" required />
                 <label class="form-check-label" for="havecname6">否 No</label>
+                <% }else {%>
+                <input type="radio" name="GRGS[havecname6]" value="是 Yes" id="Yes6" onclick="havechinesename()"
+                    required />
+                <label class="form-check-label" for="havecname6">是 Yes</label>
+
+                &nbsp;<input type="radio" name="GRGS[havecname6]" value="否 No" id="No6"
+                    onclick="havechinesename()" checked required />
+                <label class="form-check-label" for="havecname6">否 No</label>
+                <% } %>
             </div>
             <div>
                 <label>中文姓名 Name in Chinese:</label>
@@ -615,7 +696,7 @@
 
             <% if(grgs.imgIDCard5) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy6_身份證副本6.jpg" href="<%= grgs.imgIDCard5%>"
+                <a download="<%= grgs.idCode %>_idCopy6_身份證副本6" href="<%= grgs.imgIDCard5%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -708,11 +789,11 @@
             var type = grgs.declaration.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= grgs.idCode %>_Declaration1_聲明1.pdf" href="<%= grgs.declaration%>" target="_blank">下載聲明書
+            <a download="<%= grgs.idCode %>_Declaration1_聲明" href="<%= grgs.declaration%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <% } else if(type[0] == 'data:image/jpeg'|| type[0] == 'data:image/png') { %>
-            <a download="<%= grgs.idCode %>_Declaration1_聲明1.jpg" href="<%= grgs.declaration%>" target="_blank">下載聲明書
+            <a download="<%= grgs.idCode %>_Declaration1_聲明" href="<%= grgs.declaration%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <img src="<%=grgs.declaration%>" style="height:150px; width:auto" />
@@ -870,7 +951,7 @@
     }
 
     // Get the modal
-    var modal = document.getElementById('askModal');
+    var modal = document.getElementById('<%= grgs.id%>');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {

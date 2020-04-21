@@ -13,6 +13,10 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
     //Team_HKRGAgeGroupCompetitionform attributes
+    compYear: {
+      type: 'string'
+    },
+
     teamName: {
       type: 'string',
     },

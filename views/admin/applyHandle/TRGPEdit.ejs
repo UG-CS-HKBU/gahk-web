@@ -204,24 +204,35 @@
             </div>
 
             <div class="form-group col-12" style="color: #888888;">
-                <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif; font-size:16pt;"><b>第63屆體育節 -
-                        2020年全港藝術體操分齡比賽</b></h1>
+                <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif; font-size:16pt;"><b>全港藝術體操分齡比賽</b></h1>
                 <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif; font-size:14pt;">
                     <u>團體項目報名表(公開組:學校以外之團體)</u>
                 </h2>
-                <br><br>
+                <br>
             </div>
 
+            <!-- 比賽年份 Year of Competition -->
+            <div class="col-12">
+                <h5 id="labelHead">比賽年份 Year of Competition</h5>
+                <%var todayYear = new Date().getFullYear();
+                var end = todayYear + 2;%>
+                <select name="TRGP[compYear]" required>
+                    <% for (var year = todayYear; year <= end; year++){%>
+                    <option value="<%=year%>" <%if(year == TRGP.compYear) {%> selected<%}%> ><%=year%></option>
+                        <%}%>
+                </select>
+            </div>
 
             <!-- 團體資料 Group Details -->
             <div class="col-12">
+                <br>
                 <h5 id="labelHead">團體資料 Group Details</h5>
             </div>
 
             <div class="form-group col-12">
                 <label>機構名稱(中文) Organization Name(Chinese):</label>
                 <input type="text" name="TRGP[teamName]" value="<%= TRGP.teamName%>" style="width:450pt"
-                    onkeyup="value=value.replace(/[^\u4E00-\u9FA5\ \(\)]/g,'')" required>
+                        onkeyup="value=value.replace(/[^\u4E00-\u9FA5\ \(\)]/g,'')" required>
             </div>
 
             <div class="form-group col-12 col-sm-6">
@@ -328,17 +339,18 @@
             <div class="form-group">
                 <label>中文姓名 Name in Chinese:</label>
                 <% if (TRGP.havecname1 == "否 No"){%>
-                    <input type="text" name="TRGP[Mate1ChiName]" value="<%= TRGP.Mate1ChiName %>" id="Mate1ChiName"
-                        placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
-                    <%} else {%>
-                        <input type="text" name="TRGP[Mate1ChiName]" value="<%= TRGP.Mate1ChiName %>" id="Mate1ChiName"
-                        placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
-                    <%}%>
+                <input type="text" name="TRGP[Mate1ChiName]" value="<%= TRGP.Mate1ChiName %>" id="Mate1ChiName"
+                    placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
+                <%} else {%>
+                <input type="text" name="TRGP[Mate1ChiName]" value="<%= TRGP.Mate1ChiName %>" id="Mate1ChiName"
+                    placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+                <%}%>
             </div>
 
             <div class="form-group">
                  <label>英文姓名 Name in English:</label>
-                 <input type="text" name="TRGP[Mate1EngName]" value="<%= TRGP.Mate1EngName %>" placeholder=" e.g. Chan Tai Man" onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
+                 <input type="text" name="TRGP[Mate1EngName]" value="<%= TRGP.Mate1EngName %>" placeholder=" e.g. Chan
+                Tai Man" onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')" required>
             </div>
             <div class="form-group">
                 <label>身分證號碼 ID Card Number:</label>
@@ -381,12 +393,12 @@
                 <div class="form-group">
                     <label>中文姓名 Name in Chinese:</label>
                     <% if (TRGP.havecname2 == "否 No"){%>
-                        <input type="text" name="TRGP[Mate2ChiName]" value="<%= TRGP.Mate2ChiName %>" id="Mate2ChiName"
-                            placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
-                        <%} else {%>
-                            <input type="text" name="TRGP[Mate2ChiName]" value="<%= TRGP.Mate2ChiName %>" id="Mate2ChiName"
-                            placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
-                        <%}%>
+                <input type="text" name="TRGP[Mate2ChiName]" value="<%= TRGP.Mate2ChiName %>" id="Mate2ChiName"
+                    placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
+                <%} else {%>
+                <input type="text" name="TRGP[Mate2ChiName]" value="<%= TRGP.Mate2ChiName %>" id="Mate2ChiName"
+                    placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+                <%}%>
             </div>
     
             <div class="form-group">
@@ -435,12 +447,12 @@
                 <div class="form-group">
                     <label>中文姓名 Name in Chinese:</label>
                     <% if (TRGP.havecname3 == "否 No"){%>
-                        <input type="text" name="TRGP[Mate3ChiName]" value="<%= TRGP.Mate3ChiName %>" id="Mate3ChiName"
-                            placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
-                        <%} else {%>
-                            <input type="text" name="TRGP[Mate3ChiName]" value="<%= TRGP.Mate3ChiName %>" id="Mate3ChiName"
-                            placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
-                        <%}%>
+                <input type="text" name="TRGP[Mate3ChiName]" value="<%= TRGP.Mate3ChiName %>" id="Mate3ChiName"
+                    placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
+                <%} else {%>
+                <input type="text" name="TRGP[Mate3ChiName]" value="<%= TRGP.Mate3ChiName %>" id="Mate3ChiName"
+                    placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+                <%}%>
                 </div>
     
                 <div class="form-group">
@@ -494,7 +506,7 @@
                 <input type="text" name="TRGP[Mate4ChiName]" value="<%= TRGP.Mate4ChiName %>" id="Mate4ChiName"
                     placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled required>
                 <%} else {%>
-                    <input type="text" name="TRGP[Mate4ChiName]" value="<%= TRGP.Mate4ChiName %>" id="Mate4ChiName"
+                <input type="text" name="TRGP[Mate4ChiName]" value="<%= TRGP.Mate4ChiName %>" id="Mate4ChiName"
                     placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
                 <%}%>
                 </div>
@@ -540,15 +552,30 @@
         <div class="form-group col-12">
             <h5 id="labelHead">文件上載 Document Upload</h5>
             <div class="form-group">
-                <label>商業登記證明 Valid Bussiness Registration Certificate (img/pdf檔)</label>
-                <% if(TRGP.VBRC) {%>
-                <a download="<%= TRGP.idCode%>_VBRC_商業登記證明" href="<%=TRGP.VBRC%>" target="_blank">下載 Download</a>
-                <br>
-                <%}%>
-                <label>更新 Update:</label>
-                <input type="file" accept="image/*,application/pdf" onchange="handleFile1(this.files)" />
-                <div id="preview1"></div>
+                <% if(TRGP.VBRC) { 
+                    var type = TRGP.VBRC.split(';');%>
+                <div>
+                    <% if(type[0] == 'data:application/pdf') { %>
+                    <a download="<%= TRGP.idCode%>_VBRC_商業登記證明.pdf" href="<%=TRGP.VBRC%>" target="_blank">下載商業登記證明
+                        Download Valid Bussiness Registration Certificate</a>
+                    <br>
+                    <% } else if(type[0] == 'data:image/jpeg'|| type[0] == 'data:image/png') { %>
+                    <a download="<%= TRGP.idCode%>_VBRC_商業登記證明.jpg" href="<%=TRGP.VBRC%>" target="_blank">下載商業登記證明
+                        Download Valid Bussiness Registration Certificate</a>
+                    <br>
+                    <img src="<%=TRGP.VBRC%>" style="height:150px; width:auto" />
+                    <% } %>
+                    <br>
+                </div>
+                <% } %>
 
+                <div>
+                    <label>重新上載商業登記證明 Reupload the Valid Bussiness Registration Certificate</label>
+                    <br>
+                    <input type="file" accept="image/*,application/pdf" onchange="handleFile1(this.files)" />
+                    <div id="preview1"></div>
+
+                </div>
             </div>
         </div>
 
@@ -556,15 +583,29 @@
         <div class="form-group col-12">
             <h5 id="labelHead">聲明 Declaration</h5>
             <div class="form-group">
-                <label>聲明書 Declaration(img/pdf檔)</label>
-                <% if(TRGP.Declaration) {%>
-                <a download="<%= TRGP.idCode%>_Declaration_聲明書" href="<%=TRGP.Declaration%>" target="_blank">下載
-                    Download</a>
-                <br>
-                <%}%>
-                <label>更新 Update:</label>
-                <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" />
-                <div id="preview2"></div>
+                <% if(TRGP.Declaration) { 
+                    var type = TRGP.Declaration.split(';');%>
+                <div>
+                    <% if(type[0] == 'data:application/pdf') { %>
+                    <a download="<%= TRGP.idCode%>_Declaration_聲明書.pdf" href="<%=TRGP.Declaration%>"
+                        target="_blank">下載聲明書 Download declartion</a>
+                    <br>
+                    <% } else if(type[0] == 'data:image/jpeg'|| type[0] == 'data:image/png') { %>
+                    <a download="<%= TRGP.idCode%>_Declaration_聲明書.jpg" href="<%=TRGP.Declaration%>"
+                        target="_blank">下載聲明書 Download declartion</a>
+                    <br>
+                    <img src="<%=TRGP.Declaration%>" style="height:150px; width:auto" />
+                    <% } %>
+                    <br>
+                </div>
+                <% } %>
+
+                <div>
+                    <label>重新上載聲明書 Reupload the declaration</label>
+                    <br>
+                    <input type="file" accept="image/*,application/pdf" onchange="handleFile2(this.files)" />
+                    <div id="preview2"></div>
+                </div>
 
             </div>
 
@@ -602,84 +643,84 @@
             <h5 id="labelHead">申請狀況 Apply Status</h5>
     
              <%if(TRGP.formStatus == "accepted"){%>
-                <div class="inputGroup">
-                    <input class="statusInput" id="TohandBtn" name="TRGP[formStatus]" value="ToBeCon" type="radio"
-                        disabled />
-                    <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
-                </div>
-                <div class="inputGroup">
-                    <input class="statusInput" id="con" type="checkbox" checked disabled />
-                    <label for="con" class="statusLabel" id="dataDefLabel">已確認 Accepted</label>
-                </div>
-                <div class="inputGroup">
-                    <input class="statusInput" id="dataDef" type="checkbox" disabled />
-                    <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
-                </div>
-                <% } else if(TRGP.formStatus == "dataDef"){%>
-                <div class="inputGroup">
-                    <input class="statusInput" id="TohandBtn" name="TRGP[formStatus]" value="ToBeCon" type="radio"
-                        onclick="changeToCon()" />
-                    <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
-                </div>
-    
-                <div class="inputGroup">
-                    <input class="statusInput" id="ToConBtn" name="TRGP[formStatus]" value="accepted" type="radio"
-                        onclick="changeToCon()" />
-                    <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirmed</label>
-                </div>
-    
-                <div class="inputGroup">
-                    <input class="statusInput" id="dataDef" name="TRGP[formStatus]" value="dataDef" type="radio" checked
-                        onclick="changeToCon()" />
-                    <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
-                </div>
-                <%} else {%>
-                <div class="inputGroup">
-                    <input class="statusInput" id="TohandBtn" name="TRGP[formStatus]" value="ToBeCon" type="radio"
-                        onclick="changeToCon()" checked />
-                    <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
-                </div>
-    
-                <div class="inputGroup">
-                    <input class="statusInput" id="ToConBtn" name="TRGP[formStatus]" value="accepted" type="radio"
-                        onclick="changeToCon()" />
-                    <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirm</label>
-                </div>
-    
-                <div class="inputGroup">
-                    <input class="statusInput" id="dataDef" name="TRGP[formStatus]" value="dataDef" onclick="changeToCon()"
-                        type="radio" />
-                    <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
-                </div>
-    
-                <%}%>
+            <div class="inputGroup">
+                <input class="statusInput" id="TohandBtn" name="TRGP[formStatus]" value="ToBeCon" type="radio"
+                    disabled />
+                <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
+            </div>
+            <div class="inputGroup">
+                <input class="statusInput" id="con" type="checkbox" checked disabled />
+                <label for="con" class="statusLabel" id="dataDefLabel">已確認 Accepted</label>
+            </div>
+            <div class="inputGroup">
+                <input class="statusInput" id="dataDef" type="checkbox" disabled />
+                <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
+            </div>
+            <% } else if(TRGP.formStatus == "dataDef"){%>
+            <div class="inputGroup">
+                <input class="statusInput" id="TohandBtn" name="TRGP[formStatus]" value="ToBeCon" type="radio"
+                    onclick="changeToCon()" />
+                <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
+            </div>
+
+            <div class="inputGroup">
+                <input class="statusInput" id="ToConBtn" name="TRGP[formStatus]" value="accepted" type="radio"
+                    onclick="changeToCon()" />
+                <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirmed</label>
+            </div>
+
+            <div class="inputGroup">
+                <input class="statusInput" id="dataDef" name="TRGP[formStatus]" value="dataDef" type="radio" checked
+                    onclick="changeToCon()" />
+                <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
+            </div>
+            <%} else {%>
+            <div class="inputGroup">
+                <input class="statusInput" id="TohandBtn" name="TRGP[formStatus]" value="ToBeCon" type="radio"
+                    onclick="changeToCon()" checked />
+                <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
+            </div>
+
+            <div class="inputGroup">
+                <input class="statusInput" id="ToConBtn" name="TRGP[formStatus]" value="accepted" type="radio"
+                    onclick="changeToCon()" />
+                <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirm</label>
+            </div>
+
+            <div class="inputGroup">
+                <input class="statusInput" id="dataDef" name="TRGP[formStatus]" value="dataDef" onclick="changeToCon()"
+                    type="radio" />
+                <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
+            </div>
+
+            <%}%>
         </div>
 
         <!-- 隊伍/團體狀況 Team Status -->
         <div class="form-group col-12">
             <h5 id="labelHead">隊伍/團體狀況 Team Status</h5>
             <% if(TRGP.teamStatus == "waitTeam") {%>
-                <div class="inputGroup">
-                    <input class="statusInput" id="suTeam" type="checkbox" name="TRGP[teamStatus]" value="suTeam"
-                        onclick="changeToSu()" checked />
-                    <label for="suTeam" class="statusLabel" id="suLabel">後補 Waiting Team</label>
-                </div>
-                <%} else {%>
-                <div class="inputGroup">
-                    <input class="statusInput" id="waitTeam" name="TRGP[teamStatus]" value="waitTeam" type="checkbox"
-                        onclick="changeToWait()" />
-                    <label for="waitTeam" class="statusLabel" id="waitLabel">設為後補 Set as Waiting Team</label>
-                </div>
-                <%}%>
+            <div class="inputGroup">
+                <input class="statusInput" id="suTeam" type="checkbox" name="TRGP[teamStatus]" value="suTeam"
+                    onclick="changeToSu()" checked />
+                <label for="suTeam" class="statusLabel" id="suLabel">後補 Waiting Team</label>
+            </div>
+            <%} else {%>
+            <div class="inputGroup">
+                <input class="statusInput" id="waitTeam" name="TRGP[teamStatus]" value="waitTeam" type="checkbox"
+                    onclick="changeToWait()" />
+                <label for="waitTeam" class="statusLabel" id="waitLabel">設為後補 Set as Waiting Team</label>
+            </div>
+            <%}%>
         </div>
 
         <!-- button -->
         <div class="form-group col-12" style="text-align: right;">
             <%if(TRGP.formStatus == "rejected"){%>
-                <a class="btn btn-success" style="color: white;" onclick="history.back()">完成 Submit</a>
-                <%} else {%>
-                <button class="btn btn-success" onclick="submitForm('<%= TRGP.idCode%>')">完成 Submit</button>
-                <%}%>
+            <a class="btn btn-success" style="color: white;" onclick="history.back()">完成 Submit</a>
+            <%} else {%>
+            <button class="btn btn-success" onclick="submitForm('<%= TRGP.idCode%>')">完成 Submit</button>
+            <%}%>
         </div>
 
         <!-- Update Date -->
@@ -688,7 +729,7 @@
         var updateDate = m.getDate() + "/" + month + "/" + m.getFullYear() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds(); %>
             <p class="col-12" style="font-size: smaller;">上次更新 Last upadated: <%= updateDate%></p>
 
-    </div>
+        </div>
 </form>
 
 <!-- reject box -->

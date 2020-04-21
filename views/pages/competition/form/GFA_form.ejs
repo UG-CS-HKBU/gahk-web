@@ -1,20 +1,8 @@
-<style type="text/css">
-    .dot {
-        height: 15px;
-        width: 15px;
-        background-color:#bbb;
-        border-radius: 50%;
-        display: inline-block;
-        text-align: center;
-        font-size: smaller;
-    }
-</style>
-
 <form action="/competition/form/GFA_form" method="POST" id="gfa">
     <div class="row mx-sm-2">
         <div class="col-12" style="color: #888888; ">
             <br>
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>2020年香港普及體操節</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>香港普及體操節</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u></h2>
             <br><br>
         </div>
@@ -28,8 +16,21 @@
 
         <div class="col-12">
             <a href="/formDoc/Prospectus_GFAFestival2020.pdf" target="_blank"
-                style="text-align: center;"><u>2020年香港普及體操節章程
+                style="text-align: center;"><u>香港普及體操節章程
                     Prospectus of GFAFestival2020</u></a>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+             <%var todayYear = new Date().getFullYear();
+                var end = todayYear + 2;%>
+            <select id="compYear" name="GFA[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(req.session.data == null && req.session.gfaData == null && year == todayYear || req.session.gfaData != null && year == req.session.gfaData.compYear || req.session.data != null && year == req.session.data.compYear) {%> selected<%}%> ><%=year%></option>
+                <%}%>
+            </select>
         </div>
 
         <!-- Group Details -->
@@ -198,8 +199,23 @@
                     style="color:#83a70c"><u>聲明書.pdf</u></a>後簽署並上載文件 Please download and print the <a
                     href="/formDoc/GRGS_declaration.pdf" download style="color:#83a70c"><u>declaration.pdf</u></a>,then
                 sign and upload it</label>
-            <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" required />
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)"
+                <% if(req.session.gfaData == null || req.session.gfaData.declaration == "") { %> required <% } %> />
             <div id="preview"></div>
+            <% if(req.session.gfaData != null && req.session.gfaData.document != null && req.session.gfaData.document != "") { %>
+            <input id="document" type="hidden" name="GFA[document]" value="<%=req.session.gfaData.document%>" />
+            <br>
+            <label>原本文件 Original File</label>
+            <br>
+            <% var type = req.session.gfaData.document.split(';');
+                if(type[0] == 'data:application/pdf'){ %>
+            <a download="Declaration聲明" href="<%= req.session.gfaData.document%>" target="_blank">聲明書
+                declartion</a>
+            <% } else { %>
+            <img src="<%=req.session.gfaData.document%>" style="height:150px; width:auto" />
+            <% }}else{ %>
+            <input id="document" type="hidden" name="GFA[document]" />
+            <% } %>
         </div>
 
 
@@ -218,9 +234,7 @@
             <br>
             <button type="submit" class="btn btn-primary"
                 style="background-color: #83a70c; border-color: #83a70c; float:right">預覽 Preview >></button>
-            <button type="button" class="btn btn-primary" onclick="saveForm()" onmouseover="showRemind()" onmouseout="hideRemind()"
-                style="background: red; border: none; float: left;">儲存 Save</button>
-                &nbsp;<p id="remind" style="display:none; font-size:smaller;"><span class="dot">!</span>已上載檔案將不會被儲存 The uploaded files will not be saved</p>
+            <button type="button" class="btn btn-primary" onclick="saveForm()" style="background: red; border: none; float: left;">儲存 Save</button>
             <br><br>
         </div>
     </div>
@@ -228,21 +242,11 @@
 </form>
 
 <script>
-    function showRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "inline";
-    }
-
-    function hideRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "none";
-
-    }
-
     async function saveForm() {
         var form = document.getElementById("gfa");
 
         var data = JSON.stringify({
+            compYear: form.compYear.value,
             teamName: form.teamName.value,
             receiptHeader: form.receiptHeader.value,
             address: form.address.value,
@@ -259,8 +263,11 @@
             applicantNum: form.applicantNum.value,
             crewNum: form.crewNum.value,
             checkNum: form.checkNum.value,
-            bankName: form.bankName.value
+            bankName: form.bankName.value,
+            document: form.document.value
         });
+
+        alert(data)
 
         var response = await fetch("/competition/form/GFA/save", {
             method: "POST",
@@ -293,22 +300,14 @@
                 var img = document.createElement('img');
                 img.src = e.target.result;
                 preview.appendChild(img);
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'GFA[document]';
-                input.value = e.target.result;
                 img.style.height = "150px";
                 img.style.width = "auto";
-                preview.appendChild(input);
+                document.getElementById("document").value = e.target.result;
             }
         } else if (file.type == 'application/pdf') {
             reader.onload = function (e) {
                 preview.innerHTML = "";
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'GFA[document]';
-                input.value = e.target.result;
-                preview.appendChild(input);
+                document.getElementById("document").value = e.target.result;
             }
         }
         reader.readAsDataURL(file);
