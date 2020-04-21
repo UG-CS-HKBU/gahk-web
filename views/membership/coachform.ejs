@@ -202,11 +202,16 @@
     <div class="form-group">
       <label style="font-size:13px">上載個人相片 Upload a personal photo</label>
       <input type="file" accept="image/*" onchange="handleFile4(this.files)" required />
-      <div id="preview4"></div>
-      <% if (data.Personal_photo) { %>
-      <img src="<%=data.Personal_photo%>" />
-      <input type="hidden" name="Coach[Personal_photo]" value="<%= data.Personal_photo%>" />
-      <% } %>
+      <div id="preview4">
+
+        <% if (data.Personal_photo) { %>
+          <img src="<%=data.Personal_photo%>" />
+          <input type="hidden" name="Coach[Personal_photo]" value="<%= data.Personal_photo%>" />
+          <% } %>
+
+
+      </div>
+      
 
     </div>
 
@@ -906,11 +911,16 @@
           <label><b>上載校長簽署 Upload a principal's signature</b></label>
           <!-- <input type="file" accept="image/*" required/> -->
           <input type="file" accept="image/*" onchange="handleFile2(this.files)" required/>
-          <div id="preview2"></div>
-          <% if (data.avatar_sign) { %>
-      <img src="<%=data.avatar_sign%>" />
-      <input type="hidden" name="Coach[avatar_sign]" value="<%= data.avatar_sign%>" />
-      <% } %>
+          <div id="preview2">
+
+
+            <% if (data.avatar_sign) { %>
+              <img src="<%=data.avatar_sign%>" />
+              <input type="hidden" name="Coach[avatar_sign]" value="<%= data.avatar_sign%>" />
+              <% } %>
+
+          </div>
+       
     </div>
     <label style="font-size:10px">* (現職體育教師必須得到校長簽署及學校蓋印<br>
       Principal's signature and school chop are
