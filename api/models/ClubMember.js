@@ -14,6 +14,10 @@ module.exports = {
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
     //clubMemberForm attribute
+    clubYear: {
+      type: 'string'
+    },
+
     OrgEngName: {
       type: 'string',
     },
@@ -91,6 +95,10 @@ module.exports = {
     },
 
     clubFee: {
+      type: 'string',
+    },
+
+    partD: {
       type: 'string',
     },
 

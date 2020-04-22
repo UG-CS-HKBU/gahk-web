@@ -13,6 +13,10 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
+    compYear: {
+      type: 'string'
+    },
+    
     category: {
       type: 'string',
     },

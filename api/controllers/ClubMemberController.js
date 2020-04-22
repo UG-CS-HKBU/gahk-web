@@ -23,21 +23,28 @@ module.exports = {
       req.session.data.formStatus = "ToBeCon";
       req.session.data.teamStatus = "suTeam";
 
-      await ClubMember.create(req.session.data);
-      var model = await ClubMember.findOne(req.session.data);
-      await ClubMember.update(model.id).set({
-        idCode: "CLUBMem2020-" + model.id
-      })
-      model["idCode"] = "CLUBMem2020-" + model.id;
+      var condition = {};
+      condition.clubYear = req.session.data.clubYear;
 
-      req.session.data = {};
-      req.session.clubMemdata = {};
+      //Set idCode to ClubMember
+      var modelNum = await ClubMember.count({
+          where: condition
+      })
+      var newID = modelNum + 1;
+      var newIDCode = "CLUBMem" + req.session.data.clubYear + "-" + newID;
+      req.session.data.idCode = newIDCode;
+
+      //create ClubMember
+      await ClubMember.create(req.session.data);
+
+      req.session.data = null;
+      req.session.clubMemdata = null;
       var user = await User.update(req.session.userId).set({
-        clubMemdata: {}
+        clubMemdata: null
       }).fetch();
       if (user.length == 0) return res.notFound();
 
-      return res.view('membership/clubMemberFormConfirm', { 'form': model });
+      return res.view('membership/clubMemberFormConfirm', { 'formIDCode': newIDCode });
     }
 
   },
@@ -75,6 +82,7 @@ module.exports = {
         return res.badRequest("Form-data not received.");
 
       var models = await ClubMember.update(req.params.id).set({
+        clubYear: req.body.ClubMember.clubYear,
         OrgEngName: req.body.ClubMember.OrgEngName,
         OrgChiName: req.body.ClubMember.OrgChiName,
         AppEngName: req.body.ClubMember.AppEngName,
@@ -94,6 +102,7 @@ module.exports = {
         resEmail: req.body.ClubMember.resEmail,
         year: req.body.ClubMember.year,
         clubFee: req.body.ClubMember.clubFee,
+        partD:  req.body.ClubMember.partD,
         payStatus: req.body.ClubMember.payStatus,
         formStatus: req.body.ClubMember.formStatus,
       }).fetch();
@@ -124,7 +133,7 @@ module.exports = {
     if (req.method == "GET") return res.forbidden();
 
     var condition = {};
-
+    if (req.session.searchResult.clubYear) condition.clubYear = req.session.searchResult.clubYear;
     if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
     if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
 
@@ -179,7 +188,7 @@ module.exports = {
 
   export_xlsx: async function (req, res) {
     var condition = {};
-
+    if (req.session.searchResult.clubYear) condition.clubYear = req.session.searchResult.clubYear;
     if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
     if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
 
@@ -218,6 +227,7 @@ module.exports = {
 
       return {
         "申請表編號 Application Number": model.idCode,
+        "申請年份 Year of Application": model.clubYear,
         "機構(英文) Organization(English)": model.OrgEngName,
         "機構(中文) Organization(Chinese)": model.OrgChiName,
         "申請者姓名(英文) Name of Applicant(English)": model.AppEngName,
@@ -260,7 +270,7 @@ module.exports = {
       var XLSX = require('xlsx');
       var workbook = XLSX.readFile(uploadedFiles[0].fd);
       var ws = workbook.Sheets[workbook.SheetNames[0]];
-      var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "OrgEngName", "OrgChiName", "AppEngName", "AppChiName", "clubAddr", "clubTel", "clubFax", "clubEmail", "clubWeb", "MemberNo", "brefDes", "resEngName", "resChiName", "position", "resAddr", "resTel", "resFax", "resEmail", "year", "clubFee", "payStatus", "formStatus"] });
+      var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "clubYear", "OrgEngName", "OrgChiName", "AppEngName", "AppChiName", "clubAddr", "clubTel", "clubFax", "clubEmail", "clubWeb", "MemberNo", "brefDes", "resEngName", "resChiName", "position", "resAddr", "resTel", "resFax", "resEmail", "year", "clubFee", "payStatus", "formStatus"] });
 
       for (var i = 0; i < data.length; i++) {
         if (data[i].payStatus == "未付款 Unpaid") {

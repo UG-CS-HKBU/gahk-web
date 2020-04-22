@@ -205,8 +205,20 @@
         </div>
 
         <div class="col-12" style="color: #888888; ">
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>2020年香港普及體操節</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>香港普及體操節</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u></h2>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="col-12">
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="GFA[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == gfa.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
         <!-- Group Details -->
@@ -534,7 +546,7 @@
     }
 
     // Get the modal
-    var modal = document.getElementById('askModal');
+    var modal = document.getElementById('<%= gfa.id%>');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {

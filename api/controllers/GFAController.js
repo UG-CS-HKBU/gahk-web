@@ -23,23 +23,30 @@ module.exports = {
             req.session.data.payStatus = "unpaid";
             req.session.data.formStatus = "ToBeCon";
             req.session.data.teamStatus = "suTeam";
-            await GFA.create(req.session.data);
-            var model = await GFA.findOne(req.session.data);
-            await GFA.update(model.id).set({
-                idCode: "GFA2020-" + model.id
+            var condition = {};
+            condition.compYear = req.session.data.compYear;
+
+            //Set idCode to GFA
+            var modelNum = await GFA.count({
+                where: condition
             })
-            model["idCode"] = "GFA2020-" + model.id;
+            var newID = modelNum + 1;
+            var newIDCode = "GFA" + req.session.data.compYear + "-" + newID;
+            req.session.data.idCode = newIDCode;
+
+            //create GFA
+            await GFA.create(req.session.data);
 
             //clear formdata in session and user
-            req.session.data = {};
-            req.session.gfaData = {};
+            req.session.data = null;
+            req.session.gfaData = null;
             var user = await User.update(req.session.userId).set({
-                gfaData: {}
+                gfaData: null
             }).fetch();
             if (user.length == 0) return res.notFound();
             //
 
-            return res.view('pages/competition/form/confirm_form', { 'form': model });
+            return res.view('pages/competition/form/confirm_form', { 'formIDCode': newIDCode });
         }
     },
 
@@ -81,6 +88,7 @@ module.exports = {
                 return res.badRequest("Form-data not received.");
 
             var models = await GFA.update(req.params.id).set({
+                compYear: req.body.GFA.compYear,
                 teamName: req.body.GFA.teamName,
                 receiptHeader: req.body.GFA.receiptHeader,
                 address: req.body.GFA.address,
@@ -128,7 +136,7 @@ module.exports = {
         if (req.method == "GET") return res.forbidden();
 
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
         if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
@@ -200,7 +208,7 @@ module.exports = {
 
     export_xlsx: async function (req, res) {
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
         if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
@@ -247,6 +255,7 @@ module.exports = {
 
             return {
                 "申請表編號 Application Number": model.idCode,
+                "比賽年份 Year of Competition": model.compYear,
                 "團體名稱 Group Name": model.teamName,
                 "收據抬頭 Receipt Header": model.receiptHeader,
                 "聯絡地址 Address": model.address,
@@ -283,7 +292,7 @@ module.exports = {
             var XLSX = require('xlsx');
             var workbook = XLSX.readFile(uploadedFiles[0].fd);
             var ws = workbook.Sheets[workbook.SheetNames[0]];
-            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "teamName", "receiptHeader", "address", "category", "havecname", "cpChiName", "cpEngName", "cpDayPhone", "cpMobilePhone", "email", "applicantNum", "crewNum", "checkNum", "bankName", "payStatus", "formStatus", "teamStatus"] });
+            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "compYear", "teamName", "receiptHeader", "address", "category", "havecname", "cpChiName", "cpEngName", "cpDayPhone", "cpMobilePhone", "email", "applicantNum", "crewNum", "checkNum", "bankName", "payStatus", "formStatus", "teamStatus"] });
 
             for (var i = 0; i < data.length; i++) {
                 if (data[i].payStatus == "未付款 Unpaid") {

@@ -18,6 +18,17 @@
 
     <form action="/membership/clubMemberForm" method="POST" id="clubMem">
         <ol class="row mx-sm-2" type="A">
+            <!-- 申請年份 Year of Application -->
+            <div class="col-12">
+                <br><br>
+                <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">申請年份 Year of Application</h5>
+                <%var todayYear = new Date().getFullYear();%>
+                <select id="clubYear" name="ClubMember[clubYear]" required>
+                    <option value="<%=todayYear%>" selected><%=todayYear%></option>
+                </select>
+                <br><br>
+            </div>
+
             <!-- Part A.申請者資料 Particulars of Applicant -->
             <li class="col-12 partA"
                 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
@@ -149,7 +160,7 @@
                 <label>電郵 E-mail:</label>
                 <input type="email" name="ClubMember[resEmail]" id="resEmail" style="width:500pt" required
                 <% if(req.session.clubMemdata != null) {%>value="<%=req.session.clubMemdata.resEmail%>"
-                    <%}%>>
+                        <%}%>>
             </div>
 
             <!-- Part D. 致中國香港體操總會主席 To the Chairperson of GAHK -->
@@ -181,8 +192,24 @@
                             href="/formDoc/clubMembership_partD.pdf" download><u
                                 style="color: #83a70c;">partD.pdf</u></a> and upload it with signature and
                         stamp</b></label>
-                <input type="file" id="partD" accept="image/*,application/pdf" onchange="handleFile(this.files)" required />
+
+                <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)"
+                <% if(req.session.clubMemdata == null || req.session.clubMemdata.partD == "") { %>required <% } %>/>
                 <div id="preview"></div>
+
+                <% if(req.session.clubMemdata != null && req.session.clubMemdata.partD != "" && req.session.clubMemdata.partD != null) { %>
+                    <input id="partD" type="hidden" name="ClubMember[partD]" value="<%=req.session.clubMemdata.partD%>" />
+                    <br>
+                    <label>原本文件 Original File</label>
+                    <br>
+                    <% var type = req.session.clubMemdata.partD.split(';');
+                        if(type[0] == 'data:application/pdf'){ %>
+                    <a download="partD" href="<%= req.session.clubMemdata.partD%>" target="_blank">partD</a>
+                    <% } else { %>
+                    <img src="<%=req.session.clubMemdata.partD%>" style="height:150px; width:auto" />
+                    <% }}else{ %>
+                    <input id="partD" type="hidden" name="ClubMember[partD]" />
+                    <% } %>
             </div>
 
             <div class="form-group col-12">
@@ -213,29 +240,19 @@
             <button type="submit" class="btn btn-primary"
                 style="background-color: #83a70c; border-color: #83a70c; float:right">預覽 Preview >></button>
             <!-- Save -->
-            <button type="button" class="btn btn-primary" onclick="saveForm()" onmouseover="showRemind()" onmouseout="hideRemind()"
+            <button type="button" class="btn btn-primary" onclick="saveForm()"
                 style="background: red; border: none; float: left;">儲存 Save</button>
-                &nbsp;<p id="remind" style="display:none; font-size:smaller;"><span class="dot">!</span>已上載檔案將不會被儲存 The uploaded files will not be saved</p>
             <br><br>
         </div>
     </form>
 </div>
 
 <script>
-    function showRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "inline";
-    }
-
-    function hideRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "none";
-    }
-
     //save function
     async function saveForm() {
         var form = document.getElementById("clubMem");
         var data = JSON.stringify({
+            clubYear: form.clubYear.value,
             OrgEngName: form.OrgEngName.value,
             OrgChiName: form.OrgChiName.value,
             AppEngName: form.AppEngName.value,
@@ -256,7 +273,9 @@
             resEmail: form.resEmail.value,
             year: form.year.value,
             clubFee: form.clubFee.value,
+            partD: form.partD.value
         });
+        alert(data);
 
         var response = await fetch("/membership/clubMemberForm/save", {
             method: "POST",
@@ -290,22 +309,14 @@
                 var img = document.createElement('img');
                 img.src = e.target.result;
                 preview.appendChild(img);
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'ClubMember[partD]';
-                input.value = e.target.result;
+                document.getElementById("partD").value = e.target.result;
                 img.style.width = "auto";
                 img.style.height = "150px";
-                preview.appendChild(input);
             }
         } else if (file.type == 'application/pdf') {
             reader.onload = function (e) {
                 preview.innerHTML = "";
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'ClubMember[partD]';
-                input.value = e.target.result;
-                preview.appendChild(input);
+                document.getElementById("partD").value = e.target.result;
             }
         }
         reader.readAsDataURL(file);

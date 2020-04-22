@@ -214,8 +214,20 @@
 
         <!-- Title -->
         <div class="col-12" style="color: #888888;">
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>2020年香港技巧體操公開賽</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>香港技巧體操公開賽</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>報名表格</u></h2>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="col-12">
+            <h5 id="labelHead">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="Acroage[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == acroage.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
         <!-- 組別資料 Category Details -->
@@ -350,7 +362,7 @@
 
         <% if(acroage.photo0) { %>
         <div>
-            <a download="<%= acroage.idCode %>_Athlete(1)photo_運動員(1)相片.jpg" href="<%= acroage.photo0%>"
+            <a download="<%= acroage.idCode %>_Athlete(1)photo_運動員(1)相片" href="<%= acroage.photo0%>"
                 target="_blank">下載運動員(1)相片 Download Athlete(1) photo</a>
             <br>
             <img src="<%=acroage.photo0%>" style="height:150px; width:auto;" />
@@ -368,7 +380,7 @@
 
         <% if(acroage.imgIDCard0) { %>
         <div>
-            <a download="<%= acroage.idCode %>_idCopy1_身份證副本1.jpg" href="<%= acroage.imgIDCard0%>"
+            <a download="<%= acroage.idCode %>_idCopy1_身份證副本1" href="<%= acroage.imgIDCard0%>"
                 target="_blank">下載運動員(1)的身份證副本 Download ID copy of the Athlete(1)</a>
             <br>
             <img src="<%=acroage.imgIDCard0%>" style="height:150px; width:auto;" />
@@ -473,7 +485,7 @@
 
         <% if(acroage.photo1) { %>
         <div>
-            <a download="<%= acroage.idCode %>_Athlete(2)photo_運動員(2)相片.jpg" href="<%= acroage.photo1%>"
+            <a download="<%= acroage.idCode %>_Athlete(2)photo_運動員(2)相片" href="<%= acroage.photo1%>"
                 target="_blank">下載運動員(2)相片 Download Athlete(2) photo</a>
             <br>
             <img src="<%=acroage.photo1%>" style="height:150px; width:auto;" />
@@ -491,7 +503,7 @@
 
         <% if(acroage.imgIDCard1) { %>
         <div>
-            <a download="<%= acroage.idCode %>_idCopy2_身份證副本2.jpg" href="<%= acroage.imgIDCard1%>"
+            <a download="<%= acroage.idCode %>_idCopy2_身份證副本2" href="<%= acroage.imgIDCard1%>"
                 target="_blank">下載運動員(2)的身份證副本 Download ID copy of the Athlete(2)</a>
             <br>
             <img src="<%=acroage.imgIDCard1%>" style="height:150px; width:auto;" />
@@ -594,7 +606,7 @@
 
         <% if(acroage.photo2) { %>
         <div class="form-group col-12">
-            <a download="<%= acroage.idCode %>_Athlete(3)photo_運動員(3)相片.jpg" href="<%= acroage.photo2%>"
+            <a download="<%= acroage.idCode %>_Athlete(3)photo_運動員(3)相片" href="<%= acroage.photo2%>"
                 target="_blank">下載運動員(3)相片 Download Athlete(3) photo</a>
             <br>
             <img src="<%=acroage.photo2%>" style="height:150px; width:auto;" />
@@ -612,7 +624,7 @@
 
         <% if(acroage.imgIDCard2) { %>
         <div class="form-group col-12">
-            <a download="<%= acroage.idCode %>_idCopy3_身份證副本3.jpg" href="<%= acroage.imgIDCard2%>"
+            <a download="<%= acroage.idCode %>_idCopy3_身份證副本3" href="<%= acroage.imgIDCard2%>"
                 target="_blank">下載運動員(3)的身份證副本
                 Download ID copy of
                 the Athlete(3)</a>
@@ -689,12 +701,12 @@
             var type = acroage.declaration0.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.pdf" href="<%= acroage.declaration0%>"
+            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
-            <% } else if(type[0] == 'data:image/jpeg') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.jpg" href="<%= acroage.declaration0%>"
+            <% } else { %>
+            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
@@ -719,12 +731,12 @@
             var type = acroage.declaration1.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.pdf" href="<%= acroage.declaration1%>"
+            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
-            <% } else if(type[0] == 'data:image/jpeg') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1.jpg" href="<%= acroage.declaration1%>"
+            <% } else { %>
+            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>"
                 target="_blank">下載聲明書
                 Download declartion</a>
             <br>
@@ -753,12 +765,12 @@
                 var type = acroage.declaration2.split(';');%>
             <div class="col-12 col-sm-6">
                 <% if(type[0] == 'data:application/pdf') { %>
-                <a download="<%= acroage.idCode %>_Declaration1_聲明1.pdf" href="<%= acroage.declaration2%>"
+                <a download="<%= acroage.idCode %>_Declaration1_聲明3" href="<%= acroage.declaration2%>"
                     target="_blank">下載聲明書
                     Download declartion</a>
                 <br>
-                <% } else if(type[0] == 'data:image/jpeg') { %>
-                <a download="<%= acroage.idCode %>_Declaration1_聲明1.jpg" href="<%= acroage.declaration2%>"
+                <% } else { %>
+                <a download="<%= acroage.idCode %>_Declaration1_聲明3" href="<%= acroage.declaration2%>"
                     target="_blank">下載聲明書
                     Download declartion</a>
                 <br>
