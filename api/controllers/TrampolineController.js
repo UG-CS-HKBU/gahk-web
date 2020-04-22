@@ -26,23 +26,30 @@ module.exports = {
             req.session.data.payStatus = "unpaid";
             req.session.data.formStatus = "ToBeCon";
             req.session.data.teamStatus = "suTeam";
-            await Trampoline.create(req.session.data);
-            var model = await Trampoline.findOne(req.session.data);
-            await Trampoline.update(model.id).set({
-                idCode: "TRA2020-" + model.id
+            var condition = {};
+            condition.compYear = req.session.data.compYear;
+
+            //Set idCode to Trampoline
+            var modelNum = await Trampoline.count({
+                where: condition
             })
-            model["idCode"] = "TRA2020-" + model.id;
+            var newID = modelNum + 1;
+            var newIDCode = "TRA" + req.session.data.compYear + "-" + newID;
+            req.session.data.idCode = newIDCode;
+
+            //create Trampoline
+            await Trampoline.create(req.session.data);
 
             //clear formdata in session and user
-            req.session.data = {};
-            req.session.tramData = {};
+            req.session.data = null;
+            req.session.tramData = null;
             var user = await User.update(req.session.userId).set({
-                tramData: {}
+                tramData: null
             }).fetch();
             if (user.length == 0) return res.notFound();
             //
 
-            return res.view('pages/competition/form/confirm_form', { 'form': model });
+            return res.view('pages/competition/form/confirm_form', { 'formIDCode': newIDCode });
         }
     },
 
@@ -66,31 +73,6 @@ module.exports = {
         }
     },
 
-    view: async function (req, res) {
-
-        var model = await Trampoline.findOne(req.params.id);
-
-        if (!model) return res.notFound();
-
-        return res.view('admin/applyHandle/TrampolineEditForm', { trampoline: model });
-    },
-
-    delete: async function (req, res) {
-
-        if (req.method == "GET") return res.forbidden();
-
-        var models = await Trampoline.destroy(req.params.id).fetch();
-
-        if (models.length == 0) return res.notFound();
-
-        // return res.ok("Application Deleted.");
-
-        if (req.wantsJSON) {
-            return res.json({ message: "Application deleted.", url: '/' });    // for ajax request
-        } else {
-            return res.redirect('/');           // for normal request
-        }
-    },
 
     update: async function (req, res) {
 
@@ -108,6 +90,7 @@ module.exports = {
                 return res.badRequest("Form-data not received.");
 
             var model = await Trampoline.update(req.params.id).set({
+                compYear: req.body.Trampoline.compYear,
                 gender: req.body.Trampoline.gender,
                 category: req.body.Trampoline.category,
                 havecname1: req.body.Trampoline.havecname1,
@@ -150,7 +133,7 @@ module.exports = {
         if (req.method == "GET") return res.forbidden();
 
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.gender) condition.gender = req.session.searchResult.gender;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
@@ -248,7 +231,7 @@ module.exports = {
             var XLSX = require('xlsx');
             var workbook = XLSX.readFile(uploadedFiles[0].fd);
             var ws = workbook.Sheets[workbook.SheetNames[0]];
-            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "gender", "category", "havecname1", "chiName1", "engName1", "birth1", "phone1", "email1", "address1", "havecname2", "chiName2", "engName2", "birth2", "phone2", "email2", "address2", "teamName", "coachName", "coachPhone", "coachNum", "coachAddress", "parentName1", "parentName2", "payStatus", "formStatus", "teamStatus"] });
+            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "compYear", "gender", "category", "havecname1", "chiName1", "engName1", "birth1", "phone1", "email1", "address1", "havecname2", "chiName2", "engName2", "birth2", "phone2", "email2", "address2", "teamName", "coachName", "coachPhone", "coachNum", "coachAddress", "parentName1", "parentName2", "payStatus", "formStatus", "teamStatus"] });
 
             for (var i = 0; i < data.length; i++) {
                 if (data[i].payStatus == "未付款 Unpaid") {
@@ -286,7 +269,7 @@ module.exports = {
     export_xlsx: async function (req, res) {
 
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.gender) condition.gender = req.session.searchResult.gender;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
@@ -333,6 +316,7 @@ module.exports = {
 
             return {
                 "申請表編號 Application Number": model.idCode,
+                "比賽年份 Year of Competition": model.compYear,
                 "性別 Gender": model.gender,
                 "參賽組別 Category": model.category,
                 "參加者(1)是否有中文姓名 Applicant(1) Any Chinese name": model.havecname1,

@@ -201,7 +201,7 @@
                 <h6>申請編號 Application No.: <%= clubMem.idCode %></h6>
                 <p>提交日期 Apply Date: <%= applyDate %></p>
             </div>
-    </div>
+        </div>
 
         <table style="width: 700pt;">
             <tr>
@@ -222,6 +222,20 @@
 
         <form action="/admin/applyHandle/clubMemEdit/<%= clubMem.id %>" method="POST" id="clubMem">
             <ol class="row mx-sm-2" type="A">
+                <!-- 申請年份 Year of Application -->
+                <div class="col-12">
+                    <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">申請年份
+                        Year of Application</h5>
+                    <%var todayYear = new Date().getFullYear(); 
+                    var end = todayYear + 2;%>
+                    <select name="ClubMember[clubYear]" required>
+                        <% for (var year = todayYear; year <= end; year++){%>
+                        <option value="<%=year%>" <%if(year == clubMem.clubYear) {%> selected<%}%> ><%=year%></option>
+                            <%}%>
+                    </select>
+                    <br><br>
+                </div>
+
                 <li class="col-12 partA"
                     style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">
                     申請者資料 Particulars of Applicant
@@ -230,8 +244,8 @@
                     <br>
                     <label>機構 Organization:</label>
                     <input type="text" name="ClubMember[OrgEngName]" value="<%= clubMem.OrgEngName%>"
-                        style="width:450pt" placeholder="         (英文 English)"
-                        onkeyup="value=value.replace(/[^\a-\z\A-\Z\ \(\)\.\-\d\0-\9]/g,'')" required>
+                            style="width:450pt" placeholder=" (英文 English)"
+                            onkeyup="value=value.replace(/[^\a-\z\A-\Z\ \(\)\.\-\d\0-\9]/g,'')" required>
                 </div>
 
                 <div class="form-group col-12 partA">
@@ -362,23 +376,38 @@
 
                     <br><br>
                     <p>The prescribed membership fee for the year of <input type="number" name="ClubMember[year]"
-                                value="<%= clubMem.year%>" style="width: 30pt;" min="1" required> at
-                            <select name="ClubMember[clubFee]" required>
-                                <option disabled>Choose Amount</option>
-                                <option value="1000" <% if(clubMem.clubFee == "1000"){%>selected<%}%> >HK$1,000</option>
+                            value="<%= clubMem.year%>" style="width: 30pt;" min="1" required> at
+                        <select name="ClubMember[clubFee]" required>
+                            <option disabled>Choose Amount</option>
+                            <option value="1000" <% if(clubMem.clubFee == "1000"){%>selected<%}%> >HK$1,000</option>
                                 <option value="150" <% if(clubMem.clubFee == "150"){%>selected<%}%>>HK$150</option>
                             </select> and details of the Organization is attached.</p>
                 </div>
     
                 <div class="form-group col-12 partD">
                     <label><b>D部分 Part D</b></label>
-                    <% if(clubMem.partD) {%> <a download="<%= clubMem.idCode%>_partD_D部分" href="<%=clubMem.partD%>"
+                    
+                        <% if(clubMem.partD) {
+                            var type = clubMem.partD.split(';');%> <div>
+                                <% if(type[0] == 'data:application/pdf') { %>
+                                <a download="<%= clubMem.idCode%>_partD_D部分.pdf" href="<%=clubMem.partD%>"
                                     target="_blank">下載 Download</a>
+                                <br>
+                                <% } else if(type[0] == 'data:image/jpeg'|| type[0] == 'data:image/png') { %>
+                                <a download="<%= clubMem.idCode%>_partD_D部分.jpeg" href="<%=clubMem.partD%>"
+                                    target="_blank">下載 Download</a>
+                                <br>
+                                <img src="<%=clubMem.partD%>" style="height:150px; width:auto" />
+                                <%}%>
+                            </div>
+                        <%}%>
+                                <div>
+                                    <label>重新上載D部分 Reupload Part D</label>
                                     <br>
-                                    <%}%>
-                    <label>更新 Update:</label>
-                    <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)"/>
-                    <div id="preview"></div>
+                                    <input type="file" accept="image/*,application/pdf"
+                                        onchange="handleFile(this.files)" />
+                                    <div id="preview"></div>
+                                </div>
                 </div>
             </ol>
 
@@ -402,186 +431,193 @@
                 <h5 id="labelHead">申請狀況 Apply Status</h5>
         
                  <%if(clubMem.formStatus == "accepted"){%>
-                    <div class="inputGroup">
-                        <input class="statusInput" id="TohandBtn" name="ClubMember[formStatus]" value="ToBeCon" type="radio"
-                            disabled />
-                        <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
-                    </div>
-                    <div class="inputGroup">
-                        <input class="statusInput" id="con" type="checkbox" checked disabled />
-                        <label for="con" class="statusLabel" id="dataDefLabel">已確認 Accepted</label>
-                    </div>
-                    <div class="inputGroup">
-                        <input class="statusInput" id="dataDef" type="checkbox" disabled />
-                        <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
-                    </div>
-                    <% } else if(clubMem.formStatus == "dataDef"){%>
-                    <div class="inputGroup">
-                        <input class="statusInput" id="TohandBtn" name="ClubMember[formStatus]" value="ToBeCon" type="radio"
-                            onclick="changeToCon()" />
-                        <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
-                    </div>
-        
-                    <div class="inputGroup">
-                        <input class="statusInput" id="ToConBtn" name="ClubMember[formStatus]" value="accepted" type="radio"
-                            onclick="changeToCon()" />
-                        <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirmed</label>
-                    </div>
-        
-                    <div class="inputGroup">
-                        <input class="statusInput" id="dataDef" name="ClubMember[formStatus]" value="dataDef" type="radio" checked
-                            onclick="changeToCon()" />
-                        <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
-                    </div>
-                    <%} else {%>
-                    <div class="inputGroup">
-                        <input class="statusInput" id="TohandBtn" name="ClubMember[formStatus]" value="ToBeCon" type="radio"
-                            onclick="changeToCon()" checked />
-                        <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be handled</label>
-                    </div>
-        
-                    <div class="inputGroup">
-                        <input class="statusInput" id="ToConBtn" name="ClubMember[formStatus]" value="accepted" type="radio"
-                            onclick="changeToCon()" />
-                        <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirm</label>
-                    </div>
-        
-                    <div class="inputGroup">
-                        <input class="statusInput" id="dataDef" name="ClubMember[formStatus]" value="dataDef" onclick="changeToCon()"
-                            type="radio" />
-                        <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data Deficiency</label>
-                    </div>
-        
-                    <%}%>
+                <div class="inputGroup">
+                    <input class="statusInput" id="TohandBtn" name="ClubMember[formStatus]" value="ToBeCon" type="radio"
+                        disabled />
+                    <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be
+                        handled</label>
+                </div>
+                <div class="inputGroup">
+                    <input class="statusInput" id="con" type="checkbox" checked disabled />
+                    <label for="con" class="statusLabel" id="dataDefLabel">已確認 Accepted</label>
+                </div>
+                <div class="inputGroup">
+                    <input class="statusInput" id="dataDef" type="checkbox" disabled />
+                    <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data
+                        Deficiency</label>
+                </div>
+                <% } else if(clubMem.formStatus == "dataDef"){%>
+                <div class="inputGroup">
+                    <input class="statusInput" id="TohandBtn" name="ClubMember[formStatus]" value="ToBeCon" type="radio"
+                        onclick="changeToCon()" />
+                    <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be
+                        handled</label>
+                </div>
+
+                <div class="inputGroup">
+                    <input class="statusInput" id="ToConBtn" name="ClubMember[formStatus]" value="accepted" type="radio"
+                        onclick="changeToCon()" />
+                    <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirmed</label>
+                </div>
+
+                <div class="inputGroup">
+                    <input class="statusInput" id="dataDef" name="ClubMember[formStatus]" value="dataDef" type="radio"
+                        checked onclick="changeToCon()" />
+                    <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data
+                        Deficiency</label>
+                </div>
+                <%} else {%>
+                <div class="inputGroup">
+                    <input class="statusInput" id="TohandBtn" name="ClubMember[formStatus]" value="ToBeCon" type="radio"
+                        onclick="changeToCon()" checked />
+                    <label for="TohandBtn" class="statusLabel" id="handleLabel">待處理 To be
+                        handled</label>
+                </div>
+
+                <div class="inputGroup">
+                    <input class="statusInput" id="ToConBtn" name="ClubMember[formStatus]" value="accepted" type="radio"
+                        onclick="changeToCon()" />
+                    <label for="ToConBtn" class="statusLabel" id="confirmLabel">確認 Confirm</label>
+                </div>
+
+                <div class="inputGroup">
+                    <input class="statusInput" id="dataDef" name="ClubMember[formStatus]" value="dataDef"
+                        onclick="changeToCon()" type="radio" />
+                    <label for="dataDef" class="statusLabel" id="dataDefLabel">資料不全 Data
+                        Deficiency</label>
+                </div>
+
+                <%}%>
             </div>
 
             <div class="form-group col-12" style="text-align: right;">
                 <%if(clubMem.formStatus == "rejected"){%>
-                    <a class="btn btn-success" style="color: white;" onclick="history.back()">完成 Submit</a>
-                    <%} else {%>
-                    <button class="btn btn-success" onclick="submitForm('<%= clubMem.idCode%>')">完成 Submit</button>
-                    <%}%>
+                <a class="btn btn-success" style="color: white;" onclick="history.back()">完成 Submit</a>
+                <%} else {%>
+                <button class="btn btn-success" onclick="submitForm('<%= clubMem.idCode%>')">完成
+                    Submit</button>
+                <%}%>
             </div>
         
         
             <% var m = new Date(clubMem.updatedAt);
                 var month = m.getMonth() + 1;
                 var updateDate = m.getDate() + "/" + month + "/" + m.getFullYear() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds(); %>
-                    <p class="col-12" style="font-size: smaller;">上次更新 Last upadated: <%= updateDate%></p>
+                <p class="col-12" style="font-size: smaller;">上次更新 Last upadated: <%= updateDate%></p>
 
-        
-    </form>
-</div>
 
-<div id="<%= clubMem.id%>" class="modal">
-    <div class="modal-content">
-        <div class="container">
-            <h1>拒絕申請 Reject Application<br><%= clubMem.idCode%></h1>
-            <p>確定要拒絕這份申請表?<br>Are you sure you want to reject this application?</p>
+        </form>
+    </div>
 
-            <div class="clearfix">
-                <button type="button" class="cancelbtn modalBtn"
-                    onclick="document.getElementById('<%= clubMem.id%>').style.display='none'">取消 Cancel</button>
-                <button type="button" class="deletebtn modalBtn" onclick="rejectForm('<%= clubMem.id%>')">拒絕
-                    Reject</button>
+    <div id="<%= clubMem.id%>" class="modal">
+        <div class="modal-content">
+            <div class="container">
+                <h1>拒絕申請 Reject Application<br><%= clubMem.idCode%></h1>
+                <p>確定要拒絕這份申請表?<br>Are you sure you want to reject this application?</p>
+
+                <div class="clearfix">
+                    <button type="button" class="cancelbtn modalBtn"
+                        onclick="document.getElementById('<%= clubMem.id%>').style.display='none'">取消 Cancel</button>
+                    <button type="button" class="deletebtn modalBtn" onclick="rejectForm('<%= clubMem.id%>')">拒絕
+                        Reject</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    window.onload = function () { disableform('clubMem', '<%= clubMem.formStatus%>') };
-    function disableform(formId, formStatus) {
-        if (formStatus == "rejected") {
-            var f = document.forms[formId].getElementsByTagName('input');
-            for (var i = 0; i < f.length; i++)
-                f[i].disabled = true
-            var f = document.forms[0].getElementsByTagName('textarea');
-            for (var i = 0; i < f.length; i++)
-                f[i].disabled = true
-        }
-    }
-
-    
-     var modal = document.getElementById('<%= clubMem.id%>');
-     window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-     }
-
-     //button function
-    function submitForm(id) {
-        alert("更新成功 Successfully Updated" + "\n" + id);
-    }
-
-    async function rejectForm(id) {
-        var response = await fetch("/admin/applyHandle/reject/clubMem/" + id, {
-            method: "POST",
-            credentials: 'same-origin',
-        });
-        if (response.ok) {
-            var data = await response.json();
-            alert(data.message);
-            window.location = data.url;
-        } else {
-            alert(response.status + ": " + response.statusText);
-        }
-    };
-
-    function changeToPaid() {
-        var payLabel = document.getElementById("payLabel");
-        var payStatus = document.getElementById("payStatus");
-
-        if (payStatus.checked == true) {
-            payLabel.innerHTML = "已付款 Paid";
-        } else {
-            payLabel.innerHTML = "未付款 Unpaid";
-        }
-    }
-
-    function changeToCon() {
-        var confirmLabel = document.getElementById("confirmLabel");
-        var ToConBtn = document.getElementById("ToConBtn");
-
-        if (ToConBtn.checked == true) {
-            confirmLabel.innerHTML = "已確認 Accepted";
-        } else {
-            confirmLabel.innerHTML = "確認 Confirm";
-        }
-    }
-
-
-    function handleFile(files) {
-        const file = files[0];
-        if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
-        var preview = document.getElementById('preview');
-        var reader = new FileReader();
-
-        if (file.type.startsWith('image/')) {
-            reader.onload = function (e) {
-                preview.innerHTML = "";
-                var img = document.createElement('img');
-                img.src = e.target.result;
-                preview.appendChild(img);
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'ClubMember[partD]';
-                input.value = e.target.result;
-                img.style.width = "auto";
-                img.style.height = "150px";
-                preview.appendChild(input);
-            }
-        } else if (file.type == 'application/pdf') {
-            reader.onload = function (e) {
-                preview.innerHTML = "";
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'ClubMember[partD]';
-                input.value = e.target.result;
-                preview.appendChild(input);
+    <script>
+        window.onload = function () { disableform('clubMem', '<%= clubMem.formStatus%>') };
+        function disableform(formId, formStatus) {
+            if (formStatus == "rejected") {
+                var f = document.forms[formId].getElementsByTagName('input');
+                for (var i = 0; i < f.length; i++)
+                    f[i].disabled = true
+                var f = document.forms[0].getElementsByTagName('textarea');
+                for (var i = 0; i < f.length; i++)
+                    f[i].disabled = true
             }
         }
-        reader.readAsDataURL(file);
-    }
-</script>
+
+
+        var modal = document.getElementById('<%= clubMem.id%>');
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        //button function
+        function submitForm(id) {
+            alert("更新成功 Successfully Updated" + "\n" + id);
+        }
+
+        async function rejectForm(id) {
+            var response = await fetch("/admin/applyHandle/reject/clubMem/" + id, {
+                method: "POST",
+                credentials: 'same-origin',
+            });
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        };
+
+        function changeToPaid() {
+            var payLabel = document.getElementById("payLabel");
+            var payStatus = document.getElementById("payStatus");
+
+            if (payStatus.checked == true) {
+                payLabel.innerHTML = "已付款 Paid";
+            } else {
+                payLabel.innerHTML = "未付款 Unpaid";
+            }
+        }
+
+        function changeToCon() {
+            var confirmLabel = document.getElementById("confirmLabel");
+            var ToConBtn = document.getElementById("ToConBtn");
+
+            if (ToConBtn.checked == true) {
+                confirmLabel.innerHTML = "已確認 Accepted";
+            } else {
+                confirmLabel.innerHTML = "確認 Confirm";
+            }
+        }
+
+
+        function handleFile(files) {
+            const file = files[0];
+            if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
+            var preview = document.getElementById('preview');
+            var reader = new FileReader();
+
+            if (file.type.startsWith('image/')) {
+                reader.onload = function (e) {
+                    preview.innerHTML = "";
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'ClubMember[partD]';
+                    input.value = e.target.result;
+                    img.style.width = "auto";
+                    img.style.height = "150px";
+                    preview.appendChild(input);
+                }
+            } else if (file.type == 'application/pdf') {
+                reader.onload = function (e) {
+                    preview.innerHTML = "";
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'ClubMember[partD]';
+                    input.value = e.target.result;
+                    preview.appendChild(input);
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+    </script>

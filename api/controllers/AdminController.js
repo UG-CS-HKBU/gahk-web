@@ -71,8 +71,10 @@ module.exports = {
     req.session.searchResult = {};
     var condition = {};
     var form = req.query.application;
+    var projectYear = req.query.year;
 
     if (req.query.application == "TRGP") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
       if (req.query.formStatus) condition.formStatus = req.query.formStatus;
@@ -82,6 +84,7 @@ module.exports = {
         where: condition
       });
     } else if (req.query.application == "TRGS") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
       if (req.query.formStatus) condition.formStatus = req.query.formStatus;
@@ -92,6 +95,7 @@ module.exports = {
       });
 
     } else if (req.query.application == "GRGS") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
       if (req.query.formStatus) condition.formStatus = req.query.formStatus;
@@ -101,6 +105,7 @@ module.exports = {
         where: condition
       });
     } else if (req.query.application == "GRGP") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
       if (req.query.formStatus) condition.formStatus = req.query.formStatus;
@@ -110,6 +115,7 @@ module.exports = {
         where: condition
       });
     } else if (req.query.application == "trampoline") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.gender) condition.gender = req.query.gender;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
@@ -120,6 +126,7 @@ module.exports = {
         where: condition
       });
     } else if (req.query.application == "gfa") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
       if (req.query.formStatus) condition.formStatus = req.query.formStatus;
@@ -129,6 +136,7 @@ module.exports = {
         where: condition
       });
     } else if (req.query.application == "acroage") {
+      if (req.query.year) condition.compYear = req.query.year;
       if (req.query.item) condition.item = req.query.item;
       if (req.query.category) condition.category = req.query.category;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
@@ -140,6 +148,7 @@ module.exports = {
       });
 
     } else if (req.query.application == "clubMem") {
+      if (req.query.year) condition.clubYear = req.query.year;
       if (req.query.payStatus) condition.payStatus = req.query.payStatus;
       if (req.query.formStatus) condition.formStatus = req.query.formStatus;
       var models = await ClubMember.find({
@@ -148,7 +157,7 @@ module.exports = {
 
     }
     req.session.searchResult = condition;
-    return res.view('admin/applyHandle/search', { applications: models, form });
+    return res.view('admin/applyHandle/search', { applications: models, form, projectYear });
   },
 };
 

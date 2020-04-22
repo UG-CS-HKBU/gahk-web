@@ -25,24 +25,29 @@ module.exports = {
             req.session.data.payStatus = "unpaid";
             req.session.data.formStatus = "ToBeCon";
             req.session.data.teamStatus = "suTeam";
-            await Acroage.create(req.session.data);
+            var condition = {};
+            condition.compYear = req.session.data.compYear;
 
             //Set idCode to Acroage
-            var model = await Acroage.findOne(req.session.data);
-            await Acroage.update(model.id).set({
-                idCode: "AGO2020-" + model.id
+            var modelNum = await Acroage.count({
+                where: condition
             })
-            model["idCode"] = "AGO2020-" + model.id;
+            var newID = modelNum + 1;
+            var newIDCode = "AGO" + req.session.data.compYear + "-" + newID;
+            req.session.data.idCode = newIDCode;
+
+            //create Acroage
+            await Acroage.create(req.session.data);
 
             //clear all session data
-            req.session.data = {};
-            req.session.Acrodata = {};
+            req.session.data = null;
+            req.session.Acrodata = null;
             var user = await User.update(req.session.userId).set({
-                TRGPdata: {}
+                Acrodata: null
             }).fetch();
             if (user.length == 0) return res.notFound();
 
-            return res.view('pages/competition/form/confirm_form', { 'form': model });
+            return res.view('pages/competition/form/confirm_form', { 'formIDCode': newIDCode });
         }
     },
 
@@ -97,6 +102,7 @@ module.exports = {
             }
 
             var models = await Acroage.update(req.params.id).set({
+                compYear: req.body.Acroage.compYear,
                 category: req.body.Acroage.category,
                 item: req.body.Acroage.item,
                 //Applicant 1
@@ -181,7 +187,7 @@ module.exports = {
         if (req.method == "GET") return res.forbidden();
 
         var condition = {};
-
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.item) condition.item = req.session.searchResult.item;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
@@ -264,7 +270,7 @@ module.exports = {
             var XLSX = require('xlsx');
             var workbook = XLSX.readFile(uploadedFiles[0].fd);
             var ws = workbook.Sheets[workbook.SheetNames[0]];
-            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "category", "item", "havecname1", "cpChiName1", "cpEngName1", "gender1", "birthday1", "idNo1", "contactNo1", "email1", "address1", "havecname2", "cpChiName2", "cpEngName2", "gender2", "birthday2", "idNo2", "contactNo2", "email2", "address2", "havecname3", "cpChiName3", "cpEngName3", "gender3", "birthday3", "idNo3", "contactNo3", "email3", "address3", "coachName", "cContactNo", "organName", "receiptHeader", "receiptName", "parentName1", "parentName2", "parentName3", "payStatus", "formStatus", "teamStatus"] });
+            var data = XLSX.utils.sheet_to_json(ws, { range: 1, header: ["idCode", "compYear", "category", "item", "havecname1", "cpChiName1", "cpEngName1", "gender1", "birthday1", "idNo1", "contactNo1", "email1", "address1", "havecname2", "cpChiName2", "cpEngName2", "gender2", "birthday2", "idNo2", "contactNo2", "email2", "address2", "havecname3", "cpChiName3", "cpEngName3", "gender3", "birthday3", "idNo3", "contactNo3", "email3", "address3", "coachName", "cContactNo", "organName", "receiptHeader", "receiptName", "parentName1", "parentName2", "parentName3", "payStatus", "formStatus", "teamStatus"] });
 
             for (var i = 0; i < data.length; i++) {
                 var date1 = data[i].birthday1.split('/');
@@ -315,6 +321,7 @@ module.exports = {
 
     export_xlsx: async function (req, res) {
         var condition = {};
+        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.item) condition.category = req.session.searchResult.item;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
         if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
@@ -374,6 +381,7 @@ module.exports = {
 
             return {
                 "申請表編號 Application Number": model.idCode,
+                "比賽年份 Year of Competition": model.compYear,
                 "組別/年齡 Category/Age": model.category,
                 "項目 Item": model.item,
                 "參加者(1)是否有中文姓名 Applicant(1) Any Chinese name": model.havecname1,

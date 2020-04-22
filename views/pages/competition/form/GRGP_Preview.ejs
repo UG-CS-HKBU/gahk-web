@@ -5,10 +5,15 @@
         <div class="card-body col-12">
             <h1 style="font-size: 18pt; text-align: center;"><b>Preview 預覽</b></h1>
             <br>
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt; color: #888888;"><b>第63屆體育節 -
-                    2020年全港藝術體操分齡比賽</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt; color: #888888;"><b>全港藝術體操分齡比賽</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt; color: #888888;">
                 <u>集體項目報名表(公開組︰學校以外之團體)</u></h2>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="card-body col-12">
+            <label style="color: #83a70c; font-weight: bold; font-size: 15px;">比賽年份 Year of Competition: </label>
+            <b><%= req.session.data.compYear%></b>    
         </div>
 
         <div class="card-body col-12">
@@ -49,6 +54,11 @@
                         <span class="col-sm-6">身分證號碼 ID Card Number: <b><%= req.session.data.ID1%></b></span>
                         <span class="col-sm-6">出生日期 Date of Birth (yyyy-mm-dd):
                             <b><%= req.session.data.birth1%></b></span>
+                        <br>
+                        <span class="col-sm-6">身分證號碼副本 ID Copy:</span>
+                        <div class="col-12">
+                            <img src="<%=req.session.data.imgIDCard0%>" style="height:150px; width:auto" />
+                        </div>
                     </div>
                 </div>
 
@@ -69,6 +79,11 @@
                         <span class="col-sm-6">身分證號碼 ID Card Number: <b><%= req.session.data.ID2%></b></span>
                         <span class="col-sm-6">出生日期 Date of Birth (yyyy-mm-dd):
                             <b><%= req.session.data.birth2%></b></span>
+                        <br>
+                        <span class="col-sm-6">身分證號碼副本 ID Copy:</span>
+                        <div class="col-12">
+                            <img src="<%=req.session.data.imgIDCard1%>" style="height:150px; width:auto" />
+                        </div>
                     </div>
                 </div>
 
@@ -89,6 +104,11 @@
                         <span class="col-sm-6">身分證號碼 ID Card Number: <b><%= req.session.data.ID3%></b></span>
                         <span class="col-sm-6">出生日期 Date of Birth (yyyy-mm-dd):
                             <b><%= req.session.data.birth3%></b></span>
+                        <br>
+                        <span class="col-sm-6">身分證號碼副本 ID Copy:</span>
+                        <div class="col-12">
+                            <img src="<%=req.session.data.imgIDCard2%>" style="height:150px; width:auto" />
+                        </div>
                     </div>
                 </div>
 
@@ -109,6 +129,11 @@
                         <span class="col-sm-6">身分證號碼 ID Card Number: <b><%= req.session.data.ID4%></b></span>
                         <span class="col-sm-6">出生日期 Date of Birth (yyyy-mm-dd):
                             <b><%= req.session.data.birth4%></b></span>
+                        <br>
+                        <span class="col-sm-6">身分證號碼副本 ID Copy:</span>
+                        <div class="col-12">
+                            <img src="<%=req.session.data.imgIDCard3%>" style="height:150px; width:auto" />
+                        </div>
                     </div>
                 </div>
 
@@ -129,6 +154,11 @@
                         <span class="col-sm-6">身分證號碼 ID Card Number: <b><%= req.session.data.ID5%></b></span>
                         <span class="col-sm-6">出生日期 Date of Birth (yyyy-mm-dd):
                             <b><%= req.session.data.birth5%></b></span>
+                        <br>
+                        <span class="col-sm-6">身分證號碼副本 ID Copy:</span>
+                        <div class="col-12">
+                            <img src="<%=req.session.data.imgIDCard4%>" style="height:150px; width:auto" />
+                        </div>
                     </div>
                 </div>
 
@@ -149,6 +179,11 @@
                         <span class="col-sm-6">身分證號碼 ID Card Number: <b><%= req.session.data.ID6%></b></span>
                         <span class="col-sm-6">出生日期 Date of Birth (yyyy-mm-dd):
                             <b><%= req.session.data.birth6%></b></span>
+                        <br>
+                        <span class="col-sm-6">身分證號碼副本 ID Copy:</span>
+                        <div class="col-12">
+                            <img src="<%=req.session.data.imgIDCard5%>" style="height:150px; width:auto" />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,16 +2,6 @@
     .card {
         border-radius: 0;
     }
-
-    .dot {
-        height: 15px;
-        width: 15px;
-        background-color:#bbb;
-        border-radius: 50%;
-        display: inline-block;
-        text-align: center;
-        font-size: smaller;
-    }
 </style>
 
 <form action="/competition/form/trampoline" method="POST" id="trampoline">
@@ -19,7 +9,7 @@
 
     <div class="row mx-sm-2">
         <div class="col-12" style="color: #888888; ">
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>2020年香港彈網分齡賽</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>香港彈網分齡賽</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>雙人同步 報名表格</u></h2>
             <br><br>
         </div>
@@ -30,9 +20,22 @@
         </div>
 
         <div class="col-12">
-            <a href="/formDoc/TRAagegroup2020.pdf" target="_blank" style="text-align: center;"><u>2020年香港彈網分齡賽章程
+            <a href="/formDoc/TRAagegroup2020.pdf" target="_blank" style="text-align: center;"><u>香港彈網分齡賽章程
                     Prospectus of
                     TrampolineAgeGroupCompetition</u></a>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="col-12">
+            <br><br>
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+             <%var todayYear = new Date().getFullYear();
+                var end = todayYear + 2;%>
+            <select id="compYear" name="Trampoline[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(req.session.data == null && req.session.tramData == null && year == todayYear || req.session.tramData != null && year == req.session.tramData.compYear || req.session.data != null && year == req.session.data.compYear) {%> selected<%}%> ><%=year%></option>
+                <%}%>
+            </select>
         </div>
 
 
@@ -117,41 +120,44 @@
                 <% if(req.session.tramData != null && req.session.tramData.youngest == true) { 
                     var todayYear = new Date().getFullYear();
                     var start = todayYear - 14;%>
-                    <select id="year1" class="form-group" name="Trampoline[birth1]" required>
+                <select id="year1" class="form-group" name="Trampoline[birth1]" required>
                     <% for (var year = start; year <= todayYear; year++){%>
-                        <option value="<%=year%>" <% if(req.session.tramData.year1 == year){%>selected<%}%> ><%=year%></option>
-                    <%}%>
+                    <option value="<%=year%>"
+                        <% if(req.session.tramData.year1 == year){%>selected<%}%> ><%=year%></option>
+                        <%}%>
                     </select>
                 <%} else if(req.session.tramData != null && req.session.tramData.median == true){
                     var todayYear = new Date().getFullYear();
                     var start = todayYear - 16;
                     var end = todayYear - 15;%>
-                    <select id="year1" class="form-group" name="Trampoline[birth1]" required>
-                        <% for (var year = start; year <= end; year++){%>
-                            <option value="<%=year%>" <% if(req.session.tramData.year1 == year){%>selected<%}%> ><%=year%></option>
-                        <%}%>
+                        <select id="year1" class="form-group" name="Trampoline[birth1]" required>
+                            <% for (var year = start; year <= end; year++){%>
+                            <option value="<%=year%>"
+                                <% if(req.session.tramData.year1 == year){%>selected<%}%> ><%=year%></option>
+                                <%}%>
                     </select>
                 <%} else if(req.session.tramData != null && req.session.tramData.eldest == true){
                     var todayYear = new Date().getFullYear();
                     var start = 1990;
                     var end = todayYear - 17;%>
-                    <select id="year1" class="form-group" name="Trampoline[birth1]" required>
-                        <% for (var year = start; year <= end; year++){%>
-                            <option value="<%=year%>" <% if(req.session.tramData.year1 == year){%>selected<%}%> ><%=year%></option>
-                        <%}%>
+                                <select id="year1" class="form-group" name="Trampoline[birth1]" required>
+                                    <% for (var year = start; year <= end; year++){%>
+                                    <option value="<%=year%>"
+                                        <% if(req.session.tramData.year1 == year){%>selected<%}%> ><%=year%></option>
+                                        <%}%>
                     </select>
                 
                 <%} else{%>
-                    <select id="year1" class="form-group" name="Trampoline[birth1]" required>
-                        <option disabled selected></option>
-                        <% var todayYear = new Date().getFullYear();
+                                        <select id="year1" class="form-group" name="Trampoline[birth1]" required>
+                                            <option disabled selected></option>
+                                            <% var todayYear = new Date().getFullYear();
                         for (var year = 1990; year <= todayYear; year++){%>
-                            <option value="<%=year%>"><%=year%></option>
-                        <%}%>
+                                            <option value="<%=year%>"><%=year%></option>
+                                            <%}%>
                     </select>
                 <%}%>
-                
-                <br>
+
+                                            <br>
             </div>
             <div>
                 <label>聯絡電話 Contact Number:</label>
@@ -215,41 +221,44 @@
                 <% if(req.session.tramData != null && req.session.tramData.youngest == true) { 
                     var todayYear = new Date().getFullYear();
                     var start = todayYear - 14;%>
-                    <select id="year2" class="form-group" name="Trampoline[birth2]" required>
+                <select id="year2" class="form-group" name="Trampoline[birth2]" required>
                     <% for (var year = start; year <= todayYear; year++){%>
-                        <option value="<%=year%>" <% if(req.session.tramData.year2 == year){%>selected<%}%> ><%=year%></option>
-                    <%}%>
+                    <option value="<%=year%>"
+                        <% if(req.session.tramData.year2 == year){%>selected<%}%> ><%=year%></option>
+                        <%}%>
                     </select>
                 <%} else if(req.session.tramData != null && req.session.tramData.median == true){
                     var todayYear = new Date().getFullYear();
                     var start = todayYear - 16;
                     var end = todayYear - 15;%>
-                    <select id="year2" class="form-group" name="Trampoline[birth2]" required>
-                        <% for (var year = start; year <= end; year++){%>
-                            <option value="<%=year%>" <% if(req.session.tramData.year2 == year){%>selected<%}%> ><%=year%></option>
-                        <%}%>
+                        <select id="year2" class="form-group" name="Trampoline[birth2]" required>
+                            <% for (var year = start; year <= end; year++){%>
+                            <option value="<%=year%>"
+                                <% if(req.session.tramData.year2 == year){%>selected<%}%> ><%=year%></option>
+                                <%}%>
                     </select>
                 <%} else if(req.session.tramData != null && req.session.tramData.eldest == true){
                     var todayYear = new Date().getFullYear();
                     var start = 1990;
                     var end = todayYear - 17;%>
-                    <select id="year2" class="form-group" name="Trampoline[birth2]" required>
-                        <% for (var year = start; year <= end; year++){%>
-                            <option value="<%=year%>" <% if(req.session.tramData.year2 == year){%>selected<%}%> ><%=year%></option>
-                        <%}%>
+                                <select id="year2" class="form-group" name="Trampoline[birth2]" required>
+                                    <% for (var year = start; year <= end; year++){%>
+                                    <option value="<%=year%>"
+                                        <% if(req.session.tramData.year2 == year){%>selected<%}%> ><%=year%></option>
+                                        <%}%>
                     </select>
                 
                 <%} else{%>
-                    <select id="year2" class="form-group" name="Trampoline[birth2]" required>
-                        <option disabled selected></option>
-                        <% var todayYear = new Date().getFullYear();
+                                        <select id="year2" class="form-group" name="Trampoline[birth2]" required>
+                                            <option disabled selected></option>
+                                            <% var todayYear = new Date().getFullYear();
                         for (var year = 1990; year <= todayYear; year++){%>
-                            <option value="<%=year%>"><%=year%></option>
-                        <%}%>
+                                            <option value="<%=year%>"><%=year%></option>
+                                            <%}%>
                     </select>
                 <%}%>
-                
-                <br>
+
+                                            <br>
             </div>
             <div>
                 <label>聯絡電話 Contact Number:</label>
@@ -352,8 +361,24 @@
             <input id="parentName1" type="text" class="form-group" name="Trampoline[parentName1]"
                 <% if(req.session.tramData != null && req.session.tramData.parentName1 != null) { %>
                 value="<%=req.session.tramData.parentName1%>" <% } %> required />
-            <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,0)" required />
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,0)"
+                <% if(req.session.tramData == null || req.session.tramData.declaration0 == "") { %> required <% } %> />
             <div id="preview0"></div>
+            <% if(req.session.tramData != null && req.session.tramData.declaration0 != "" && req.session.tramData.declaration0 != null) { %>
+            <input id="declaration0" type="hidden" name="Trampoline[declaration0]"
+                value="<%=req.session.tramData.declaration0%>" />
+            <br>
+            <label>原本文件 Original File</label>
+            <br>
+            <% var type = req.session.tramData.declaration0.split(';');
+                if(type[0] == 'data:application/pdf'){ %>
+            <a download="Declaration聲明1" href="<%= req.session.tramData.declaration0%>" target="_blank">聲明書1
+                declartion1</a>
+            <% } else { %>
+            <img src="<%=req.session.tramData.declaration0%>" style="height:150px; width:auto" />
+            <% }}else{ %>
+            <input id="declaration0" type="hidden" name="Trampoline[declaration0]" />
+            <% } %>
         </div>
 
         <div class="col-12">
@@ -362,8 +387,24 @@
             <input id="parentName2" type="text" class="form-group" name="Trampoline[parentName2]"
                 <% if(req.session.tramData != null && req.session.tramData.parentName1 != null) { %>
                 value="<%=req.session.tramData.parentName2%>" <% } %> required />
-            <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,1)" required />
+            <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files,1)"
+                <% if(req.session.tramData == null || req.session.tramData.declaration1 == "") { %> required <% } %> />
             <div id="preview1"></div>
+            <% if(req.session.tramData != null && req.session.tramData.declaration1 != "" && req.session.tramData.declaration1 != null) { %>
+            <input id="declaration1" type="hidden" name="Trampoline[declaration1]"
+                value="<%=req.session.tramData.declaration1%>" />
+            <br>
+            <label>原本文件 Original File</label>
+            <br>
+            <% var type = req.session.tramData.declaration1.split(';');
+                if(type[0] == 'data:application/pdf'){ %>
+            <a download="Declaration聲明2" href="<%= req.session.tramData.declaration1%>" target="_blank">聲明書2
+                declartion2</a>
+            <% } else { %>
+            <img src="<%=req.session.tramData.declaration1%>" style="height:150px; width:auto" />
+            <% }}else{ %>
+            <input id="declaration1" type="hidden" name="Trampoline[declaration1]" />
+            <% } %>
         </div>
 
         <div class="col-12">
@@ -381,9 +422,7 @@
             <button type="submit" class="btn btn-primary" style="background: #83a70c; border: none; float: right;">預覽
                 Preview
                 >></button>
-            <button type="button" class="btn btn-primary" onclick="saveForm()" onmouseover="showRemind()" onmouseout="hideRemind()"
-                style="background: red; border: none; float: left;">儲存 Save</button>
-                &nbsp;<p id="remind" style="display:none; font-size:smaller;"><span class="dot">!</span>已上載檔案將不會被儲存 The uploaded files will not be saved</p>
+            <button type="button" class="btn btn-primary" onclick="saveForm()" style="background: red; border: none; float: left;">儲存 Save</button>
         </div>
     </div>
     <br>
@@ -402,17 +441,6 @@
 </script>
 
 <script>
-    function showRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "inline";
-    }
-
-    function hideRemind() {
-        var remind = document.getElementById("remind");
-        remind.style.display = "none";
-
-    }
-
     //birthYearOption(1990, new Date().getFullYear());
     function limitBirth() {
         var todayYear = new Date().getFullYear();
@@ -443,6 +471,7 @@
     async function saveForm() {
         var form = document.getElementById("trampoline");
         var data = JSON.stringify({
+            compYear: form.compYear.value,
             male: form.male.checked,
             female: form.female.checked,
             youngest: form.youngest.checked,
@@ -470,9 +499,10 @@
             coachNum: form.coachNum.value,
             coachAddress: form.coachAddress.value,
             parentName1: form.parentName1.value,
-            parentName2: form.parentName2.value
+            parentName2: form.parentName2.value,
+            declaration0: form.declaration0.value,
+            declaration1: form.declaration1.value,
         });
-        alert(data)
         var response = await fetch("/competition/form/trampoline/save", {
             method: "POST",
             credentials: 'same-origin',
@@ -502,22 +532,16 @@
                 var img = document.createElement('img');
                 img.src = e.target.result;
                 preview.appendChild(img);
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'Trampoline[declaration' + p + ']';
-                input.value = e.target.result;
+
                 img.style.width = "auto";
                 img.style.height = "150px";
-                preview.appendChild(input);
+
+                document.getElementById("declaration" + p).value = e.target.result;
             }
         } else if (file.type == 'application/pdf') {
             reader.onload = function (e) {
                 preview.innerHTML = "";
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'Trampoline[declaration' + p + ']';
-                input.value = e.target.result;
-                preview.appendChild(input);
+                document.getElementById("declaration" + p).value = e.target.result;
             }
         }
         reader.readAsDataURL(file);

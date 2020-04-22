@@ -206,9 +206,20 @@
 
         <!-- Title -->
         <div class="col-12" style="color: #888888; ">
-            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>第63屆體育節 -
-                    2020年全港藝術體操分齡比賽</b></h1>
+            <h1 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:16pt;"><b>全港藝術體操分齡比賽</b></h1>
             <h2 style="font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:14pt;"><u>集體項目報名表(學校組)</u></h2>
+        </div>
+
+        <!-- 比賽年份 Year of Competition -->
+        <div class="col-12">
+            <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
+            <%var todayYear = new Date().getFullYear();
+            var end = todayYear + 2;%>
+            <select name="GRGS[compYear]" required>
+                <% for (var year = todayYear; year <= end; year++){%>
+                <option value="<%=year%>" <%if(year == grgs.compYear) {%> selected<%}%> ><%=year%></option>
+                    <%}%>
+            </select>
         </div>
 
         <!-- Team details -->
@@ -317,7 +328,7 @@
 
             <% if(grgs.imgIDCard0) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy1_身份證副本1.jpg" href="<%= grgs.imgIDCard0%>"
+                <a download="<%= grgs.idCode %>_idCopy1_身份證副本1" href="<%= grgs.imgIDCard0%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -387,7 +398,7 @@
 
             <% if(grgs.imgIDCard1) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy2_身份證副本2.jpg" href="<%= grgs.imgIDCard1%>"
+                <a download="<%= grgs.idCode %>_idCopy2_身份證副本2" href="<%= grgs.imgIDCard1%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -457,7 +468,7 @@
 
             <% if(grgs.imgIDCard2) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy3_身份證副本3.jpg" href="<%= grgs.imgIDCard2%>"
+                <a download="<%= grgs.idCode %>_idCopy3_身份證副本3" href="<%= grgs.imgIDCard2%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -527,7 +538,7 @@
 
             <% if(grgs.imgIDCard3) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy4_身份證副本4.jpg" href="<%= grgs.imgIDCard3%>"
+                <a download="<%= grgs.idCode %>_idCopy4_身份證副本4" href="<%= grgs.imgIDCard3%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -597,7 +608,7 @@
 
             <% if(grgs.imgIDCard4) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy5_身份證副本5.jpg" href="<%= grgs.imgIDCard4%>"
+                <a download="<%= grgs.idCode %>_idCopy5_身份證副本5" href="<%= grgs.imgIDCard4%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -667,7 +678,7 @@
 
             <% if(grgs.imgIDCard5) { %>
             <div>
-                <a download="<%= grgs.idCode %>_idCopy6_身份證副本6.jpg" href="<%= grgs.imgIDCard5%>"
+                <a download="<%= grgs.idCode %>_idCopy6_身份證副本6" href="<%= grgs.imgIDCard5%>"
                     target="_blank">下載參加者的身份證副本
                     Download ID copy of
                     the applicant</a>
@@ -760,11 +771,11 @@
             var type = grgs.declaration.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= grgs.idCode %>_Declaration1_聲明1.pdf" href="<%= grgs.declaration%>" target="_blank">下載聲明書
+            <a download="<%= grgs.idCode %>_Declaration1_聲明" href="<%= grgs.declaration%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <% } else if(type[0] == 'data:image/jpeg'|| type[0] == 'data:image/png') { %>
-            <a download="<%= grgs.idCode %>_Declaration1_聲明1.jpg" href="<%= grgs.declaration%>" target="_blank">下載聲明書
+            <a download="<%= grgs.idCode %>_Declaration1_聲明" href="<%= grgs.declaration%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <img src="<%=grgs.declaration%>" style="height:150px; width:auto" />
@@ -922,7 +933,7 @@
     }
 
     // Get the modal
-    var modal = document.getElementById('askModal');
+    var modal = document.getElementById('<%= grgs.id%>');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
