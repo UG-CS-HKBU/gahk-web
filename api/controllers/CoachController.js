@@ -518,7 +518,7 @@ module.exports = {
 
        var ws1 = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="").map(model => {
       return {
-        
+       
         教練編號: 'INDC' + model.CoachNo,
         申請類別: model.New_coach,
 
@@ -597,9 +597,94 @@ module.exports = {
         // 校長簽署: model.avatar_sign,
       }
     }));
+
+    var ws2 = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="是").map(model => {
+      return {
+        
+        教練編號: 'INDC' + model.CoachNo,
+        申請類別: model.New_coach,
+
+        教練註冊級別: model.Level,
+
+        男子競技體操: model.Disciplines1,
+        女子競技體操 : model.Disciplines2,
+        藝術體操: model.Disciplines3,
+        技巧體操: model.Disciplines4,
+        彈網: model.Disciplines5,
+        健美體操: model.Disciplines6,
+        // 個人照片: model.Personal_photo,
+        英文名: model.Engname,
+        中文名: model.ChiName,
+
+        香港身份證號碼: model.Id,
+        性別: model.Gender,
+        出生日期: model.Birthd,
+
+        職業: model.Occupation,
+        學歷: model.Education,
+        住宅: model.Hnumber,
+        手提: model.Mnumber,
+        電郵地址: model.Email,
+        通訊地址: model.ChiAddress,
+        // 狀態: model.Highlight_property5,
+
+        //
+        曾任教本會舉辦之課程: model.HaveBeenCoach,
+        如有: model.Have,
+        其他有關體操教學經驗: model.HaveBeenCoach1,
+        請列明: model.Have2,
+
+        //
+        本會發出之體操教練證書: model.Qualification,
+        證書編號: model.Cert_no,
+        考取年份: model.date_Qualification,
+
+        香港教練培訓委員會發出之證書: model.Qualification1,
+        認可教練號碼: model.Accredited_coachNo,
+        有效日期: model.date_Qualification1,
+        //
+        本會發出之教練理論課程證書: model.Qualification2,
+        證書編號: model.Cert_no2,
+        有效日期: model.date_Qualification2,
+
+
+        急救證書: model.Qualification3,
+        發出機構: model.Issued_by,
+        考取年份: model.date_Qualification3,
+
+
+        其他有關體操教練資歷: model.Qualification4,
+        原因: model.others,
+        是否已考取本地國際裁判資歷: model.judges,
+        考取年份: model.date_qualification5,
+
+        //
+
+        曾於學校或其他地區教授之訓練班舉辦日期: model.date_training,
+        學校機構名稱: model.school_training,
+        教授項目: model.Discipline_training,
+
+        曾教導學生考取章別計劃之數量舉辦日期: model.Badges_date,
+        訓練班學校機構名稱: model.Badges_school,
+        級別及數量: model.Badges_no,
+
+        曾參與總會之體操推廣活動舉辦日期: model.Activities_date,
+        活動名稱: model.Activities_event,
+        負責職位: model.Activities_badges,
+
+        曾參與總會及香港教練培訓委員會之複修課程舉辦日期: model.Coaching_workshops_date,
+        活動名稱: model.Coaching_workshops_event,
+        舉辦機構: model.Coaching_workshops_organization,
+        聲明: model.hope,
+        // 校長簽署: model.avatar_sign,
+
+      }     
+    }));
+
     
-      XLSX.utils.book_append_sheet(wb, ws1, "Pending_Coach");
+      XLSX.utils.book_append_sheet(wb, ws1, "WaitingforApproval_Coach");
       XLSX.utils.book_append_sheet(wb, ws, "Approved_Coach");
+      XLSX.utils.book_append_sheet(wb, ws2, "Pending_Coach");
     
     res.set("Content-disposition", "attachment; filename=Coach.xlsx");
     return res.end(XLSX.write(wb, {type:"buffer", bookType:"xlsx"}));
