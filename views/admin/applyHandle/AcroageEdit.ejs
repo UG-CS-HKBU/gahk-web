@@ -763,11 +763,12 @@
         <div class="col-12" id="extraParent">
             <%}%>
             <br>
-            <% var birthYear3 = acroage.birthday3.split('-');
-        var age3 = new Date().getFullYear() - birthYear3[0];
-        if (age3 < 18) {%>
+            <% if(acroage.birthday3) {
+                var birthYear3 = acroage.birthday3.split('-');
+             var age3 = new Date().getFullYear() - birthYear3[0];
+             if (age3 < 18) {%>
             <p style="color: red; font-size: smaller;"><b>*申請人未滿十八歲 Applicant is aged below 18</b></p>
-            <%}%>
+            <%}}%>
             <label>參加者(3)家長姓名 Applicant(3)'s Parent Name: </label>
             <input type="text" id="parentName3" class="form-group" value="<%= acroage.parentName3 %>"
             name="Acroage[parentName3]">
