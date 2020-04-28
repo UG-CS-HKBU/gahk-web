@@ -5,7 +5,7 @@
 </style>
 
 
-<form action="/competition/form/GRGS" method="POST" id="GRGS_form">
+<form action="/pages/competition/form/GRGS" method="POST" id="GRGS_form">
     <div class="row mx-sm-2">
         <!-- Title -->
         <div class="col-12" style="color: #888888; ">
@@ -32,14 +32,9 @@
             <br><br>
             <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of
                 Competition</h5>
-            <%var todayYear = new Date().getFullYear();
-                var end = todayYear + 2;%>
+            <%var todayYear = new Date().getFullYear();%>
             <select id="compYear" name="GRGS[compYear]" required>
-                <% for (var year = todayYear; year <= end; year++){%>
-                <option value="<%=year%>"
-                    <%if(req.session.data == null && req.session.GRGSdata == null && year == todayYear || req.session.GRGSdata != null && year == req.session.GRGSdata.compYear || req.session.data != null && year == req.session.data.compYear) {%>
-                    selected<%}%> ><%=year%></option>
-                    <%}%>
+                <option value="<%=todayYear%>" selected><%=todayYear%></option>
             </select>
         </div>
 
@@ -449,12 +444,10 @@
             <div>
                 <label>是否有中文姓名 Any Chinese name: </label>
                 <input type="radio" name="GRGS[havecname6]" value="是 Yes" id="Yes6" onclick="havechinesename()"
-                    <% if(req.session.GRGSdata != null && req.session.GRGSdata.Yes6 == true) { %> checked <% } %>
-                required />
+                    <% if(req.session.GRGSdata != null && req.session.GRGSdata.Yes6 == true) { %> checked <% } %>/>
                 <label class="form-check-label" for="havecname6">是 Yes</label>
                 <input type="radio" name="GRGS[havecname6]" value="否 No" id="No6" onclick="havechinesename()"
-                    <% if(req.session.GRGSdata != null && req.session.GRGSdata.No6 == true) { %> checked <% } %>
-                    required />
+                    <% if(req.session.GRGSdata != null && req.session.GRGSdata.No6 == true) { %> checked <% } %>/>
                 <label class="form-check-label" for="havecname6">否 No</label>
             </div>
             <div>
@@ -463,33 +456,32 @@
                     onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
                     <% if(req.session.data != null && req.session.data.havecname6 == "否 No") { %> disabled
                     <%} else if(req.session.GRGSdata != null) { if(req.session.GRGSdata.No6 == true) {%> disabled
-                    <% }else{ %> value="<%=req.session.GRGSdata.chiName6%>" <% }} %> required />
+                    <% }else{ %> value="<%=req.session.GRGSdata.chiName6%>" <% }} %> />
             </div>
             <div>
                 <label>英文姓名 Name in English: </label>
                 <input id="engName6" type="text" class="form-group" name="GRGS[engName6]"
                     placeholder=" e.g. Chan Tai Man" onkeyup="value=value.replace(/[^\a-\z\A-\Z\ ]/g,'')"
                     <% if(req.session.GRGSdata != null && req.session.GRGSdata.engName6 != null) { %>
-                    value="<%=req.session.GRGSdata.engName6%>" <% } %> required />
+                    value="<%=req.session.GRGSdata.engName6%>" <% } %> />
             </div>
             <div>
                 <label>身份證號碼 ID Card Number:</label>
                 <input id="ID6" type="text" class="form-group" name="GRGS[ID6]" placeholder=" A123456(7)"
                     <% if(req.session.GRGSdata != null && req.session.GRGSdata.ID6 != null) { %>
-                    value="<%=req.session.GRGSdata.ID6%>" <% } %> required />
+                    value="<%=req.session.GRGSdata.ID6%>" <% } %> />
             </div>
             <div>
                 <label>出生日期 Date of Birth (dd/mm/yyyy):</label>
                 <input type="date" class="form-group" name="GRGS[birth6]" id="birth6"
                     <% if(req.session.GRGSdata != null && req.session.GRGSdata.birth6 != null) { %>
-                    value="<%=req.session.GRGSdata.birth6%>" <% } %> required />
+                    value="<%=req.session.GRGSdata.birth6%>" <% } %> />
                 <br>
             </div>
             <div>
                 <label>請附上參加者的身份證副本 <br> Please upload ID copy of the applicant</label>
                 <br>
-                <input type="file" accept="image/*" onchange="handleFile(this.files,5)"
-                    <% if(req.session.GRGSdata == null || req.session.GRGSdata.imgIDCard5 == "" ) { %>required <% } %> />
+                <input type="file" accept="image/*" onchange="handleFile(this.files,5)" />
                 <br>
                 <div id="preview5"></div>
                 <% if(req.session.GRGSdata != null && req.session.GRGSdata.imgIDCard5 != "" && req.session.GRGSdata.imgIDCard5 != null) { %>
@@ -546,15 +538,9 @@
 
             <div class="col-12 form-group">
                 <label>集體項目 Collective Subject: $150 X </label>
-                <input id="NoOfTeam" type="number" class="mx-sm-2" name="GRGS[NoOfTeam]" min=1 max=100
-                    onblur="calculateFee()"
-                    <% if(req.session.GRGSdata != null && req.session.GRGSdata.NoOfTeam != null) { %>
-                    value="<%=req.session.GRGSdata.NoOfTeam%>" <% } %> required />
+                <input id="NoOfTeam" type="number" class="mx-sm-2" name="GRGS[NoOfTeam]" value=1 min=1 max=100 readonly/>
                 <label>隊 team(s) = $</label>
-                <input id="teamFee" type="number" class="mx-sm-2" name="GRGS[teamFee]"
-                    <% if(req.session.data != null){ %> value="<%=req.session.data.teamFee%>"
-                    <% }else if(req.session.GRGSdata != null && req.session.GRGSdata.teamFee != null) { %>
-                    value="<%=req.session.GRGSdata.teamFee%>" <% } %> readonly />
+                <input id="teamFee" type="number" class="mx-sm-2" name="GRGS[teamFee]" value=150 readonly />
             </div>
 
             <div class="col-12 form-group">
@@ -728,13 +714,6 @@
         } else {
             alert(response.statusText);
         }
-    }
-
-    function calculateFee() {
-        document.getElementById('teamFee').value = 150 * document.getElementById('NoOfTeam').value;
-        fee = document.getElementById('teamFee').value;
-        insurance = document.getElementById('insurance').value;
-        document.getElementById('total').value = parseInt(insurance) + parseInt(fee);
     }
 
     function calculateInsurance() {

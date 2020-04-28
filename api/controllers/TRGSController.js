@@ -8,7 +8,7 @@
 module.exports = {
     TRGSForm: async function (req, res) {
 
-        if (req.method == 'GET') { return res.view('competition/form/TRGSForm'); }
+        if (req.method == 'GET') { return res.view('pages/competition/form/TRGSForm'); }
 
         req.session.data = req.body.TRGS;
 
@@ -53,6 +53,7 @@ module.exports = {
         if (req.method == "GET") return res.forbidden();
 
         req.session.TRGSdata = req.body;
+        req.session.data = null;
 
         var user = await User.update(req.session.userId).set({
             TRGSdata: req.body
@@ -61,9 +62,9 @@ module.exports = {
         if (user.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "儲存成功 Sucessfully save.", url: '/competition/form/TRGSForm' });    // for ajax request
+            return res.json({ message: "儲存成功 Sucessfully save.", url: '/pages/competition/form/TRGSForm' });    // for ajax request
         } else {
-            return res.redirect('/competition/form/TRGSForm');           // for normal request
+            return res.redirect('/pages/competition/form/TRGSForm');           // for normal request
         }
     },
 
@@ -133,42 +134,42 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請已被拒絕 Application has been rejected.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請已被拒絕 Application has been rejected.", url: '/admin/applyHandle/HKRGASearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/HKRGASearch');           // for normal request
         }
 
     },
 
-    confirmAll: async function (req, res) {
+    // confirmAll: async function (req, res) {
 
-        if (req.method == "GET") return res.forbidden();
+    //     if (req.method == "GET") return res.forbidden();
 
-        var condition = {};
-        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
-        if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
-        if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
-        if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
-        if (req.session.searchResult.teamStatus) condition.teamStatus = req.session.searchResult.teamStatus;
+    //     var condition = {};
+    //     if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
+    //     if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
+    //     if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
+    //     if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
+    //     if (req.session.searchResult.teamStatus) condition.teamStatus = req.session.searchResult.teamStatus;
 
-        var models = await TRGS.find({
-            where: condition
-        });
+    //     var models = await TRGS.find({
+    //         where: condition
+    //     });
 
-        if (models.length == 0) return res.notFound();
+    //     if (models.length == 0) return res.notFound();
 
-        models.forEach(async function (model) {
-            if (model.formStatus == "ToBeCon" || model.formStatus == "dataDef") {
-                await TRGS.update(model.id).set({ formStatus: "accepted" })
-            }
-        });
+    //     models.forEach(async function (model) {
+    //         if (model.formStatus == "ToBeCon" || model.formStatus == "dataDef") {
+    //             await TRGS.update(model.id).set({ formStatus: "accepted" })
+    //         }
+    //     });
 
-        if (req.wantsJSON) {
-            return res.json({ message: "已確認全部申請表 Sucessfully confirm all applications.", url: '/admin/applyHandle/search' });    // for ajax request
-        } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
-        }
-    },
+    //     if (req.wantsJSON) {
+    //         return res.json({ message: "已確認全部申請表 Sucessfully confirm all applications.", url: '/admin/applyHandle/HKRGASearch' });    // for ajax request
+    //     } else {
+    //         return res.redirect('/admin/applyHandle/HKRGASearch');           // for normal request
+    //     }
+    // },
 
     // action - confirm form
     confirm: async function (req, res) {
@@ -179,9 +180,9 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請已被確認 Application has been accepted.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請已被確認 Application has been accepted.", url: '/admin/applyHandle/HKRGASearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/HKRGASearch');           // for normal request
         }
     },
 
@@ -194,9 +195,9 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請資料不全 Data Deficiency.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請資料不全 Data Deficiency.", url: '/admin/applyHandle/HKRGASearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/HKRGASearch');           // for normal request
         }
 
     },
@@ -209,14 +210,14 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請隊伍/團體已設為後補 Applied Team/Group has been set on waiting list.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請隊伍/團體已設為後補 Applied Team/Group has been set on waiting list.", url: '/admin/applyHandle/HKRGASearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/HKRGASearch');           // for normal request
         }
 
     },
 
-    export_xlsx: async function (req, res) {
+    /*export_xlsx: async function (req, res) {
         var condition = {};
         if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
         if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
@@ -230,9 +231,9 @@ module.exports = {
 
         var XLSX = require('xlsx');
         var wb = XLSX.utils.book_new();
-        var payStatus, formStatus, teamStatus;
+        
         var ws = XLSX.utils.json_to_sheet(models.map(model => {
-
+            var payStatus, formStatus, teamStatus;
             var day1 = model.Mate1Date.split('-');
             var date1 = day1[2] + "/" + day1[1] + "/" + day1[0];
             var day2 = model.Mate2Date.split('-');
@@ -376,10 +377,10 @@ module.exports = {
             if (models.length == 0) {
                 return res.badRequest("No data imported.");
             }
-            return res.redirect('/admin/applyHandle/search');
+            return res.redirect('/admin/applyHandle/HKRGASearch');
         });
 
-    },
+    },*/
 
 
 

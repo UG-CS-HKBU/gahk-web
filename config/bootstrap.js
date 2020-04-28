@@ -15,6 +15,12 @@ module.exports.bootstrap = async function (done) {
 
   // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
   // (otherwise your server will never lift, since it's waiting on the bootstrap)
+  if (await User.count() == 0) {
+    await User.createEach([
+      { Username: 'user1', Password: await bcrypt.hash('user123456', 10), role: 'user', ChiName: '用戶1', EngName: 'User1', Email: 'kenny@user.com', Date: new Date() }
+    ]);
+
+  }
 
   const admin = await User.findOne({ Username: 'admin1' });
   if (!admin) {

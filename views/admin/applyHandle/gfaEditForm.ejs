@@ -271,30 +271,19 @@
 
         <div class="col-12">
             <label>是否有中文姓名 Any Chinese name? </label>
-            <% if (gfa.havecname == "是 Yes") { %>
-            <input type="radio" name="GFA[havecname]" value="是 Yes" id="Yes" onclick="havechinesename()"
-                checked required />
+            <input type="radio" name="GFA[havecname]" value="是 Yes" id="Yes" onclick="havechinesename()" 
+            required <% if (gfa.havecname == "是 Yes") { %>checked<%}%>/>
             <label class="form-check-label" for="havecname">是 Yes</label>
 
             &nbsp;<input type="radio" name="GFA[havecname]" value="否 No" id="No"
-                onclick="havechinesename()" required />
+                onclick="havechinesename()" required <% if (gfa.havecname == "否 No") { %>checked<%}%>/>
             <label class="form-check-label" for="havecname">否 No</label>
-            <% }else {%>
-            <input type="radio" name="GFA[havecname]" value="是 Yes" id="Yes" onclick="havechinesename()"
-                required />
-            <label class="form-check-label" for="havecname">是 Yes</label>
-
-            &nbsp;<input type="radio" name="GFA[havecname]" value="否 No" id="No"
-                onclick="havechinesename()" checked required />
-            <label class="form-check-label" for="havecname">否 No</label>
-            <% } %>
         </div>
 
         <div class="col-12 col-sm-6">
             <label>中文姓名 Name in Chinese:</label>
             <input type="text" class="form-group" name="GFA[cpChiName]" id="cpChiName"
-                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" <% if(gfa.havecname == "否 No") { %>disabled
-                <%} else { %> value="<%=gfa.cpChiName%>" <% }%> required />
+                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" <% if(gfa.havecname == "否 No") { %>disabled <%} else { %> value="<%=gfa.cpChiName%>" <% }%> required >
         </div>
 
         <div class="col-12 col-sm-6">
@@ -379,10 +368,6 @@
 
 
         <div class="col-12">
-            <label>請下載及列印 <a href="/formDoc/gfa_declaration.pdf" download
-                    style="color:#83a70c"><u>聲明書.pdf</u></a>後簽署並上載文件 Please download and print the <a
-                    href="/formDoc/GRGS_declaration.pdf" download style="color:#83a70c"><u>declaration.pdf</u></a>,then
-                sign and upload it</label>
         </div>
         <% if(gfa.document) { 
             var type = gfa.document.split(';');%>
@@ -400,6 +385,8 @@
         </div>
         <% } %>
         <div class="col-12">
+            <label>重新上載聲明書 Reupload the declaration</label>
+            <br>
             <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
             <br>
         </div>
@@ -540,6 +527,9 @@
             for (var i = 0; i < f.length; i++)
                 f[i].disabled = true
             var f = document.forms[0].getElementsByTagName('textarea');
+            for (var i = 0; i < f.length; i++)
+                f[i].disabled = true
+            var f = document.forms[0].getElementsByTagName('select');
             for (var i = 0; i < f.length; i++)
                 f[i].disabled = true
         }

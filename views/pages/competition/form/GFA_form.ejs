@@ -1,4 +1,4 @@
-<form action="/competition/form/GFA_form" method="POST" id="gfa">
+<form action="/pages/competition/form/GFA_form" method="POST" id="gfa">
     <div class="row mx-sm-2">
         <div class="col-12" style="color: #888888; ">
             <br>
@@ -24,12 +24,9 @@
         <div class="col-12">
             <br><br>
             <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
-             <%var todayYear = new Date().getFullYear();
-                var end = todayYear + 2;%>
+             <%var todayYear = new Date().getFullYear();%>
             <select id="compYear" name="GFA[compYear]" required>
-                <% for (var year = todayYear; year <= end; year++){%>
-                <option value="<%=year%>" <%if(req.session.data == null && req.session.gfaData == null && year == todayYear || req.session.gfaData != null && year == req.session.gfaData.compYear || req.session.data != null && year == req.session.data.compYear) {%> selected<%}%> ><%=year%></option>
-                <%}%>
+                <option value="<%=todayYear%>" selected><%=todayYear%></option>
             </select>
         </div>
 
@@ -266,8 +263,6 @@
             bankName: form.bankName.value,
             document: form.document.value
         });
-
-        alert(data)
 
         var response = await fetch("/competition/form/GFA/save", {
             method: "POST",

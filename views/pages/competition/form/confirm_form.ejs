@@ -5,11 +5,17 @@
     <h5 style="text-align: center; color: red;">*你的申請表編號為 <u><b><%=formIDCode%></b></u>,請自行記錄作日後查詢之用途</h2>
     <br><span>請將以下文件於截止日期前郵寄或逕交至：<u><b>銅鑼灣掃桿埔大球場徑1號奧運大樓1002室</b></u></span>
     <ol>
-        <li>比賽卡(如要求,請下載)</li>
+        <%if (form == "acroage" || form == "trampoline") {%>
+        <li>比賽卡(請下載)</li>
         <ul>
+            <%if (form == "trampoline") {%>
             <li><a href="/formDoc/trampoline_comp.card.pdf" download>2020年香港彈網分齡賽-比賽動作卡</a></li>
+            <%} else {%>
             <li><a href="/formDoc/AcroOpen2020_comp.card.pdf" download>2020年香港技巧體操公開賽-比賽卡</a></li>
+            <%}%>
         </ul>
+        <%}%>
+
         <li>報名費用</li>
         <ul>
             <li>劃線支票抬頭<b>「中國香港體操總會」</b>
@@ -28,11 +34,17 @@
                 House, 1 Stadium Path, So Kon Po,
                 Causeway Bay, Hong Kong</b></u></span>
     <ol>
-        <li>Competition Card(If request)</li>
-        <ul>
-            <li><a href="/formDoc/trampoline_comp.card.pdf" download>2020年香港彈網分齡賽-Competition Card</a></li>
-            <li><a href="/formDoc/AcroOpen2020_comp.card.pdf" download>2020年香港技巧體操公開賽-Competition Card</a></li>
-        </ul>
+        <%if (form == "acroage" || form == "trampoline") {%>
+            <li>Competition Card(Please download)</li>
+            <ul>
+                <%if (form == "trampoline") {%>
+                <li><a href="/formDoc/trampoline_comp.card.pdf" download>2020年香港彈網分齡賽-Competition Card</a></li>
+                <%} else {%>
+                <li><a href="/formDoc/AcroOpen2020_comp.card.pdf" download>2020年香港技巧體操公開賽-Competition Card</a></li>
+                <%}%>
+            </ul>
+            <%}%>
+        
         <li>Application Fee</li>
         <ul>
             <li>All cheques should be crossed and made payable to <b>The Gymnastics Association of Hong Kong, China</b>

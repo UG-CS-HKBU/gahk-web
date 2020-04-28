@@ -109,7 +109,7 @@ module.exports = {
 
       if (models.length == 0) return res.notFound();
 
-      return res.redirect('/admin/applyHandle/search');
+      return res.redirect('/admin/applyHandle/clubMemberSearch');
     }
   },
 
@@ -121,9 +121,9 @@ module.exports = {
     if (models.length == 0) return res.notFound();
 
     if (req.wantsJSON) {
-      return res.json({ message: "申請已被拒絕 Application has been rejected.", url: '/admin/applyHandle/search' });    // for ajax request
+      return res.json({ message: "申請已被拒絕 Application has been rejected.", url: '/admin/applyHandle/clubMemberSearch' });    // for ajax request
     } else {
-      return res.redirect('/admin/applyHandle/search');           // for normal request
+      return res.redirect('/admin/applyHandle/clubMemberSearch');           // for normal request
     }
 
   },
@@ -133,14 +133,20 @@ module.exports = {
     if (req.method == "GET") return res.forbidden();
 
     var condition = {};
-    if (req.session.searchResult.clubYear) condition.clubYear = req.session.searchResult.clubYear;
-    if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
-    if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
 
-    var models = await ClubMember.find({
-      where: condition
-    });
+    if(!req.session.clubMemSearchResult.clubYear && !req.session.clubMemSearchResult.payStatus && !req.session.clubMemSearchResult.formStatus) {
+      var models = await ClubMember.find();
 
+    } else {
+      if (req.session.clubMemSearchResult.clubYear) condition.clubYear = req.session.clubMemSearchResult.clubYear;
+      if (req.session.clubMemSearchResult.payStatus) condition.payStatus = req.session.clubMemSearchResult.payStatus;
+      if (req.session.clubMemSearchResult.formStatus) condition.formStatus = req.session.clubMemSearchResult.formStatus;
+  
+      var models = await ClubMember.find({
+        where: condition
+      });
+    }
+    
     if (models.length == 0) return res.notFound();
 
     models.forEach(async function (model) {
@@ -150,9 +156,9 @@ module.exports = {
     });
 
     if (req.wantsJSON) {
-      return res.json({ message: "已確認全部申請表 Sucessfully confirm all applications.", url: '/admin/applyHandle/search' });    // for ajax request
+      return res.json({ message: "已確認全部申請表 Sucessfully confirm all applications.", url: '/admin/applyHandle/clubMemberSearch' });    // for ajax request
     } else {
-      return res.redirect('/admin/applyHandle/search');           // for normal request
+      return res.redirect('/admin/applyHandle/clubMemberSearch');           // for normal request
     }
   },
 
@@ -165,9 +171,9 @@ module.exports = {
     if (models.length == 0) return res.notFound();
 
     if (req.wantsJSON) {
-      return res.json({ message: "申請已被確認 Application has been accepted.", url: '/admin/applyHandle/search' });    // for ajax request
+      return res.json({ message: "申請已被確認 Application has been accepted.", url: '/admin/applyHandle/clubMemberSearch' });    // for ajax request
     } else {
-      return res.redirect('/admin/applyHandle/search');           // for normal request
+      return res.redirect('/admin/applyHandle/clubMemberSearch');           // for normal request
     }
   },
 
@@ -179,22 +185,27 @@ module.exports = {
     if (models.length == 0) return res.notFound();
 
     if (req.wantsJSON) {
-      return res.json({ message: "申請資料不全 Data Deficiency.", url: '/admin/applyHandle/search' });    // for ajax request
+      return res.json({ message: "申請資料不全 Data Deficiency.", url: '/admin/applyHandle/clubMemberSearch' });    // for ajax request
     } else {
-      return res.redirect('/admin/applyHandle/search');           // for normal request
+      return res.redirect('/admin/applyHandle/clubMemberSearch');           // for normal request
     }
 
   },
 
   export_xlsx: async function (req, res) {
     var condition = {};
-    if (req.session.searchResult.clubYear) condition.clubYear = req.session.searchResult.clubYear;
-    if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
-    if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
+    if(!req.session.clubMemSearchResult.clubYear && !req.session.clubMemSearchResult.payStatus && !req.session.clubMemSearchResult.formStatus) {
+      var models = await ClubMember.find();
 
-    var models = await ClubMember.find({
-      where: condition
-    });
+    } else {
+      if (req.session.clubMemSearchResult.clubYear) condition.clubYear = req.session.clubMemSearchResult.clubYear;
+      if (req.session.clubMemSearchResult.payStatus) condition.payStatus = req.session.clubMemSearchResult.payStatus;
+      if (req.session.clubMemSearchResult.formStatus) condition.formStatus = req.session.clubMemSearchResult.formStatus;
+  
+      var models = await ClubMember.find({
+        where: condition
+      });
+    }
 
     var XLSX = require('xlsx');
     var wb = XLSX.utils.book_new();
@@ -299,7 +310,7 @@ module.exports = {
       if (models.length == 0) {
         return res.badRequest("No data imported.");
       }
-      return res.redirect('/admin/applyHandle/search');
+      return res.redirect('/admin/applyHandle/clubMemberSearch');
     });
 
   },
