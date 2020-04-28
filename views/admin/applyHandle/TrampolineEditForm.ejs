@@ -430,6 +430,11 @@
 
     <div class="col-12">
         <br>
+        <% var birthYear1 = trampoline.birth1.split('-');
+        var age1 = new Date().getFullYear() - birthYear1[0];
+        if (age1 < 18) {%>
+            <p style="color: red; font-size: smaller;"><b>*申請人未滿十八歲 Applicant is aged below 18</b></p>
+            <%}%>
         <label>參加者(1)家長姓名 Applicant(1)'s Parent Name: </label>
         <input id="parentName1" type="text" class="form-group" name="Trampoline[parentName1]"
             value=<%= trampoline.parentName1%> required />
@@ -458,6 +463,11 @@
 
     <div class="col-12">
         <br>
+        <% var birthYear2 = trampoline.birth2.split('-');
+        var age2 = new Date().getFullYear() - birthYear2[0];
+        if (age2 < 18) {%>
+            <p style="color: red; font-size: smaller;"><b>*申請人未滿十八歲 Applicant is aged below 18</b></p>
+            <%}%>
         <label>參加者(2)家長姓名 Applicant(2)'s Parent Name: </label>
         <input id="parentName2" type="text" class="form-group" name="Trampoline[parentName2]"
             value=<%= trampoline.parentName2%> required />

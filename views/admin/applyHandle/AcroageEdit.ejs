@@ -287,21 +287,21 @@
             <div>
             <label>是否有中文姓名 Any Chinese name? </label>
             <% if (acroage.havecname1 == "是 Yes") { %> <input type="radio" name="Acroage[havecname1]" value="是 Yes"
-                id="Yes1" onclick="havechinesename()" checked required />
-            <label class="form-check-label" for="havecname1">是 Yes</label>
+                        id="Yes1" onclick="havechinesename()" checked required />
+                    <label class="form-check-label" for="havecname1">是 Yes</label>
 
-            &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1" onclick="havechinesename()"
-                required />
-            <label class="form-check-label" for="havecname1">否 No</label>
-            <% }else {%>
-            <input type="radio" name="Acroage[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
-                required />
-            <label class="form-check-label" for="havecname1">是 Yes</label>
+                    &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1"
+                        onclick="havechinesename()" required />
+                    <label class="form-check-label" for="havecname1">否 No</label>
+                    <% }else {%>
+                    <input type="radio" name="Acroage[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
+                        required />
+                    <label class="form-check-label" for="havecname1">是 Yes</label>
 
-            &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1" onclick="havechinesename()"
-                checked required />
-            <label class="form-check-label" for="havecname1">否 No</label>
-            <% } %>
+                    &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1"
+                        onclick="havechinesename()" checked required />
+                    <label class="form-check-label" for="havecname1">否 No</label>
+                    <% } %>
         </div>
 
         <div>
@@ -694,6 +694,11 @@
     </div>
 
     <div class="col-12">
+        <% var birthYear1 = acroage.birthday1.split('-');
+        var age1 = new Date().getFullYear() - birthYear1[0];
+        if (age1 < 18) {%>
+        <p style="color: red; font-size: smaller;"><b>*申請人未滿十八歲 Applicant is aged below 18</b></p>
+        <%}%>
         <label>參加者(1)家長姓名 Applicant(1)'s Parent Name: </label>
         <input type="text" class="form-group" value="<%= acroage.parentName1 %>" name="Acroage[parentName1]" required>
         <br>
@@ -701,13 +706,11 @@
             var type = acroage.declaration0.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>"
-                target="_blank">下載聲明書
+            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <% } else { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>"
-                target="_blank">下載聲明書
+            <a download="<%= acroage.idCode %>_Declaration1_聲明1" href="<%= acroage.declaration0%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <img src="<%=acroage.declaration0%>" style="height:150px; width:auto" />
@@ -724,6 +727,11 @@
 
     <div class="col-12">
         <br>
+        <% var birthYear2 = acroage.birthday2.split('-');
+        var age2 = new Date().getFullYear() - birthYear2[0];
+        if (age2 < 18) {%>
+        <p style="color: red; font-size: smaller;"><b>*申請人未滿十八歲 Applicant is aged below 18</b></p>
+        <%}%>
         <label>參加者(2)家長姓名 Applicant(2)'s Parent Name: </label>
         <input type="text" class="form-group" value="<%= acroage.parentName2 %>" name="Acroage[parentName2]" required>
         <br>
@@ -731,13 +739,11 @@
             var type = acroage.declaration1.split(';');%>
         <div class="col-12 col-sm-6">
             <% if(type[0] == 'data:application/pdf') { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>"
-                target="_blank">下載聲明書
+            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <% } else { %>
-            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>"
-                target="_blank">下載聲明書
+            <a download="<%= acroage.idCode %>_Declaration1_聲明2" href="<%= acroage.declaration1%>" target="_blank">下載聲明書
                 Download declartion</a>
             <br>
             <img src="<%=acroage.declaration1%>" style="height:150px; width:auto" />
@@ -757,6 +763,11 @@
         <div class="col-12" id="extraParent">
             <%}%>
             <br>
+            <% var birthYear3 = acroage.birthday3.split('-');
+        var age3 = new Date().getFullYear() - birthYear3[0];
+        if (age3 < 18) {%>
+            <p style="color: red; font-size: smaller;"><b>*申請人未滿十八歲 Applicant is aged below 18</b></p>
+            <%}%>
             <label>參加者(3)家長姓名 Applicant(3)'s Parent Name: </label>
             <input type="text" id="parentName3" class="form-group" value="<%= acroage.parentName3 %>"
             name="Acroage[parentName3]">
