@@ -1,3 +1,5 @@
+
+ <% if (req.session.FormSub != 'yes') {%>
 <div class="default-page" style="background-color:	#FFFFE0">
 
   <table>
@@ -262,6 +264,9 @@
       <input type="hidden" name="Coach[FormNum]" value="<%= req.session.Email%>"
       style="font-size:13px" required>
 
+      <input type="hidden" name="Coach[FormSubmit]" value="yes"
+      style="font-size:13px" required>
+
  
       <label style="font-size:14px">女 Female</label>
       <input type="radio" name="Coach[Gender]" value="男" required>
@@ -361,7 +366,7 @@
       </label>
       <!-- <label type="email" style="font-size: 20px;color: blue;" ><%= req.session.user.Email%></label> -->
       <input type="email" name="Coach[Email]" value="<%= req.session.user.Email%>"
-        pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required readonly>
+        pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required >
       <label style="font-size:12px"> <label style="font-size:14px;color:red">
         * </label>以此電郵作主要通訊之用
       </label>
@@ -952,9 +957,45 @@
     href="http://www.gahk.org.hk/doc/Coach%20registration%20Instruction%20(2018.11).pdf"><b>教練註冊須知</b></a></label>
 <br>
 <button type="submit" class="btn btn-primary">提交 Submit</button>
+
+<button type="submit" class="btn btn-Secondary" onclick="message()">儲存 Save</button>
+
+
+
+
 </form>
 </div>
+
+<% } %>
+
+
+
+<% if (req.session.FormSub == 'yes') {%>
+
+<td>申請表已經提交，可到審批列表查看審批狀態。</td>
+
+  <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
+    function message() {
+        alert("儲存成功!!");
+    }
+
+
+
   function handleFile(files) {
     const file = files[0];
     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;

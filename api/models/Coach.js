@@ -19,6 +19,23 @@ module.exports = {
     },
 
 
+    worksFor: {
+      collection: 'User',
+      via: 'supervises'
+    },
+
+    FormNum: {
+     type : 'string'
+
+    },
+
+    FormSubmit:{
+
+      type : 'string'
+
+    },
+
+
 
     CoachNo: {
       type: 'number',
@@ -96,6 +113,11 @@ module.exports = {
     Gender:{
       type:'string',
 
+    },
+
+    ConfirmPoint:{
+        type:'number',
+        defaultsTo: 0
     },
 
     Birthd:{

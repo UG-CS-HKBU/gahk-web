@@ -41,8 +41,14 @@ module.exports = {
 
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
-
-
+    //  coach.ChiName=req.session.ChiName;
+    //  coach.EngName=req.session.EngName;
+     coach.FormNum=req.session.Email;
+     req.session.FormSub="yes";
+     User.FormSub="yes";
+     coach.FormSubmit="yes";
+     
+     
 
       //  await Coach.create(req.body.Coach);
 
@@ -58,6 +64,13 @@ module.exports = {
       // html: html
       // });
 
+    
+      // await sails.helpers.sendSingleEmail({
+      //   to: coach.Email,
+      //   from: sails.config.custom.mailgunFrom,
+      //   subject: '已收到閣下的申請表',
+      //   text: sails.views.membership.Email3
+      // });
 
 
       // return res.redirect('personal_login');
@@ -72,23 +85,72 @@ module.exports = {
   },
 
   confirm_coach: async function (req, res) {
+
+
+    if (!await User.findOne(req.session.userId)) return res.notFound();
+        
+        const thatPerson = await Coach.findOne(req.params.id).populate("worksFor", {id: req.session.userId});
+
+        if (!thatPerson) return res.notFound();
+            
+        if (thatPerson.worksFor.length)
+            return res.status(451).send("Already aprroved.");   // conflict
+  
+     await User.addToCollection(req.session.userId, 'supervises').members([req.params.id]);
+    
+    
+   
     var year = new Date().getFullYear();
     var pid = parseInt(req.params.id) || -1;
+    var modddd = await Coach.findOne(pid);
+    var ConP= modddd.ConfirmPoint;
+    console.log(ConP);
     var num = (year % 100) * 1000;
     var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
     var model = models[0];
-    if (models.length > 0) {
+    if (models.length > 0 && ConP==2) {
       var model = await Coach.update(pid).set({
+       
+       
         CoachNo: model.CoachNo + 1,
-        comfirm_coach: '是',
+        ConfirmPoint:ConP+1,
+        
+        
       }).fetch();
 
 
-    } else {
+    } 
+   else if (models.length > 0 && ConP<=1) {
+      var model = await Coach.update(pid).set({
+       
+       
+       
+        ConfirmPoint:ConP+1,
+        
+        
+      }).fetch();
+
+
+    } 
+    
+else if(models.length==0&&ConP ==2){
 
       model = await Coach.update(pid).set({
         CoachNo: num + 1,
-        comfirm_coach: '是',
+        ConfirmPoint:ConP+1,
+        
+      }).fetch();
+
+
+    }
+
+
+    else if(models.length == 0&&ConP <=1){
+
+      model = await Coach.update(pid).set({
+        
+        ConfirmPoint:ConP+1,
+        
       }).fetch();
 
 
@@ -109,29 +171,66 @@ module.exports = {
     }
   },
 
+  processing_coach: async function (req, res) {
+    // var year = new Date().getFullYear();
+    var pid = parseInt(req.params.id) ||-1;
+  
+    // var num = (year % 100) * 1
+    
+    // var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
+    // var model = models[0];
+    // if (models.length > 0) {
+      var model = await Coach.update(pid).set({
+        
+        comfirm_coach: '中',
+       
+       
+      }).fetch();
+
+    // } else {
+      // var model = await Person.findOne(pid);
+
+      // var model = await Coach.create(pid).fetch();
+
+     
+    
+      
+
+
+
+
+      // await Coach.update(model.id).set({
+        
+      //   comfirm_coach: '中',
+      // }).fetch();
+
+
+    // }
+    // model = model[0];
+
+    // var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
+    // await sails.helpers.sendSingleEmail({
+    //   to: '16228375@life.hkbu.edu.hk',
+    //   from: sails.config.custom.mailgunFrom,
+    //   subject: '已確認成為教練',
+    //   html: html
+    // });
+
+
+    if (req.wantsJSON) {
+      return res.json({ message: "Start to review successfully！", url: '/status' });    // for ajax request
+    }
+  },
+
 
 
   cancel_coach: async function (req, res) {
-    var year = new Date().getFullYear();
-    var pid = parseInt(req.params.id) || -1;
-    var num = (year % 100) * 1000;
-    var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
-    var model = models[0];
-    if (models.length > 0) {
+   
       var model = await Coach.update(pid).set({
         comfirm_coach: '否',
       }).fetch();
 
 
-    } else {
-
-      model = await Coach.update(pid).set({
-        comfirm_coach: '否',
-      }).fetch();
-
-
-    }
-    model = model[0];
 
     // var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
     // await sails.helpers.sendSingleEmail({
@@ -146,6 +245,11 @@ module.exports = {
       return res.json({ message: "reject successfully！", url: '/status' });    // for ajax request
     }
   },
+
+
+  
+
+ 
 
   update_coach: async function (req, res) {
 
@@ -432,10 +536,14 @@ module.exports = {
     var models = await Coach.find();
     var XLSX = require('xlsx');
     var wb = XLSX.utils.book_new();
+
+
+
     
-    var ws = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="是").map(model => {
+    
+    var ws0 = XLSX.utils.json_to_sheet(models.filter(model=>model.ConfirmPoint!= 0).map(model => {
       return {
-        
+        point: model.comfirm_coach,
         教練編號: 'INDC' + model.CoachNo,
         申請類別: model.New_coach,
 
@@ -516,9 +624,9 @@ module.exports = {
       }     
     }));
 
-       var ws1 = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="").map(model => {
+       var ws1 = XLSX.utils.json_to_sheet(models.filter(model=>model.ConfirmPoint!= 3 && model.ConfirmPoint!= 0).map(model => {
       return {
-       
+        point: model.comfirm_coach,
         教練編號: 'INDC' + model.CoachNo,
         申請類別: model.New_coach,
 
@@ -598,7 +706,9 @@ module.exports = {
       }
     }));
 
-    var ws2 = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="是").map(model => {
+
+
+    var ws2 = XLSX.utils.json_to_sheet(models.filter(model=>model.ConfirmPoint==3).map(model => {
       return {
         
         教練編號: 'INDC' + model.CoachNo,
@@ -631,7 +741,7 @@ module.exports = {
         //
         曾任教本會舉辦之課程: model.HaveBeenCoach,
         如有: model.Have,
-        其他有關體操教學經驗: model.HaveBeenCoach1,
+        其他有關體操教學經驗:model.HaveBeenCoach1,
         請列明: model.Have2,
 
         //
@@ -677,14 +787,18 @@ module.exports = {
         舉辦機構: model.Coaching_workshops_organization,
         聲明: model.hope,
         // 校長簽署: model.avatar_sign,
-
-      }     
+      }
     }));
 
-    
-      XLSX.utils.book_append_sheet(wb, ws1, "WaitingforApproval_Coach");
-      XLSX.utils.book_append_sheet(wb, ws, "Approved_Coach");
-      XLSX.utils.book_append_sheet(wb, ws2, "Pending_Coach");
+
+
+
+
+
+      XLSX.utils.book_append_sheet(wb, ws0, "待審批");
+      XLSX.utils.book_append_sheet(wb, ws1, "處理中");
+      XLSX.utils.book_append_sheet(wb, ws2, "已審批");
+      
     
     res.set("Content-disposition", "attachment; filename=Coach.xlsx");
     return res.end(XLSX.write(wb, {type:"buffer", bookType:"xlsx"}));
