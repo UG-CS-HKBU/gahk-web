@@ -275,7 +275,6 @@
             clubFee: form.clubFee.value,
             partD: form.partD.value
         });
-        alert(data);
 
         var response = await fetch("/membership/clubMemberForm/save", {
             method: "POST",

@@ -11,7 +11,7 @@
     }
 </style>
 
-<form action="/competition/form/TRGSForm" method="POST" id="TRGSForm">
+<form action="/pages/competition/form/TRGSForm" method="POST" id="TRGSForm">
     <div class="row mx-sm-2">
         <div class="col-12" style="color: #888888; ">
             <br>
@@ -36,12 +36,9 @@
         <div class="col-12">
             <br><br>
             <h5 class="labelHead">比賽年份 Year of Competition</h5>
-             <%var todayYear = new Date().getFullYear();
-                var end = todayYear + 2;%>
+             <%var todayYear = new Date().getFullYear();%>
             <select id="compYear" name="TRGS[compYear]" required>
-                <% for (var year = todayYear; year <= end; year++){%>
-                <option value="<%=year%>" <%if(req.session.data == null && req.session.TRGSdata == null && year == todayYear ||  req.session.TRGSdata != null && year == req.session.TRGSdata.compYear || req.session.data != null && year == req.session.data.compYear) {%> selected<%}%> ><%=year%></option>
-                <%}%>
+                <option value="<%=todayYear%>" selected><%=todayYear%></option>
             </select>
         </div>
 
@@ -295,20 +292,17 @@
 
             <div class="form-group">
                 <label>團體項目 Group Event: $250 X </label>
-                <input id="teamNo" type="number" name="TRGS[TeamNumber]" min=1 max=100 onblur="calculate()" required
+                <input id="teamNo" type="number" name="TRGS[TeamNumber]" value="1" style="width: 25pt;" required readonly
                 <% if (req.session.TRGSdata != null) {%>value="<%= req.session.TRGSdata.teamNo%>" <%}%>>
                 <span>隊 team(s) = $</span>
-                <input id="teamPrice" type="number" name="TRGS[TeamPrice]" readonly required 
-                <% if (req.session.data != null) {%>value="<%=req.session.data.TeamPrice%>" <%}%>
+                <input id="teamPrice" type="number" name="TRGS[TeamPrice]" value="250" readonly required 
                 <% if (req.session.TRGSdata != null) {%>value="<%= req.session.TRGSdata.teamPrice%>" <%}%>>
                 <br>
             </div>
             <div class="form-group">
                 <label>總額 Total price = $</label>
-                <input id="total" type="number" name="TRGS[TeamTotalPrice]" readonly required 
-                <% if (req.session.data != null) {%>value="<%=req.session.data.TeamTotalPrice%>" <%}%>
-                <% if (req.session.TRGSdata != null) {%>value="<%= req.session.TRGSdata.total%>"
-                <%}%>>
+                <input id="total" type="number" name="TRGS[TeamTotalPrice]" value="250" readonly required 
+                <% if (req.session.TRGSdata != null) {%>value="<%= req.session.TRGSdata.total%>"<%}%>>
             </div>
 
             <span style="font-style: italic;">*請以支票付款，並以郵寄方式或親臨辦公室遞交支票<br>Please make payment by cheque and submit it
@@ -431,8 +425,6 @@
             leaderPosition: form.leaderPosition.value,
             declaration: form.declaration.value
         });
-
-        alert(data);
 
         var response = await fetch("/competition/form/TRGSForm/save", {
             method: "POST",

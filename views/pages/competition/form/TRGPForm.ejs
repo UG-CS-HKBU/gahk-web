@@ -11,7 +11,7 @@
     }
 </style>
 
-<form action="/competition/form/TRGPForm" method="POST" id="TRGPForm">
+<form action="/pages/competition/form/TRGPForm" method="POST" id="TRGPForm">
     <%if(req.session.data) {%>
         hi
     
@@ -40,14 +40,9 @@
         <div class="col-12">
             <br><br>
             <h5 class="labelHead">比賽年份 Year of Competition</h5>
-            <%var todayYear = new Date().getFullYear();
-                var end = todayYear + 2;%>
+            <%var todayYear = new Date().getFullYear();%>
             <select id="compYear" name="TRGP[compYear]" required>
-                <% for (var year = todayYear; year <= end; year++){%>
-                <option value="<%=year%>"
-                    <%if(req.session.data == null && req.session.TRGPdata == null && year == todayYear ||  req.session.TRGPdata != null && year == req.session.TRGPdata.compYear || req.session.data != null && year == req.session.data.compYear) {%>
-                    selected<%}%> ><%=year%></option>
-                    <%}%>
+                <option value="<%=todayYear%>" selected><%=todayYear%></option>
             </select>
         </div>
 
@@ -303,20 +298,17 @@
 
             <div class="form-group">
                 <label>團體項目 Group Event: $250 X </label>
-                <input id="teamNo" type="number" name="TRGP[TeamNumber]" min=1 style="width: 50pt;" onblur="calculate()"
-                    required <% if (req.session.TRGPdata != null) {%> value="<%= req.session.TRGPdata.teamNo%>" <%}%>>
+                <input id="teamNo" type="number" name="TRGP[TeamNumber]" value="1" style="width: 25pt;"
+                    required readonly <% if (req.session.TRGPdata != null) {%> value="<%= req.session.TRGPdata.teamNo%>" <%}%>>
                 <span>隊 team(s) = $</span>
-                <input id="teamPrice" type="number" name="TRGP[TeamPrice]" readonly required 
-                <% if (req.session.data != null && req.session.data.TeamPrice != null) {%> value="<%=req.session.data.TeamPrice%>"<%}
-                else if (req.session.TRGPdata != null) {%> value="<%= req.session.TRGPdata.teamPrice%>" <%}%>>
+                <input id="teamPrice" type="number" name="TRGP[TeamPrice]" value="250" readonly required 
+                <% if (req.session.TRGPdata != null) {%> value="<%= req.session.TRGPdata.teamPrice%>" <%}%>>
                 <br>
             </div>
             <div class="form-group">
                 <label>總額 Total price = $</label> 
-                <input id="total" type="number" name="TRGP[TeamTotalPrice]" readonly required 
-                <% if (req.session.data != null) {%>value="<%=req.session.data.TeamTotalPrice%>" <%}
-                else if (req.session.TRGPdata != null) {%> value="<%= req.session.TRGPdata.total%>"
-                <%}%>>
+                <input id="total" type="number" name="TRGP[TeamTotalPrice]" value="250" readonly required 
+                <% if (req.session.TRGPdata != null) {%> value="<%= req.session.TRGPdata.total%>"<%}%>>
 
             </div>
 
@@ -466,8 +458,7 @@
             VBRC: form.VBRC.value,
             declaration: form.declaration.value,
         });
-        alert(data);
-
+        
         var response = await fetch("/competition/form/TRGPForm/save", {
             method: "POST",
             credentials: 'same-origin',
@@ -485,16 +476,6 @@
         } else {
             alert(response.statusText);
         }
-    }
-
-    //handle calculation of fee
-    function calculate() {
-        document.getElementById('teamPrice').value = 250 * document.getElementById('teamNo').value;
-
-        var price = document.getElementById('teamPrice').value;
-
-        document.getElementById('total').value = price;
-
     }
 
     //handle declaration file

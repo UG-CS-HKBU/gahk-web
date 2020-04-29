@@ -9,7 +9,7 @@ module.exports = {
     //(preview)
     acroage: async function (req, res) {
 
-        if (req.method == 'GET') { return res.view('competition/form/acroage'); }
+        if (req.method == 'GET') { return res.view('pages/competition/form/acroage'); }
 
         req.session.data = req.body.Acroage;
 
@@ -47,7 +47,7 @@ module.exports = {
             }).fetch();
             if (user.length == 0) return res.notFound();
 
-            return res.view('pages/competition/form/confirm_form', { 'formIDCode': newIDCode });
+            return res.view('pages/competition/form/confirm_form', { 'formIDCode': newIDCode, 'form': "acroage" });
         }
     },
 
@@ -65,9 +65,9 @@ module.exports = {
         if (user.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "儲存成功 Sucessfully save.", url: '/competition/form/acroage' });    // for ajax request
+            return res.json({ message: "儲存成功 Sucessfully save.", url: '/pages/competition/form/acroage' });    // for ajax request
         } else {
-            return res.redirect('/competition/form/acroage');           // for normal request
+            return res.redirect('/pages/competition/form/acroage');           // for normal request
         }
     },
 
@@ -162,7 +162,7 @@ module.exports = {
 
             if (models.length == 0) return res.notFound();
 
-            return res.redirect('/admin/applyHandle/search');
+            return res.redirect('/admin/applyHandle/acroSearch');
         }
     },
 
@@ -174,9 +174,9 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請已被拒絕 Application has been rejected.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請已被拒絕 Application has been rejected.", url: '/admin/applyHandle/acroSearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/acroSearch');           // for normal request
         }
 
     },
@@ -187,16 +187,23 @@ module.exports = {
         if (req.method == "GET") return res.forbidden();
 
         var condition = {};
-        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
-        if (req.session.searchResult.item) condition.item = req.session.searchResult.item;
-        if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
-        if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
-        if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
-        if (req.session.searchResult.teamStatus) condition.teamStatus = req.session.searchResult.teamStatus;
+        if (!req.session.acroSearchResult.compYear && !req.session.acroSearchResult.item && !req.session.acroSearchResult.category
+            && !req.session.acroSearchResult.payStatus && !req.session.acroSearchResult.formStatus && !req.session.acroSearchResult.teamStatus) {
+            var models = await Acroage.find();
 
-        var models = await Acroage.find({
-            where: condition
-        });
+        } else {
+            if (req.session.acroSearchResult.compYear) condition.compYear = req.session.acroSearchResult.compYear;
+            if (req.session.acroSearchResult.item) condition.item = req.session.acroSearchResult.item;
+            if (req.session.acroSearchResult.category) condition.category = req.session.acroSearchResult.category;
+            if (req.session.acroSearchResult.payStatus) condition.payStatus = req.session.acroSearchResult.payStatus;
+            if (req.session.acroSearchResult.formStatus) condition.formStatus = req.session.acroSearchResult.formStatus;
+            if (req.session.acroSearchResult.teamStatus) condition.teamStatus = req.session.acroSearchResult.teamStatus;
+
+            var models = await Acroage.find({
+                where: condition
+            });
+        }
+
 
         if (models.length == 0) return res.notFound();
 
@@ -207,9 +214,9 @@ module.exports = {
         });
 
         if (req.wantsJSON) {
-            return res.json({ message: "已確認全部申請表 Sucessfully confirm all applications.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "已確認全部申請表 Sucessfully confirm all applications.", url: '/admin/applyHandle/acroSearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/acroSearch');           // for normal request
         }
     },
 
@@ -222,9 +229,9 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請已被確認 Application has been accepted.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請已被確認 Application has been accepted.", url: '/admin/applyHandle/acroSearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/acroSearch');           // for normal request
         }
     },
 
@@ -236,9 +243,9 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請資料不全 Data Deficiency.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請資料不全 Data Deficiency.", url: '/admin/applyHandle/acroSearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/acroSearch');           // for normal request
         }
 
     },
@@ -251,9 +258,9 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         if (req.wantsJSON) {
-            return res.json({ message: "申請隊伍/團體已設為後補 Applied Team/Group has been set on waiting list.", url: '/admin/applyHandle/search' });    // for ajax request
+            return res.json({ message: "申請隊伍/團體已設為後補 Applied Team/Group has been set on waiting list.", url: '/admin/applyHandle/acroSearch' });    // for ajax request
         } else {
-            return res.redirect('/admin/applyHandle/search');           // for normal request
+            return res.redirect('/admin/applyHandle/acroSearch');           // for normal request
         }
 
     },
@@ -315,22 +322,28 @@ module.exports = {
             if (models.length == 0) {
                 return res.badRequest("No data imported.");
             }
-            return res.redirect('/admin/applyHandle/search');
+            return res.redirect('/admin/applyHandle/acroSearch');
         });
     },
 
     export_xlsx: async function (req, res) {
         var condition = {};
-        if (req.session.searchResult.compYear) condition.compYear = req.session.searchResult.compYear;
-        if (req.session.searchResult.item) condition.category = req.session.searchResult.item;
-        if (req.session.searchResult.category) condition.category = req.session.searchResult.category;
-        if (req.session.searchResult.payStatus) condition.payStatus = req.session.searchResult.payStatus;
-        if (req.session.searchResult.formStatus) condition.formStatus = req.session.searchResult.formStatus;
-        if (req.session.searchResult.teamStatus) condition.teamStatus = req.session.searchResult.teamStatus;
+        if (!req.session.acroSearchResult.compYear && !req.session.acroSearchResult.item && !req.session.acroSearchResult.category
+            && !req.session.acroSearchResult.payStatus && !req.session.acroSearchResult.formStatus && !req.session.acroSearchResult.teamStatus) {
+            var models = await Acroage.find();
 
-        var models = await Acroage.find({
-            where: condition
-        });
+        } else {
+            if (req.session.acroSearchResult.compYear) condition.compYear = req.session.acroSearchResult.compYear;
+            if (req.session.acroSearchResult.item) condition.item = req.session.acroSearchResult.item;
+            if (req.session.acroSearchResult.category) condition.category = req.session.acroSearchResult.category;
+            if (req.session.acroSearchResult.payStatus) condition.payStatus = req.session.acroSearchResult.payStatus;
+            if (req.session.acroSearchResult.formStatus) condition.formStatus = req.session.acroSearchResult.formStatus;
+            if (req.session.acroSearchResult.teamStatus) condition.teamStatus = req.session.acroSearchResult.teamStatus;
+
+            var models = await Acroage.find({
+                where: condition
+            });
+        }
 
         var XLSX = require('xlsx');
         var wb = XLSX.utils.book_new();

@@ -19,7 +19,7 @@
     }
 </style>
 
-<form action="/competition/form/acroage" method="POST" id="acroage">
+<form action="/pages/competition/form/acroage" method="POST" id="acroage">
     <br>
     <div class="row mx-sm-2">
         <div class="col-12" style="color: #888888;">
@@ -41,12 +41,9 @@
         <div class="col-12">
             <br><br>
             <h5 style="color: #83a70c; font-family: Verdana,Arial, Helvetica, sans-serif;  font-size:12pt;">比賽年份 Year of Competition</h5>
-             <%var todayYear = new Date().getFullYear();
-                var end = todayYear + 2;%>
+             <%var todayYear = new Date().getFullYear();%>
             <select id="compYear" name="Acroage[compYear]" required>
-                <% for (var year = todayYear; year <= end; year++){%>
-                <option value="<%=year%>" <%if(req.session.data == null && req.session.Acrodata == null && year == todayYear || req.session.Acrodata != null && year == req.session.Acrodata.compYear || req.session.data != null && year == req.session.data.compYear) {%> selected<%}%> ><%=year%></option>
-                <%}%>
+                <option value="<%=todayYear%>" selected><%=todayYear%></option>
             </select>
         </div>
 
@@ -550,7 +547,8 @@
         <div class="form-group col-12">
             <br>
             <h5 id="labelHead">聲明 Declaration</h5>
-            <span><b>*如申請人未滿十八歲，請由家長或監護人填寫</b></span>
+            <span><b>*如申請人未滿十八歲，請由家長或監護人填寫 <br>If Applicant is aged below 18, please sign by parents or guardians</b></span>
+            <br>
             <br>
             <label>請<u>每名申請人</u>下載及列印<a href="/formDoc/acroage_declaration.pdf" download><u
                         style="color:rgb(159, 209, 60);">聲明書.pdf</u></a>後簽署並上載文件 <u>For all Applicants, </u>
@@ -743,7 +741,6 @@
             photo1: form.photo1.value,
             photo2: form.photo2.value,
         });
-        alert(data)
 
         var response = await fetch("/competition/form/acroage/save", {
             method: "POST",

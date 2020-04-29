@@ -1,0 +1,46 @@
+<style>
+.side {
+    line-height:34px;
+    display: block;
+    color:#000;
+    background-repeat: no-repeat;
+    padding-left:2em;
+    background-image: url(../images/icon-arrow1.png), linear-gradient(to bottom, #e2eaed 0%,#ecf0f1 49%,#f2f3f5 50%,#f6f7f9 100%);
+    background-position: .5em center, 0 100%;
+    border:1px solid #f5f6f8;
+  }
+  .side:hover {
+    color:#fff;
+    background-image: url(../images/icon-arrow2.png), linear-gradient(to bottom, #4ca3ea 0%,#44a4f0 49%,#379ff4 50%,#6ebaf8 100%);
+    border-bottom:1px solid #1c92f2;
+    text-decoration: none;
+  }
+</style>
+<aside class="admin">
+    <section>
+        <h6 class="side-heading3"><span class="reflect" data-text="申請管理">申請管理</span></h6>
+        <ul class="list-unstyled">
+            <li>
+                <a class="side <%= req.path.startsWith('/admin/applyHandle') ? 'active': '' %>"
+                    href="/admin/applyHandle/acroSearch">技巧體操公開賽</a>
+            </li>
+            <li>
+                <a class="side <%= req.path.startsWith('/admin/applyHandle') ? 'active':'' %>"
+                    href="/admin/applyHandle/gfaSearch">普及體操節</a>
+            </li>
+            <li>
+                <a class="side <%= req.path.startsWith('/admin/applyHandle') ? 'active':'' %>"
+                    href="/admin/applyHandle/trampolineSearch">彈網分齡賽(雙人同步)</a>
+            </li>
+            <li>
+                <a class="side <%= req.path.startsWith('/admin/applyHandle') ? 'active':'' %>"
+                    href="/admin/applyHandle/HKRGASearch">藝術體操分齡賽</a>
+            </li>
+            <li>
+                <a class="side <%= req.path.startsWith('/admin/applyHandle') ? 'active':'' %>"
+                    href="/admin/applyHandle/clubMemberSearch">團體註冊申請</a>
+            </li>
+
+        </ul>
+    </section>
+</aside>

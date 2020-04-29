@@ -154,7 +154,6 @@ module.exports = {
 
     ID6: {
       type: "string",
-      required: true,
     },
 
     birth6: {
