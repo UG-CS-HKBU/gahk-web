@@ -119,7 +119,7 @@
                 <input type="text" class="form-group" name="Acroage[cpChiName1]" id="cpChiName1" placeholder=" e.g. 陳大文"
                     onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required 
                     <% if (req.session.data != null && req.session.data.havecname1 == "否 No") { %> disabled
-                        <%} else if(req.session.Acrodata != null) { if(req.session.data == null &&req.session.Acrodata.cnameNo1Checked == true) {%> disabled
+                        <%} else if(req.session.Acrodata != null) { if(req.session.Acrodata.cnameNo1Checked == true) {%> disabled
                         <% }else{ %> value="<%=req.session.Acrodata.cpChiName1%>" <% }} %>>
             </div>
 
@@ -243,7 +243,7 @@
                 <input type="text" class="form-group" name="Acroage[cpChiName2]" id="cpChiName2" placeholder=" e.g. 陳大文"
                     onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required 
                     <% if (req.session.data != null && req.session.data.havecname2 == "否 No") { %> disabled
-                        <%} else if(req.session.Acrodata != null) { if(req.session.data == null &&req.session.Acrodata.cnameNo2Checked == true) {%> disabled
+                        <%} else if(req.session.Acrodata != null) { if(req.session.Acrodata.cnameNo2Checked == true) {%> disabled
                         <% }else{ %> value="<%=req.session.Acrodata.cpChiName2%>" <% }} %>>
             </div>
 
@@ -368,7 +368,7 @@
                     <label>中文姓名 Name in Chinese:</label>
                     <input type="text" class="form-group" name="Acroage[cpChiName3]" id="cpChiName3" placeholder=" e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" 
                     <% if (req.session.data != null && req.session.data.havecname3 == "否 No") { %> disabled
-                        <%} else if(req.session.Acrodata != null) { if(req.session.data == null &&req.session.Acrodata.cnameNo3Checked == true) {%> disabled
+                        <%} else if(req.session.Acrodata != null) { if(req.session.Acrodata.cnameNo3Checked == true) {%> disabled
                         <% }else{ %> value="<%=req.session.Acrodata.cpChiName3%>" <% }} %>>
                 </div>
 
