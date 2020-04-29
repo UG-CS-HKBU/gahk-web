@@ -286,34 +286,19 @@
 
             <div>
             <label>是否有中文姓名 Any Chinese name? </label>
-            <% if (acroage.havecname1 == "是 Yes") { %> <input type="radio" name="Acroage[havecname1]" value="是 Yes"
-                        id="Yes1" onclick="havechinesename()" checked required />
+                <input type="radio" name="Acroage[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"  required <% if (acroage.havecname1 == "是 Yes") { %> checked<%}%> />
                     <label class="form-check-label" for="havecname1">是 Yes</label>
 
                     &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1"
-                        onclick="havechinesename()" required />
+                        onclick="havechinesename()" required <% if (acroage.havecname1 == "否 No") { %> checked<%}%> />
                     <label class="form-check-label" for="havecname1">否 No</label>
-                    <% }else {%>
-                    <input type="radio" name="Acroage[havecname1]" value="是 Yes" id="Yes1" onclick="havechinesename()"
-                        required />
-                    <label class="form-check-label" for="havecname1">是 Yes</label>
-
-                    &nbsp;<input type="radio" name="Acroage[havecname1]" value="否 No" id="No1"
-                        onclick="havechinesename()" checked required />
-                    <label class="form-check-label" for="havecname1">否 No</label>
-                    <% } %>
+            
         </div>
 
         <div>
             <label for="cpChiName1">中文姓名 Name in Chinese:</label>
-            <% if (acroage.havecname1 == "否 No") {%>
-            <input class="form-group" id="cpChiName1" type="text" name="Acroage[cpChiName1]" placeholder="e.g. 陳大文"
-                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required disabled>
-            <%} else {%>
-            <input class="form-group" id="cpChiName1" type="text" value="<%= acroage.cpChiName1%>"
-                name="Acroage[cpChiName1]" placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
-                required>
-            <%}%>
+            <input class="form-group" id="cpChiName1" type="text" name="Acroage[cpChiName1]"  placeholder="e.g. 陳大文"
+                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required <% if (acroage.havecname1 == "否 No") {%>disabled<%} else {%>value="<%= acroage.cpChiName1%>"<%}%> >
         </div>
 
         <div>
@@ -407,35 +392,19 @@
 
         <div>
             <label>是否有中文姓名 Any Chinese name? </label>
-            <% if (acroage.havecname1 == "是 Yes") { %>
-            <input type="radio" name="Acroage[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()" checked
-                required />
+            <input type="radio" name="Acroage[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()" 
+                required <% if (acroage.havecname2 == "是 Yes") { %>checked<%}%> />
             <label class="form-check-label" for="havecname2">是 Yes</label>
 
             &nbsp;<input type="radio" name="Acroage[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
-                required />
+                required <% if (acroage.havecname2 == "否 No") { %>checked<%}%> />
             <label class="form-check-label" for="havecname2">否 No</label>
-            <% }else {%>
-            <input type="radio" name="Acroage[havecname2]" value="是 Yes" id="Yes2" onclick="havechinesename()"
-                required />
-            <label class="form-check-label" for="havecname2">是 Yes</label>
-
-            &nbsp;<input type="radio" name="Acroage[havecname2]" value="否 No" id="No2" onclick="havechinesename()"
-                checked required />
-            <label class="form-check-label" for="havecname2">否 No</label>
-            <% } %>
         </div>
 
         <div>
             <label for="cpChiName2">中文姓名 Name in Chinese:</label>
-            <% if (acroage.havecname2 == "否 No") {%>
-            <input class="form-group" id="cpChiName2" type="text" name="Acroage[cpChiName2]" placeholder="e.g. 陳大文"
-                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required disabled>
-            <%} else {%>
-            <input class="form-group" id="cpChiName2" type="text" value="<%= acroage.cpChiName2%>"
-                name="Acroage[cpChiName2]" placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
-                required>
-            <%}%>
+            <input class="form-group" id="cpChiName2" type="text" name="Acroage[cpChiName2]"  placeholder="e.g. 陳大文"
+                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required <% if (acroage.havecname2 == "否 No") {%>disabled<%} else {%>value="<%= acroage.cpChiName2%>"<%}%>>
         </div>
 
         <div>
@@ -536,31 +505,19 @@
         <div class="row">
         <div div class="form-group col-12">
             <label>是否有中文姓名 Any Chinese name? </label>
-            <% if (acroage.havecname3 == "是 Yes") { %>
+            
             <input type="radio" name="Acroage[havecname3]" value="是 Yes" id="Yes3" onclick="havechinesename()"
-                checked />
-            <% }else {%>
-            <input type="radio" name="Acroage[havecname3]" value="是 Yes" id="Yes3" onclick="havechinesename()" />
-            <% } %>
+            <% if (acroage.havecname3 == "是 Yes") { %>checked<%}%> />
             <label class="form-check-label" for="havecname3">是 Yes</label>
-
-            <% if (acroage.havecname3 == "否 No") {%>
             &nbsp;<input type="radio" name="Acroage[havecname3]" value="否 No" id="No3" onclick="havechinesename()"
-                checked />
-            <% }else {%>
-            &nbsp;<input type="radio" name="Acroage[havecname3]" value="否 No" id="No3" onclick="havechinesename()" />
-            <% } %>
+            <% if (acroage.havecname3 == "否 No") { %>checked<%}%> />
             <label class="form-check-label" for="havecname3">否 No</label>
         </div>
         <div class="form-group col-12 col-sm-6">
             <label for="cpChiName3">中文姓名 Name in Chinese:</label>
-            <% if (acroage.havecname3 == "否 No") {%>
             <input id="cpChiName3" type="text" name="Acroage[cpChiName3]" placeholder="e.g. 陳大文"
-                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" disabled>
-            <%} else {%>
-            <input id="cpChiName3" type="text" value="<%= acroage.cpChiName3%>" name="Acroage[cpChiName3]"
-                placeholder="e.g. 陳大文" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')">
-            <%}%>
+                onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" <% if (acroage.havecname3 == "否 No") {%>disabled<%} else {%>value="<%= acroage.cpChiName3%>"<%}%>>
+            
         </div>
         <div class="form-group col-12 col-sm-6">
             <label>英文姓名 Name in English: </label>
@@ -1105,27 +1062,31 @@
         var no1_check = document.getElementById("No1");
         var yes2_check = document.getElementById("Yes2");
         var no2_check = document.getElementById("No2");
-        var chineseNameDis1 = document.getElementById("chiName1")
-        var chineseNameDis2 = document.getElementById("chiName2")
-
+        var yes3_check = document.getElementById("Yes3");
+        var no3_check = document.getElementById("No3");
+        var chineseNameDis1 = document.getElementById("cpChiName1")
+        var chineseNameDis2 = document.getElementById("cpChiName2")
+        var chineseNameDis3 = document.getElementById("cpChiName3")
         if (yes1_check.checked == true) {
             chineseNameDis1.checked = false;
             chineseNameDis1.disabled = false;
-
         } else if (no1_check.checked == true) {
             chineseNameDis1.checked = true; //disable chinese name
             chineseNameDis1.disabled = true;
-
         }
-
         if (yes2_check.checked == true) {
             chineseNameDis2.checked = false;
             chineseNameDis2.disabled = false;
-
         } else if (no2_check.checked == true) {
             chineseNameDis2.checked = true; //disable chinese name
             chineseNameDis2.disabled = true;
-
+        }
+        if (yes3_check.checked == true) {
+            chineseNameDis3.checked = false;
+            chineseNameDis3.disabled = false;
+        } else if (no3_check.checked == true) {
+            chineseNameDis3.checked = true; //disable chinese name
+            chineseNameDis3.disabled = true;
         }
     }
 
