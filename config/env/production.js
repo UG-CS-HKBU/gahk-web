@@ -18,14 +18,6 @@
  * For more best practices and tips, see:
  * https://sailsjs.com/docs/concepts/deployment
  */
-const admin = require( 'firebase-admin' );
-
-const firebase = admin.initializeApp({
-  credential:  admin.credential.cert(require('../../service-firebase-adminsdk-key')),
-  databaseURL: 'https://hkbu-gahk.firebaseio.com'
-});
-
-const database = firebase.firestore();
 
 module.exports = {
 
@@ -79,8 +71,8 @@ module.exports = {
       *                                                                           *
       ****************************************************************************/
       // ssl: true,
-      adapter: 'sails-firestore',
-      serviceAccount: require('../..//service-firebase-adminsdk-key')
+      //adapter: 'sails-firestore',
+      //serviceAccount: require('../..//service-firebase-adminsdk-key')
     },
 
   },
@@ -161,7 +153,8 @@ module.exports = {
         'https://gahk.herokuapp.com',
         'http://www.gahk.org.hk',
         'https://hkbu-gahk.appspot.com',
-        'http://hkbu-gahk.appspot.com'
+        'http://hkbu-gahk.appspot.com',
+        'https://gahk-web.herokuapp.com'
       ]
     },
 
@@ -209,8 +202,8 @@ module.exports = {
     //
     //--------------------------------------------------------------------------
 
-    adapter: require( 'firestore-store' ),
-    database: database,
+    //adapter: require( 'firestore-store' ),
+    //database: database,
 
     /***************************************************************************
     *                                                                          *
@@ -267,7 +260,8 @@ module.exports = {
       'https://gahk.herokuapp.com',
       'http://www.gahk.org.hk',
       'https://hkbu-gahk.appspot.com',
-      'http://hkbu-gahk.appspot.com'
+      'http://hkbu-gahk.appspot.com',
+      'https://gahk-web.herokuapp.com'
     ],
 
 
