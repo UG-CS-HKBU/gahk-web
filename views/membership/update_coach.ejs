@@ -19,15 +19,15 @@
   
   
     <form action="/coach/update_coach/<%=coach.id%>" method="POST">
-      <div class="form-group">
+    <!--  <div class="form-group">
         <br>
           <label style="font-size:14px"><b>支票號碼</b></label>
   
           <input type="text" name="Coach[CheckNo]"  onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%=coach.CheckNo%>">
         
-      </div>
+      </div> -->
 
-      <div class="form-group">
+    <!--  <div class="form-group">
         <label style="font-size:14px"><b>確認教練?</b></label>
   
         <% if (coach.comfirm_coach=="是"){ %>
@@ -36,9 +36,8 @@
      <p style="font-size:16pt"><a href="/coach/confirm_coach/<%=coach.id%>">確認 Submit</a></p> 
      <% } %>
   
-      </div>
+      </div> -->
 
-     
       <br>
       <p style="font-size:13px">請在適用的空格內加上勾號 Please tick in appropriate boxes</p>
       <table style="border: 1px solid black">
@@ -231,25 +230,25 @@
         </tr>
       </table>
       <br>
-      <p style="font-size:14px"> 4. 個人資料 Personal Particulars：</p>
+      <p style="font-size:16px"><b>4. 個人資料 Personal Particulars：</b></p>
   
       <div class="form-group">
         <label style="font-size:13px"> 姓名 (英文)
           Name (Eng)</label>
         <input type="text" name="Coach[Engname]" value="<%= coach.Engname%>"
-          onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,'')">
+          onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')" required>
         <label style="font-size:13px">姓名 (中文)
           Name (Chi)</label>
         <input type="text" name="Coach[ChiName]" value="<%= coach.ChiName%>"
-          onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')">
+          onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
       </div>
       <br>
       <div class="form-group">
         <label style="font-size:13px"> 香港身份證號碼
           HKID no.
         </label>
-        <input type="text" name="Coach[Id]" value="<%= coach.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
-       >
+        <input type="text" name="Coach[Id]" value="<%= coach.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9()]/g,'')"
+        required>
 
         
         <label style="font-size:13px"> 性別
@@ -279,22 +278,29 @@
         <label style="font-size:13px">出生日期
           Date of birth
         </label>
-        <input type="date" name="Coach[Birthd]" value="<%= coach.Birthd%>">
+        <input type="date" name="Coach[Birthd]" value="<%= coach.Birthd%>" required>
       
         <label style="font-size:13px"> 職業
           Occupation</label>
-        <input type="text" name="Coach[Occupation]" value="<%=coach.Occupation%>">
+        <input type="text" name="Coach[Occupation]" value="<%=coach.Occupation%>" required>
       </div>
       <br>
       <div class="form-group">
         <label style="font-size:13px"> 學歷
           Education level
         </label>
-        <input type="text" name="Coach[Education]" value="<%= coach.Education%>">
+        <select name="Coach[Education]" value="<%= coach.Education%>" required>
+          <option value="Associate">Associate degree</option>
+          <option value="Bachelor">Bachelor’s degree</option>
+          <option value="Master">Master’s degree</option>
+          <option value="Professional">Professional degree</option>
+          <option value="Doctorate">Doctorate degree</option>
+      </select>
+      <!--  <input type="text" name="Coach[Education]" value="<%= coach.Education%>" required>
        
         <label style="font-size:12px"> *請提供相關證書副本
           * Please provide certificate copies
-        </label>
+        </label> -->
       </div>
       <br>
       <div class="form-group">
@@ -306,7 +312,7 @@
         <input type="text" name="Coach[Hnumber]" value="<%= coach.Hnumber%>" maxlength="8" pattern="\d{8}">
         <label style="font-size:13px">( 手提 Moblie)
         </label>
-        <input type="text" name="Coach[Mnumber]" value="<%= coach.Mnumber%>" maxlength="8" pattern="\d{8}">
+        <input type="text" name="Coach[Mnumber]" value="<%= coach.Mnumber%>" maxlength="8" pattern="\d{8}" required>
       </div>
       <br>
       <div class="form-group">
@@ -315,7 +321,7 @@
         </label>
   
         <input type="email" name="Coach[Email]" value="<%= coach.Email%>"
-          pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt">
+          pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required>
         <label style="font-size:12px"> *以此電郵作主要通訊之用
         </label>
       </div>
@@ -326,7 +332,7 @@
         </label>
   
         <input type="text" name="Coach[ChiAddress]" value="<%= coach.ChiAddress%>"
-        style="width:350pt">
+        style="width:350pt" required>
   
       </div>
   
@@ -673,7 +679,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[date_training]" onkeyup="value=value.replace(/[^0-9]/g,'')"  value="<%= coach.date_training%>"></td>
+              <td> <input type="text" name="Coach[date_training]" onkeyup="value=value.replace(/[^0-9]/g,'/')"  value="<%= coach.date_training%>"></td>
               <td> <input type="text" name="Coach[school_training]" value="<%= coach.school_training%>"></td>
               <td> <input type="text" name="Coach[Discipline_training]" value="<%= coach.Discipline_training%>"></td>
             </tr>
@@ -707,7 +713,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[Badges_date]" onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= coach.Badges_date%>"></td>
+              <td> <input type="text" name="Coach[Badges_date]" onkeyup="value=value.replace(/[^0-9]/g,'/')" value="<%= coach.Badges_date%>"></td>
               <td> <input type="text" name="Coach[Badges_school]" value="<%=coach.Badges_school%>"></td>
               <td> <input type="text" name="Coach[Badges_no]" value="<%= coach.Badges_no%>"></td>
             </tr>
@@ -744,7 +750,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[Activities_date]" onkeyup="value=value.replace(/[^0-9]/g,'')"  value="<%= coach.Activities_date%>"></td>
+              <td> <input type="text" name="Coach[Activities_date]" onkeyup="value=value.replace(/[^0-9]/g,'/')"  value="<%= coach.Activities_date%>"></td>
               <td> <input type="text" name="Coach[Activities_event]" value="<%= coach.Activities_event%>"></td>
               <td> <input type="text" name="Coach[Activities_badges]" value="<%= coach.Activities_badges%>"></td>
             </tr>
@@ -783,7 +789,7 @@
           <tbody>
             <tr>
   
-              <td> <input type="text" name="Coach[Coaching_workshops_date]" onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= coach.Coaching_workshops_date%>">
+              <td> <input type="text" name="Coach[Coaching_workshops_date]" onkeyup="value=value.replace(/[^0-9]/g,'/')" value="<%= coach.Coaching_workshops_date%>">
               </td>
               <td> <input type="text" name="Coach[Coaching_workshops_event]" value="<%=coach.Coaching_workshops_event%>">
               </td>
@@ -902,42 +908,41 @@
   
        
   
-        <label style="font-size:10px">校長簽署 Signature of Principal
-          及 and 學校蓋印 School Chop：</label>
-          <div class="form-group">
-            <br>
-            <label><b>上載校長簽署 Upload a personal photo</b></label>
-            <input type="file" accept="image/*" onchange="handleFile2(this.files)" />
-            <div id="preview2"></div>
-            <% if (coach.avatar_sign) { %>
-            <img src="<%=coach.avatar_sign%>" />
-            <input type="hidden" name="Coach[avatar_sign]" value="<%= coach.avatar_sign%>" />
-            <% } %>
       
-          </div>
-        <label style="font-size:10px">* (現職體育教師必須得到校長簽署及學校蓋印<br>
-          Principal's signature and school chop are
-          required for P.E. teacher)</label>
   
   
       </div>
-  
-  
+
+      <div class="form-group">
+        <label><b>下載 個人相片 download personal photo</b></label>
+        <% if (coach.Personal_photo) { %>
+          <img src="<%coach.Personal_photo%>" />
+          <a download="個人相片.jpeg" href="<%=coach.Personal_photo%>" target="_blank">下載</a>
+
+          <% } %>
+          <br>
+          <% if (coach.Personal_photo) { %>
+          <img src="<%=coach.Personal_photo%>" width="100" height=auto />
+          <input type="hidden" name="Coach[Personal_photo]" value="<%= coach.Personal_photo%>" />
+          <% } %>
+      </div> 
       <br>
-     
+      <div class="form-group">
+        <label><b>下載 校長簽署 download principal's signature</b></label>
+        <% if (coach.avatar_sign) { %>
+          <img src="<%coach.avatar_sign%>" />
+          <a download="校長簽署副本.jpeg" href="<%=coach.avatar_sign%>" target="_blank">下載</a>
 
-
-
+          <% } %>
+      </div> 
+      <br>
       <div class="form-group">
           <label><b>下載 學歷證書副本 download certificate copies</b></label>
           <% if (coach.avatar) { %>
           <img src="<%coach.avatar%>" />
           <a download="學歷證書副本.pdf" href="<%=coach.avatar%>" target="_blank">下載</a>
-  
-  
-            <% } %>
-  
-  
+    
+            <% } %>  
         </div>
       <br>
       <div class="form-group">
@@ -946,14 +951,9 @@
           <img src="<%coach.avatar_document%>" />
           <a download="文件副本.pdf" href="<%=coach.avatar_document%>" target="_blank">下載</a>
   
-  
             <% } %>
-  
-  
         </div>
-     
-  
-      <button type="submit" class="btn btn-primary">提交</button>
+      <button type="submit" class="btn btn-primary">提交 Submit</button>
     </form>
   </div>
   <script>

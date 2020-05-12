@@ -24,6 +24,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  '/': { view: 'pages/form' },
+
   '/': 'NewsController.index',
   '/aboutus': { view: 'pages/aboutus/index' },
   '/aboutus/office-bearers': { view: 'pages/aboutus/bearers' },
@@ -59,6 +61,8 @@ module.exports.routes = {
   '/badge': { view: 'pages/badge' },
   '/downloads': { view: 'pages/downloads' },
   '/links': { view: 'pages/links' },
+  
+
 
   //********************Competition Application routes****************
   '/competition/2020/21': { view: 'pages/competition/2021' },
@@ -107,6 +111,19 @@ module.exports.routes = {
 
 
   'GET /membership/chinesememberform': 'MembershipController.chineseMemberForm',
+  'GET /coach/update_coach/:id': 'CoachController.update_coach',
+  'POST /coach/update_coach/:id': 'CoachController.update_coach',
+  'GET /coach/coach_record': 'CoachController.coach_record',
+  'POST /coach/coach_record': 'CoachController.coach_record',
+  
+  'GET /coach/coachform': 'CoachController.coachform',
+  'POST /coach/coachform': 'CoachController.coachform',
+  'GET /membership/confirm_Coach': 'CoachController.confirm',
+  'POST /membership/confirm_Coach': 'CoachController.confirm',
+  'GET /membership/coachformPreview': 'CoachController.coachformPreview',
+  'POST /membership/coachformPreview': 'CoachController.coachformPreview',
+
+
   'GET /membership/admin/export.csv': 'MembershipController.csv',
   'GET /membership/chinesememberform_detail/:id': 'MembershipController.chineseMemberform_detail',
   'GET /membership/update_membership/:id': 'MembershipController.update_membership',
@@ -121,18 +138,48 @@ module.exports.routes = {
   '/athelete/confirm_athelete/:id': 'AtheleteController.confirm_athelete',
   '/athelete/canel_athelete/:id': 'AtheleteController.canel_athelete',
 
-  'GET /coach/coach_record/export.csv': 'CoachController.csv',
+//  'GET /coach/coach_record/export.csv': 'CoachController.csv',
   'GET /coach/coachform_detail/:id': 'CoachController.coachform_detail',
-  'GET /coach/update_coach/:id': 'CoachController.update_coach',
-  'POST /coach/update_coach/:id': 'CoachController.update_coach',
-  '/coach/confirm_coach/:id': 'CoachController.confirm_coach',
-  '/coach/canel_coach/:id': 'CoachController.canel_coach',
+//  'GET /coach/update_coach/:id': 'CoachController.update_coach',
+//  'POST /coach/update_coach/:id': 'CoachController.update_coach',
+  '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
+  '/coach/canel_coach/:id' : 'CoachController.canel_coach',
+  '/coach/cancel_coach/:id' : 'CoachController.cancel_coach',
+  '/coach/processing_coach/:id' : 'CoachController.processing_coach',
+  '/index' : 'CoachController.coach_record',
+  'GET /index': 'CoachController.coach_record',
+  '/status' : 'CoachController.status',
+  'GET /status': 'CoachController.status',
+
+
+  '/index' : 'CoachController.coach_record',
+  'GET /index': 'CoachController.coach_record',
+  
+  '/indexACRO' : 'CoachController.indexACRO',
+  'GET /indexACRO': 'CoachController.indexACRO',
+
+  '/indexAER' : 'CoachController.indexAER',
+  'GET /indexAER': 'CoachController.indexAER',
+
+  '/indexMAG' : 'CoachController.indexMAG',
+  'GET /indexMAG': 'CoachController.indexMAG',
+
+  '/indexRG' : 'CoachController.indexRG',
+  'GET /indexRG': 'CoachController.indexRG',
+
+  '/indexTRA' : 'CoachController.indexTRA',
+  'GET /indexTRA': 'CoachController.indexTRA',
+
+  '/indexWAG' : 'CoachController.indexWAG',
+  'GET /indexWAG': 'CoachController.indexWAG',
+
+  '/status' : 'CoachController.status',
+  'GET /status': 'CoachController.status',
 
 
   'GET /user':'UserController.index',
   '/user/login':'UserController.login',
   '/user/logout':'UserController.logout',
-
   '/user/update_user/:id': 'UserController.Update_User',
   'GET /user/detail/:id': 'UserController.detail',
   '/user/register': 'UserController.register',
@@ -288,4 +335,8 @@ module.exports.routes = {
 
 
 
+  'GET /admin/user':'AdminController.user_list',
+  'GET /coach/export_xlsx':'CoachController.export_xlsx',
+  '/coach/export_xlsx': 'CoachController.export_xlsx',
+  
 };

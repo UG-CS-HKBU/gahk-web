@@ -1,3 +1,5 @@
+
+ <% if (req.session.FormSub != 'yes') {%>
 <div class="default-page" style="background-color:	#FFFFE0">
 
   <table>
@@ -18,7 +20,9 @@
   </table>
 
 
-  <form action="/coach/coachform" method="POST" onsubmit="return submitForm(this);">
+
+  <form action="/coach/coachform" method="POST">
+    <!-- <form action="/membership/coachform" method="POST" onsubmit="return submitForm(this);"> -->
 
     <br>
 
@@ -173,7 +177,6 @@
         <input type="checkbox" name="Coach[Disciplines5]" value="TRA">
         彈網
         TRA
-
         <% }%>
 
         <% if (data.Disciplines6=="AER"){ %>
@@ -199,18 +202,37 @@
     <p style="font-size:16px"><b>4. 個人資料 Personal Particulars：</b></p>
 
     <div class="form-group">
+      <label style="font-size:13px">上載個人相片 Upload a personal photo</label><label style="font-size:14px;color:red">
+        * </label>
+      <input type="file" accept="image/*" onchange="handleFile4(this.files)" required />
+      <div id="preview4">
+
+        <% if (data.Personal_photo) { %>
+          <img src="<%=data.Personal_photo%>" width="100" height=auto/>
+          <input type="hidden" name="Coach[Personal_photo]" value="<%= data.Personal_photo%>" />
+          <% } %>
+
+
+      </div>
+      
+
+    </div>
+
+    <div class="form-group">
       <label style="font-size:13px"> 姓名 (英文)
         Name (Eng)</label><label style="font-size:14px;color:red">
         *
       </label>
-      <input type="text" name="Coach[Engname]" value="<%= data.Engname%>"
-        onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,'')" required>
+      <input type="text" name="Coach[Engname]" value="<%= req.session.user.EngName%>"
+        onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')" required readonly>
+    
       <label style="font-size:13px">姓名 (中文)
         Name (Chi)</label><label style="font-size:14px;color:red">
         *
       </label>
-      <input type="text" name="Coach[ChiName]" value="<%= data.ChiName%>"
-        onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+      <input type="text" name="Coach[ChiName]" value="<%= req.session.user.ChiName%>"
+        onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required readonly>
+      <!-- <label type="text" style="font-size: 20px;color: blue;" ><%= req.session.user.ChiName%></label> -->
     </div>
     <br>
     <div class="form-group">
@@ -219,7 +241,7 @@
       </label><label style="font-size:14px;color:red">
         *
       </label>
-      <input type="text" name="Coach[Id]" value="<%= data.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
+      <input type="text" name="Coach[Id]" value="<%= data.Id%>" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9()]/g,'')"
         required>
       <label style="font-size:13px"> 性別
         Gender</label><label style="font-size:14px;color:red">
@@ -238,6 +260,14 @@
       <label style="font-size:14px">男 Male</label>
       <%} else {%>
       <input type="radio" name="Coach[Gender]" value="女" required>
+
+      <input type="hidden" name="Coach[FormNum]" value="<%= req.session.Email%>"
+      style="font-size:13px" required>
+
+      <input type="hidden" name="Coach[FormSubmit]" value="yes"
+      style="font-size:13px" required>
+
+ 
       <label style="font-size:14px">女 Female</label>
       <input type="radio" name="Coach[Gender]" value="男" required>
       <label style="font-size:14px">男 Male</label>
@@ -258,27 +288,57 @@
       <input type="text" name="Coach[Occupation]" value="<%=data.Occupation%>" required>
     </div>
     <br>
-    <div class="form-group">
+
+    <div>
+      <span><label style="font-size:13px"> 學歷
+          Education level
+        </label><label style="font-size:14px;color:red">
+          *
+        </label></span>
+      <select name="Coach[Education]" value="<%= data.Education%>" required>
+        <option value="">請選擇 Please select</option>
+        <option value="Associate">Foundation diploma</option>
+        <option value="Associate">High diploma</option>
+        <option value="Associate">Professional diploma</option>
+        <option value="Associate">Associate degree</option>
+        <option value="Bachelor">Bachelor’s degree</option>
+        <option value="Master">Master’s degree</option>
+        <option value="Professional">Professional degree</option>
+        <option value="Doctorate">Doctorate degree</option>
+      </select>
+      <br><br>
+      <div class="form-group">
+        <label><b>上載學歷檔案 Upload an educational level document (pdf檔)</b></label>
+
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required />
+        <div id="preview"></div>
+      </div>
+
+
+      <label style="font-size:12px"> <label style="font-size:14px;color:red">
+        * </label>請提供相關證書副本
+        <label style="font-size:14px;color:red">
+          * </label>Please provide certificate copies
+      </label>
+    </div>
+
+    <!-- <div class="form-group">
       <label style="font-size:13px"> 學歷
         Education level
       </label><label style="font-size:14px;color:red">
         *
       </label>
       <input type="text" name="Coach[Education]" value="<%= data.Education%>" required>
-
       <br><br>
       <div class="form-group">
-        <label><b>上載學歷檔案 Upload a personal photo document (pdf檔)</b></label>
-
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile(this.files)" />
+        <label><b>上載學歷檔案 Upload an educational level document (pdf檔)</b></label>
+        <input type="file" accept="application/pdf" onchange="handleFile(this.files)" required/>
         <div id="preview"></div>
       </div>
-
-
       <label style="font-size:12px"> *請提供相關證書副本
         * Please provide certificate copies
       </label>
-    </div>
+    </div> -->
 
 
 
@@ -301,14 +361,14 @@
     <br>
     <div class="form-group">
       <label style="font-size:13px"> 電郵地址
-        Email address
+        Email address : 
       </label>
-      </label><label style="font-size:14px;color:red">
-        *
       </label>
-      <input type="email" name="Coach[Email]" value="<%= data.Email%>"
-        pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required>
-      <label style="font-size:12px"> *以此電郵作主要通訊之用
+      <!-- <label type="email" style="font-size: 20px;color: blue;" ><%= req.session.user.Email%></label> -->
+      <input type="email" name="Coach[Email]" value="<%= req.session.user.Email%>"
+        pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required >
+      <label style="font-size:12px"> <label style="font-size:14px;color:red">
+        * </label>以此電郵作主要通訊之用
       </label>
     </div>
     <br>
@@ -326,11 +386,15 @@
 
 
     <br>
-    <p style="font-size:16px"><b>5. 體操教學經驗 Coaching Experience：(請選擇)</b></p>
+    <p style="font-size:16px"><b>5. 體操教學經驗 Coaching Experience：</b></p>
+    <!-- <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property5]">
+      <label label>向公眾展示該資料 Show this information to public</label>
+    </div> -->
     <div class="form-group">
 
-      <% if (data.HaveBeenCoach=="選擇"){ %>
-      <input type="checkbox" name="Coach[HaveBeenCoach]" value="選擇" checked id="coachH">
+      <!-- <% if (data.HaveBeenCoach=="選擇"){ %>
+      <input type="checkbox" name="Coach[HaveBeenCoach]" value="選擇" checked id="coachH"> -->
       <label style="font-size:10px"> 曾任教本會舉辦之課程
         has been a coach of the GAHK's course
       </label>
@@ -339,7 +403,7 @@
       </label>
       <input type="text" name="Coach[Have]" value="<%= data.Have%>" id="coachH_if" required>
       <% }else{ %>%>
-      <input type="checkbox" name="Coach[HaveBeenCoach]" value="選擇" id="coachH">
+      <!-- <input type="checkbox" name="Coach[HaveBeenCoach]" value="選擇" id="coachH"> -->
       <label style="font-size:10px"> 曾任教本會舉辦之課程
         has been a coach of the GAHK's course
       </label>
@@ -349,37 +413,43 @@
       <input type="text" name="Coach[Have]" value="<%= data.Have%>" id="coachH_if">
       <%}%>
   
-  
-
+      <!-- <% if (data.Highlight_property5a=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property5a]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property5a]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%> -->
     </div>
     <div class="form-group">
-
-        <% if (data.HaveBeenCoach1=="選擇"){ %>
-      <input type="checkbox" name="Coach[HaveBeenCoach1]" value="選擇" id="coachH_other" checked>
+      <!-- <% if (data.HaveBeenCoach1=="選擇"){ %>
+      <input type="checkbox" name="Coach[HaveBeenCoach1]" value="選擇" id="coachH_other" checked> -->
       <label style="font-size:10px"> 其他有關體操教學經驗，請列明：
         Other coaching experience related to gymnastics, please give details:
       </label>
       <input type="text" name="Coach[Have2]" value="<%= data.Have2%>" id="coachH_other_if" required>
       <% }else{ %>%>
-      <input type="checkbox" name="Coach[HaveBeenCoach1]" value="選擇" id="coachH_other">
+      <!-- <input type="checkbox" name="Coach[HaveBeenCoach1]" value="選擇" id="coachH_other"> -->
       <label style="font-size:10px"> 其他有關體操教學經驗，請列明：
         Other coaching experience related to gymnastics, please give details:
-
       </label>
-
       <input type="text" name="Coach[Have2]" value="<%= data.Have2%>" id="coachH_other_if">
       <%}%>
-
-    
+      <!-- <% if (data.Highlight_property5b=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property5b]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property5b]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%> -->
     </div>
-
     <br>
-
-
-    <p style="font-size:16px"> <b>6. 教練資歷 Coach Qualification (請選擇)</b></p>
-
+    <p style="font-size:16px"> <b>6. 教練資歷 Coach Qualification (請打勾選擇展示該資料 Please tick if you would like to share this information to the public)</b></p>
+    <!-- <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property6]">
+      <label label>向公眾展示該資料 Show this information to public</label>
+    </div> -->
     <div class="form-group">
-
       <% if (data.Qualification=="選擇"){ %>
       <input type="checkbox" name="Coach[Qualification]" value="選擇" id="Qualification" checked>
       <label style="font-size:10px"> 本會發出之體操教練證書
@@ -387,16 +457,13 @@
       <label style="font-size:10px"> 證書編號
         Cert. no
       </label>
-
       <input type="text" name="Coach[Cert_no]" id="Cert_no" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
         value="<%= data.Cert_no%>" style="width:140px" required>
-
       <label style="font-size:10px"> 考取年份
         Date of issue
       </label>
       <input type="text" name="Coach[date_Qualification]" id="date_Qualification"
         onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= data.date_Qualification%>" style="width:140px" required>
-
       <% }else{ %>
       <input type="checkbox" name="Coach[Qualification]" value="選擇" id="Qualification">
       <label style="font-size:10px"> 本會發出之體操教練證書
@@ -404,23 +471,23 @@
       <label style="font-size:10px"> 證書編號
         Cert. no
       </label>
-
       <input type="text" name="Coach[Cert_no]" id="Cert_no" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
         value="<%= data.Cert_no%>" style="width:140px">
-
       <label style="font-size:10px"> 考取年份
         Date of issue
       </label>
-
       <input type="text" name="Coach[date_Qualification]" id="date_Qualification"
         onkeyup="value=value.replace(/[^0-9]/g,'')" value="<%= data.date_Qualification%>" style="width:140px">
-
       <% }%>
+      <!-- <% if (data.Highlight_property6a=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property6a]" value="true" checked>
+      向公眾展示該資料 Show this information to public -->
+      <!-- <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property6a]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%> -->
     </div>
-
     <div class="form-group">
-
-
       <% if (data.Qualification1=="選擇"){ %>
       <input type="checkbox" name="Coach[Qualification1]" id="Qualification1" value="選擇" checked>
       <label style="font-size:10px"> 香港教練培訓委員會發出之證書
@@ -428,14 +495,12 @@
       <label style="font-size:10px"> 認可教練號碼
         Accredited coach no.
       </label>
-
       <input type="text" name="Coach[Accredited_coachNo]" id="Accredited_coachNo"
         onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" value="<%= data.Accredited_coachNo%>" style="width:100px"
         required>
       <label style="font-size:10px"> 有效日期
         Valid until
       </label>
-
       <input type="date" name="Coach[date_Qualification1]" id="date_Qualification1"
         value="<%= data.date_Qualification1%>" style="width:150px" required>
       <% }else{ %>
@@ -445,24 +510,23 @@
       <label style="font-size:10px"> 認可教練號碼
         Accredited coach no.
       </label>
-
       <input type="text" name="Coach[Accredited_coachNo]" id="Accredited_coachNo"
         onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" value="<%= data.Accredited_coachNo%>" style="width:100px">
       <label style="font-size:10px"> 有效日期
         Valid until
       </label>
-
       <input type="date" name="Coach[date_Qualification1]" id="date_Qualification1"
         value="<%= data.date_Qualification1%>" style="width:150px">
       <% }%>
-
-
-
-
+      <!-- <% if (data.Highlight_property6b=="true"){ %>
+      <input type="checkbox" name="Coach[Highlight_property6b]" value="true" checked>
+      向公眾展示該資料 Show this information to public
+      <% }else{ %>
+      <input type="checkbox" name="Coach[Highlight_property6b]" value="true">
+      向公眾展示該資料 Show this information to public
+      <% }%> -->
     </div>
-
     <div class="form-group">
-
       <% if (data.Qualification2=="選擇"){ %>
       <input type="checkbox" name="Coach[Qualification2]" id="Qualification2" value="選擇" checked>
       <label style="font-size:10px"> 本會發出之教練理論課程證書
@@ -470,16 +534,13 @@
       <label style="font-size:10px"> 證書編號
         Cert. no.
       </label>
-
       <input type="text" name="Coach[Cert_no2]" id="Cert_no2" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
         value="<%= data.Cert_no2%>" style="width:120px" required>
       <label style="font-size:10px"> 有效日期
         Valid until
       </label>
-
       <input type="date" name="Coach[date_Qualification2]" id="date_Qualification2"
         value="<%= data.date_Qualification2%>" style="width:150px" required>
-
       <% }else{ %>
       <input type="checkbox" name="Coach[Qualification2]" id="Qualification2" value="選擇">
       <label style="font-size:10px"> 本會發出之教練理論課程證書
@@ -487,22 +548,23 @@
       <label style="font-size:10px"> 證書編號
         Cert. no.
       </label>
-
       <input type="text" name="Coach[Cert_no2]" id="Cert_no2" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
         value="<%= data.Cert_no2%>" style="width:120px">
       <label style="font-size:10px"> 有效日期
         Valid until
       </label>
-
       <input type="date" name="Coach[date_Qualification2]" id="date_Qualification2"
         value="<%= data.date_Qualification2%>" style="width:150px">
-
       <% }%>
-
+      <!-- <% if (data.Highlight_property6c=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property6c]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property6c]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%> -->
     </div>
-
     <div class="form-group">
-
       <% if (data.Qualification3=="選擇"){ %>
       <input type="checkbox" name="Coach[Qualification3]" value="選擇" id="Qualification3" checked>
       <label style="font-size:10px"> 急救證書
@@ -511,12 +573,10 @@
       <label style="font-size:10px"> 發出機構
         Issued by
       </label>
-
       <input type="text" name="Coach[Issued_by]" id="Issued_by" value="<%= data.Issued_by%>" required>
       <label style="font-size:10px"> 考取年份
         Date of issue
       </label>
-
       <input type="text" onkeyup="value=value.replace(/[^0-9]/g,'')" id="date_Qualification3"
         name="Coach[date_Qualification3]" value="<%= data.date_Qualification3%>" required>
       <%}else{ %>
@@ -527,19 +587,22 @@
       <label style="font-size:10px"> 發出機構
         Issued by
       </label>
-
       <input type="text" name="Coach[Issued_by]" id="Issued_by" value="<%= data.Issued_by%>">
       <label style="font-size:10px"> 考取年份
         Date of issue
       </label>
-
       <input type="text" onkeyup="value=value.replace(/[^0-9]/g,'')" id="date_Qualification3"
         name="Coach[date_Qualification3]" value="<%= data.date_Qualification3%>">
       <%}%>
-
+      <!-- <% if (data.Highlight_property6d=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property6d]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property6d]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%> -->
     </div>
     <div class="form-group">
-
       <% if (data.Qualification4=="選擇"){ %>
       <input type="checkbox" name="Coach[Qualification4]" id="Qualification4" value="選擇" checked>
       <label style="font-size:10px"> 其他有關體操教練資歷 ( 如國內、國際教練或裁判 )
@@ -555,28 +618,33 @@
       <br>
       <input type="text" name="Coach[others]" style="width:350px" id="others" value="<%= data.others%>">
       <%}%>
-
-
+      <!-- <% if (data.Highlight_property6e=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property6e]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property6e]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%> -->
     </div>
     <br><br>
-    <p style="font-size:16px"> <b>7. 達標事項 Target Achieved： * 此部份只適用於 續領註冊 申請者 For renewal only
+    <p style="font-size:16px"> <b>7. 達標事項 Target Achieved： <label style="font-size:14px;color:red">
+      * </label> 此部份只適用於 續領註冊 申請者 For renewal only
       <br>
       (如空位不敷應用，請另紙填寫 If space is insufficient, please provide details in a separate sheet)</b>
     </p>
+    <!-- <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" value="true" name="Coach[Highlight_property7]">
+      <label label>向公眾展示該資料 Show this information to public</label>
+    </div> -->
     <div class="form-group">
-
       <label style="font-size:12px"> (A) 是否已考取本地/國際裁判資歷？ <br>
         Attained the local / international judges qualification?
-
-
       </label>
-
       <% if (data.judges=="是"){ %>
       <input type="radio" name="Coach[judges]" value="是" id="judge" checked>
       <label style="font-size:12px"> 是
         Yes
       </label>
-
       <label style="font-size:12px"> 考取年份
         Date of issue
       </label>
@@ -587,12 +655,10 @@
         No
       </label>
       <% } else if (data.judges=="否"){ %>
-
       <input type="radio" name="Coach[judges]" value="是">
       <label style="font-size:12px"> 是
         Yes
       </label>
-
       <label style="font-size:12px"> 考取年份
         Date of issue
       </label>
@@ -603,12 +669,10 @@
         No
       </label>
       <% }else{ %>
-
       <input type="radio" name="Coach[judges]" value="是">
       <label style="font-size:12px"> 是
         Yes
       </label>
-
       <label style="font-size:12px"> 考取年份
         Date of issue
       </label>
@@ -619,22 +683,22 @@
         No
       </label>
       <% }%>
-
       <p style="font-size:12px">(不適用於註冊核準及一級教練 Not applicable for Accredited Coaches and Level 1 registration)</p>
-
-
+      <% if (data.Highlight_property7a=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7a]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7a]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
     </div>
     <div class="form-group">
-
       <label style="font-size:12px"> (B) 在上一次註冊期內曾於學校或其他地區教授之訓練班：(如有)<br>
         Training courses taught in schools/organizations within your last registration period:
-
-
       </label>
       <table class="table table-bordered table-dark" style="font-size:14px;background-color: transparent;color:black">
         <thead>
           <tr>
-
             <th scope="col">舉辦日期 (月/年)<br>
               Date of course (mm/yy)</th>
             <th scope="col">學校 / 機構名稱<br>
@@ -645,31 +709,28 @@
         </thead>
         <tbody>
           <tr>
-
             <td> <input type="text" name="Coach[date_training]" value="<%= data.date_training%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')"></td>
+                onkeyup="value=value.replace(/[^0-9]/g,'/')"></td>
             <td> <input type="text" name="Coach[school_training]" value="<%= data.school_training%>"></td>
             <td> <input type="text" name="Coach[Discipline_training]" value="<%= data.Discipline_training%>"></td>
           </tr>
-
-
-
         </tbody>
       </table>
-
-
+      <% if (data.Highlight_property7b=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7b]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7b]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
     </div>
     <div class="form-group">
-
       <label style="font-size:12px"> (C) 在上一次註冊期內曾教導學生考取章別計劃之數量：(如有)<br>
         No. of Badges your students achieved within your last registration period: (if any)
-
-
       </label>
       <table class="table table-bordered table-dark" style="font-size:14px;background-color: transparent;color:black">
         <thead>
           <tr>
-
             <th scope="col">舉辦日期 (月/年)<br>
               Date of course (mm/yy)</th>
             <th scope="col">訓練班 / 學校 / 機構名稱<br>
@@ -680,33 +741,30 @@
         </thead>
         <tbody>
           <tr>
-
             <td> <input type="text" name="Coach[Badges_date]" value="<%= data.Badges_date%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')"></td>
+                onkeyup="value=value.replace(/[^0-9]/g,'/')"></td>
             <td> <input type="text" name="Coach[Badges_school]" value="<%=data.Badges_school%>"></td>
             <td> <input type="text" name="Coach[Badges_no]" value="<%= data.Badges_no%>"></td>
           </tr>
-
-
-
         </tbody>
       </table>
-
-
+      <% if (data.Highlight_property7c=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7c]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7c]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
     </div>
     <br>
     <div class="form-group">
-
       <label style="font-size:12px"> (D) 在上一次註冊期內曾參與總會之體操推廣活動 (包括本地賽事)：(如有)<br>
         Activities of GAHK you have participated in within your last registration period (includes local competitions):
         (if any)
-
-
       </label>
       <table class="table table-bordered table-dark" style="font-size:14px;background-color: transparent;color:black">
         <thead>
           <tr>
-
             <th scope="col">舉辦日期 (月/年)<br>
               Date of course (mm/yy)</th>
             <th scope="col">活動名稱<br>
@@ -718,35 +776,31 @@
         </thead>
         <tbody>
           <tr>
-
             <td> <input type="text" name="Coach[Activities_date]" value="<%= data.Activities_date%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')"></td>
+                onkeyup="value=value.replace(/[^0-9]/g,'/')"></td>
             <td> <input type="text" name="Coach[Activities_event]" value="<%= data.Activities_event%>"></td>
             <td> <input type="text" name="Coach[Activities_badges]" value="<%= data.Activities_badges%>"></td>
           </tr>
-
-
         </tbody>
       </table>
-
-
+      <% if (data.Highlight_property7d=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7d]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7d]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
     </div>
     <br>
     <div class="form-group">
-
       <label style="font-size:12px"> (E) 在上一次註冊期內曾參與總會及香港教練培訓委員會之複修課程：(請提供文件副本)<br>
         Coaching workshops/seminars of GAHK and HKCC you have participated in within your last registration period:
         <br>(please attach support
         documents)
-
-
-
-
       </label>
       <table class="table table-bordered table-dark" style="font-size:14px;background-color: transparent;color:black">
         <thead>
           <tr>
-
             <th scope="col">舉辦日期 (月/年)<br>
               Date of course (mm/yy)</th>
             <th scope="col">活動名稱<br>
@@ -758,26 +812,28 @@
         </thead>
         <tbody>
           <tr>
-
             <td> <input type="text" name="Coach[Coaching_workshops_date]" value="<%= data.Coaching_workshops_date%>"
-                onkeyup="value=value.replace(/[^0-9]/g,'')">
+                onkeyup="value=value.replace(/[^0-9]/g,'/')">
             </td>
             <td> <input type="text" name="Coach[Coaching_workshops_event]" value="<%=data.Coaching_workshops_event%>">
             </td>
             <td> <input type="text" name="Coach[Coaching_workshops_organization]"
                 value="<%= data.Coaching_workshops_organization%>"></td>
           </tr>
-
-
-
         </tbody>
       </table>
       <div class="form-group">
         <label><b>上載文件 Upload a document (pdf檔)</b></label>
-        <input type="file" accept="image/*,application/pdf" onchange="handleFile3(this.files)" />
+        <input type="file" accept="application/pdf" onchange="handleFile3(this.files)" />
         <div id="preview3"></div>
       </div>
-
+      <% if (data.Highlight_property7e=="true"){ %>
+        <input type="checkbox" name="Coach[Highlight_property7e]" value="true" checked>
+        向公眾展示該資料 Show this information to public
+        <% }else{ %>
+        <input type="checkbox" name="Coach[Highlight_property7e]" value="true">
+        向公眾展示該資料 Show this information to public
+        <% }%>
     </div>
     <div class="form-group">
       <p style="font-size:15px"><b>重要事項 Important notes：</b></p>
@@ -801,7 +857,6 @@
       </p>
       <br>
     </div>
-
     <div class="form-group">
       <p style="font-size:15px"><b>聲明 Declaration：</b></p>
       <p style="font-size:12px">
@@ -823,91 +878,124 @@
         only. <br>For correction or
         access to personal data after submission of the application form, please contact our office staff.
       </p>
-
       <% if (data.hope=="希望"){ %>
-      <label style="font-size:12px">本人 *</label>
+      <label style="font-size:12px">本人 <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="希望" checked>
       <label style="font-size:12px">希望 /</label>
       <input type="radio" name="Coach[hope]" value="不希望">
       <% }else if (data.hope=="不希望"){%>
-      <label style="font-size:12px">本人 *</label>
+      <label style="font-size:12px">本人 <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="希望">
       <label style="font-size:12px">希望 /</label>
       <input type="radio" name="Coach[hope]" value="不希望" checked>
       <%} else {%>
-      <label style="font-size:12px">本人 *</label>
+      <label style="font-size:12px">本人 <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="希望" required>
       <label style="font-size:12px">希望 /</label>
       <input type="radio" name="Coach[hope]" value="不希望" required>
       <%}%> 
-
-
-
      
       <label style="font-size:12px">不希望 收取 貴會有關教練或裁判課程的宣傳資料。</label>
       <br><br>
       <% if (data.hope=="hopepage"){ %>
-      <label style="font-size:12px"> I *</label>
+      <label style="font-size:12px"> I <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="hopepage" checked>
       <label style="font-size:12px">wish</label>
       <input type="radio" name="Coach[hope]" value="not_hope">
       <label style="font-size:12px"> do not wish to receive any further coaching / judging information on GAHK.
       </label>
       <% }else if (data.hope=="not_hope"){%>
-      <label style="font-size:12px"> I *</label>
+      <label style="font-size:12px"> I <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="hopepage">
       <label style="font-size:12px">wish</label>
       <input type="radio" name="Coach[hope]" value="not_hope" checked>
       <label style="font-size:12px"> do not wish to receive any further coaching / judging information on GAHK.
       </label>
       <%} else {%>
-      <label style="font-size:12px"> I *</label>
+      <label style="font-size:12px"> I <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="hopepage" required>
       <label style="font-size:12px">wish</label>
       <input type="radio" name="Coach[hope]" value="not_hope" required>
       <%}%> 
       <label style="font-size:12px"> do not wish to receive any further coaching / judging information on GAHK.
         </label>
-
-
      
       
       <br><br>
-
-
       <label style="font-size:10px">校長簽署 Signature of Principal
         及 and 學校蓋印 School Chop：</label>
      
         <div class="form-group">
           <br>
-          <label><b>上載校長簽署 Upload a personal photo</b></label>
-          <input type="file" accept="image/*" onchange="handleFile2(this.files)" />
-          <div id="preview2"></div>
-          <% if (data.avatar_sign) { %>
-      <img src="<%=data.avatar_sign%>" />
-      <input type="hidden" name="Coach[avatar_sign]" value="<%= data.avatar_sign%>" />
-      <% } %>
+          <label><b>上載校長簽署 Upload a principal's signature</b></label>
+          <!-- <input type="file" accept="image/*" required/> -->
+          <input type="file" accept="image/*" onchange="handleFile2(this.files)" required/>
+          <div id="preview2">
 
+
+            <% if (data.avatar_sign) { %>
+              <img src="<%=data.avatar_sign%>" width="200" height=auto/>
+              <input type="hidden" name="Coach[avatar_sign]" value="<%= data.avatar_sign%>" />
+              <% } %>
+
+          </div>
+       
     </div>
-
-    <label style="font-size:10px">* (現職體育教師必須得到校長簽署及學校蓋印<br>
+    <label style="font-size:10px"><label style="font-size:14px;color:red">
+      * </label> (現職體育教師必須得到校長簽署及學校蓋印<br>
       Principal's signature and school chop are
       required for P.E. teacher)</label>
-
-
 </div>
-
-
 <br>
 <label style="font-size:15px"><a
     href="http://www.gahk.org.hk/doc/Coach%20registration%20Instruction%20(2018.11).pdf"><b>教練註冊須知</b></a></label>
 <br>
+<button type="submit" class="btn btn-primary">提交 Submit</button>
 
-<button type="submit" class="btn btn-primary">提交</button>
+<button type="submit" class="btn btn-Secondary" onclick="message()">儲存 Save</button>
+
+
+
+
 </form>
 </div>
 
+<% } %>
+
+
+
+<% if (req.session.FormSub == 'yes') {%>
+
+<td>申請表已經提交，可到審批列表查看審批狀態。</td>
+
+  <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
+    function message() {
+        alert("儲存成功!!");
+    }
+
+
+
   function handleFile(files) {
     const file = files[0];
     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
@@ -922,20 +1010,13 @@
       input.type = 'hidden';
       input.name = 'Coach[avatar]';
       input.value = e.target.result;
-
       preview.appendChild(input);
     }
     reader.readAsDataURL(file);
   }
   function handleFile2(files) {
-
     const file = files[0];
     if (!file.type.startsWith('image/')) return;
-
-    if (file.size > 4194304) {
-      alert("請重新上載4MB相片");
-      return;
-    }
     var preview2 = document.getElementById('preview2');
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -953,6 +1034,30 @@
     }
     reader.readAsDataURL(file);
   }
+  // function handleFile2(files) {
+  //   const file = files[0];
+  //   if (!file.type.startsWith('image/')) return;
+  //   if (file.size > 4194304) {
+  //     alert("請重新上載4MB相片");
+  //     return;
+  //   }
+  //   var preview2 = document.getElementById('preview2');
+  //   var reader = new FileReader();
+  //   reader.onload = function (e) {
+  //     preview2.innerHTML = "";
+  //     var img = document.createElement('img');
+  //     img.src = e.target.result;
+  //     preview2.appendChild(img);
+  //     var input = document.createElement('input');
+  //     input.type = 'hidden';
+  //     input.name = 'Coach[avatar_sign]';
+  //     input.value = e.target.result;
+  //     img.style.width = "200px";
+  //     img.style.height = "200px";
+  //     preview2.appendChild(input);
+  //   }
+  //   reader.readAsDataURL(file);
+  // }
   function handleFile3(files) {
     const file = files[0];
     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
@@ -967,8 +1072,31 @@
       input.type = 'hidden';
       input.name = 'Coach[avatar_document]';
       input.value = e.target.result;
-
       preview.appendChild(input);
+    }
+    reader.readAsDataURL(file);
+  }
+  function handleFile4(files) {
+    const file = files[0];
+    if (!file.type.startsWith('image/')) return;
+    // if (file.size > 4194304) {
+    //   alert("請重新上載4MB相片");
+    //   return;
+    // }
+    var preview4 = document.getElementById('preview4');
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      preview4.innerHTML = "";
+      var img = document.createElement('img');
+      img.src = e.target.result;
+      preview4.appendChild(img);
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'Coach[Personal_photo]';
+      input.value = e.target.result;
+      img.style.width = "200px";
+      img.style.height = "250px";
+      preview4.appendChild(input);
     }
     reader.readAsDataURL(file);
   }
@@ -980,36 +1108,22 @@
     var result5 = document.getElementById("Qualification").checked;
     var result6 = document.getElementById("Cert_no").value.length;
     var result6_5 = document.getElementById("date_Qualification").value.length;
-
-
     if (result1 && !result2) {
-
       alert("請回答後面的問題。")
     }
     if (result2 && !result1) {
       alert("請勾選複選框。")
     }
-
     if ((result3 && !result4)) {
       alert("請回答後面的問題。")
     }
     if ((result4 && !result3)) {
       alert("請勾選複選框。")
     }
-
-  
-
-
-
     if (((result1 && result2) > 0) && ((result3 && result4) > 0) || ((!result1 && !result2) > 0) && ((result3 && result4) > 0) || ((result1 && result2) > 0) && ((!result3 && !result4) > 0)) {
-     
       return true;
     } else {
       return false;
-
-   
-  }
-    
-
+    }
   }
 </script>

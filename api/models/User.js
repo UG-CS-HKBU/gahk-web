@@ -17,12 +17,22 @@ module.exports = {
       type: 'string'
     },
 
+    supervises: {
+      collection: 'Coach',
+      via: 'worksFor'
+    },
+
     Username: {
       type: 'string'
     },
 
     Password: {
       type: 'string'
+    },
+
+    FormSub:{
+
+      type:'string'
     },
 
     role: {

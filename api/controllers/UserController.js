@@ -41,6 +41,9 @@ module.exports = {
       req.session.username = user.username;
       req.session.userId = user.id;
 
+      req.session.ChiName = user.ChiName;
+      req.session.Email = user.Email;
+
       req.session.role = user.role;
       req.session.user = user;
 
@@ -54,6 +57,9 @@ module.exports = {
       req.session.Acrodata = user.Acrodata;
 
       //sails.log("[Session] ", req.session);
+      req.session.EngName=user.EngName;
+
+      req.session.FormSub=user.FormSub;
 
       return res.redirect(req.query.r || '/user');
 
@@ -71,11 +77,20 @@ module.exports = {
 
   logout: async function (req, res) {
 
-    req.session.destroy((err) => {
-      if (err) {return res.serverError(err);}
-      return res.redirect('/');
+    req.session.destroy(function (err) {
+    
+        if (err) return res.serverError(err);
+        
+
+        // return res.ok("Log out successfully.");
+
+        
+       
+
+        return res.redirect("/coach");
+
     });
-  },
+},
 
   register: async function (req, res) {
     const firebaseAuth = require('firebase-admin').app('admin').auth();

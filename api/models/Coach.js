@@ -19,6 +19,23 @@ module.exports = {
     },
 
 
+    worksFor: {
+      collection: 'User',
+      via: 'supervises'
+    },
+
+    FormNum: {
+     type : 'string'
+
+    },
+
+    FormSubmit:{
+
+      type : 'string'
+
+    },
+
+
 
     CoachNo: {
       type: 'number',
@@ -71,6 +88,11 @@ module.exports = {
 
     },
 
+    Personal_photo:{
+      type:'string',
+
+    },
+
 
     Engname:{
       type:'string',
@@ -91,6 +113,11 @@ module.exports = {
     Gender:{
       type:'string',
 
+    },
+
+    ConfirmPoint:{
+        type:'number',
+        defaultsTo: 0
     },
 
     Birthd:{
@@ -132,6 +159,21 @@ module.exports = {
 
     },
 
+    Highlight_property5:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property5a:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property5b:{
+      type:'boolean',
+      
+    },
+
     HaveBeenCoach:{
       type:'string',
 
@@ -151,7 +193,35 @@ module.exports = {
 
     },
 
+    Highlight_property6:{
+      type:'boolean',
+      
+    },
 
+    Highlight_property6a:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6b:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6c:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6d:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property6e:{
+      type:'boolean',
+      
+    },
 
 
     Qualification:{
@@ -226,6 +296,12 @@ module.exports = {
 
     },
 
+    date_Qualification4:{
+      type:'string',
+
+
+    },
+
     Qualification4:{
       type:'string',
 
@@ -236,6 +312,36 @@ module.exports = {
       type:'string',
 
 
+    },
+
+    Highlight_property7:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7a:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7b:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7c:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7d:{
+      type:'boolean',
+      
+    },
+
+    Highlight_property7e:{
+      type:'boolean',
+      
     },
 
 
