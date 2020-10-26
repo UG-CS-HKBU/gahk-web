@@ -17,8 +17,7 @@ module.exports = {
   // action - create
   chineseMemberForm: async function (req, res) {
 
-    if (req.method == 'GET')
-    {return res.view('membership/chineseMemberform', { 'data': req.session.data || {} });}
+    if (req.method == 'GET') { return res.view('membership/chineseMemberform', { 'data': req.session.data || {} }); }
 
     // return res.view('membership/chineseMemberform', { 'data': req.session.data || {} });
     req.session.data = req.body.Membership;
@@ -71,12 +70,9 @@ module.exports = {
 
       var model = await Membership.findOne(pid);
 
-      if (model != null)
+      if (model != null) { return res.view('membership/update_membership', { 'member': model }); }
 
-      {return res.view('membership/update_membership', { 'member': model });}
-
-      else
-      {return res.send('No such member!');}
+      else { return res.send('No such member!'); }
 
     } else {
       req.body.Membership.date = new Date(req.body.Membership.date);
@@ -118,24 +114,25 @@ module.exports = {
       }).fetch();
 
 
-      if(req.session.role== 'admin'){
-        if(req.body.Membership.CheckNo!=''){
+      if (req.session.role == 'admin') {
+        if (req.body.Membership.CheckNo != '') {
           models = await Membership.update(pid).set({
             check: '是',
 
-          }).fetch();}}
+          }).fetch();
+        }
+      }
 
 
       if (models.length > 0) {
-        if(req.session.role== 'admin'){
+        if (req.session.role == 'admin') {
           return res.redirect('/membership/admin');
-        }else {
+        } else {
           return res.redirect('/membership/personal_login');
         }
       }
 
-      else
-      {return res.send('No such member!');}
+      else { return res.send('No such member!'); }
 
     }
 
@@ -157,20 +154,17 @@ module.exports = {
     if (req.method == 'GET') {
 
 
-      var model1 = await User.findOne(pid).populate('membership',{sort:'MemberNo DESC'});
+      var model1 = await User.findOne(pid).populate('membership', { sort: 'MemberNo DESC' });
 
-      if (!model1 || model1.membership.length == 0) {return res.notFound();}
+      if (!model1 || model1.membership.length == 0) { return res.notFound(); }
 
       // var model = await Membership.findOne(pid);
       var model = model1.membership[0];
 
 
-      if (model != null)
+      if (model != null) { return res.view('membership/update_membership', { 'member': model }); }
 
-      {return res.view('membership/update_membership', { 'member': model });}
-
-      else
-      {return res.send('No such member!');}
+      else { return res.send('No such member!'); }
 
     }
 
@@ -184,7 +178,7 @@ module.exports = {
     var year = new Date().getFullYear();
     var pid = parseInt(req.params.id) || -1;
     var num = (year % 100) * 1000;
-    var models = await Membership.find({ where:{MemberNo: { '>': num }}, sort: 'MemberNo DESC', limit: 1 });
+    var models = await Membership.find({ where: { MemberNo: { '>': num } }, sort: 'MemberNo DESC', limit: 1 });
     var model = models[0];
     if (models.length > 0) {
       model = await Membership.update(pid).set({
@@ -222,7 +216,7 @@ module.exports = {
     var year = new Date().getFullYear();
     var pid = parseInt(req.params.id) || -1;
     var num = (year % 100) * 1000;
-    var models = await Membership.find({ where:{MemberNo: { '>': num }}, sort: 'MemberNo DESC', limit: 1 });
+    var models = await Membership.find({ where: { MemberNo: { '>': num } }, sort: 'MemberNo DESC', limit: 1 });
     var model = models[0];
     if (models.length > 0) {
       model = await Membership.update(pid).set({
@@ -255,7 +249,7 @@ module.exports = {
     var year = new Date().getFullYear();
     var pid = parseInt(req.params.id) || -1;
     var num = (year % 100) * 1000;
-    var models = await Membership.find({ where:{MemberNo: { '>': num }}, sort: 'MemberNo DESC', limit: 1 });
+    var models = await Membership.find({ where: { MemberNo: { '>': num } }, sort: 'MemberNo DESC', limit: 1 });
     var model = models[0];
     if (models.length > 0) {
       model = await Membership.update(pid).set({
@@ -313,14 +307,13 @@ module.exports = {
     var csv = require('fast-csv');
     var arr = [];
     var models = await Membership.find();
-    if (!models)
-    {return res.notFound();}
+    if (!models) { return res.notFound(); }
 
     models.forEach(element => {
       arr.push({
-        會員編號:'IND'+element.MemberNo,
+        會員編號: 'IND' + element.MemberNo,
         會藉類別: element.Application,
-        續會會員號碼 : element.RenewalMemberNo,
+        續會會員號碼: element.RenewalMemberNo,
         中文名: element.ChiName,
         英文名: element.EngName,
         出生日期: element.Date,
@@ -390,8 +383,7 @@ module.exports = {
   chineseMemberform_detail: async function (req, res) {
 
     var member = await Membership.findOne(req.params.id);
-    if (req.method == 'GET')
-    {return res.view('membership/chineseMemberform_detail', { 'member': member, 'reg': 0 });}
+    if (req.method == 'GET') { return res.view('membership/chineseMemberform_detail', { 'member': member, 'reg': 0 }); }
 
   },
 
@@ -401,18 +393,13 @@ module.exports = {
 
 
     var member = await Membership.find();
-    if (req.method == 'GET')
-    {return res.view('membership/admin', { 'member': member });}
+    if (req.method == 'GET') { return res.view('membership/admin', { 'member': member }); }
 
 
 
 
 
   },
-
-
-
-
 
 
 
